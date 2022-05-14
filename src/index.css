@@ -11,3 +11,170 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  	font-size: 14px;
+	font-style: normal;
+  	font-weight: 400;
+	background-color: lemonchiffon;
+}
+
+code {
+font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 4px 24px;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #1C1A19;
+}
+
+.logo {
+  flex-grow: 1;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn_text {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  color: #fff;
+}
+
+.form .btn_text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #828282;
+}
+
+.btn_text.theme-color {
+  color: #FDBF5A;
+}
+
+.btn_bg {
+  background: #FDBF5A;
+  border-radius: 70px;
+  width: 100%;
+  padding: 16px;
+  font-size: 25px;
+  line-height: 29px;
+}
+
+.btn_bg.theme-color {
+  background: #FDBF5A;
+  color: inherit;
+}
+
+.btn_text.active {
+  color: #FDBF5A;
+}
+
+.form {
+  max-width: 580px;
+  background-color: #fff;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 55px 112px;
+  color: #000;
+  margin-left: auto;
+}
+
+.form__title {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.form__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .form__item {
+  margin-bottom: 25px;
+}
+
+.form .form__item_submit {
+  margin: 40px 0 25px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 2px solid #E4E4E4;
+}
+
+.form label > * {
+  margin: 5px 0;
+}
+
+.form label > span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.form input {
+  font-weight: 400;
+}
+
+.form input:not(.btn) {
+  font-size: 18px;
+  line-height: 21px;
+  color: #828282;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+  -webkit-text-fill-color: #828282;
+}
