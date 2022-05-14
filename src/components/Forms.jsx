@@ -4,46 +4,43 @@ import Button from './Button';
 class LoginForm extends React.Component {
 	state = {
 		email: ``,
-		name: ``,
 		password: ``
 	};
 
-	handlSubmit = e => {
+	handleSubmit = e => {
 		e.preventDefault();
-		console.log(this.state.email);
 	};
 
 	handleChange = e => {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
 		const { navigateTo } = this.props;
+		const { email, password } = this.state;
 
 		return (
 			<>
-				<div class="form">
-					<div class="form__title">Войти</div>
+				<div className="form">
+					<div className="form__title">Войти</div>
 					<form onSubmit={() => navigateTo("map")}>
-						<div class="form__item">
+						<div className="form__item">
 							<label>
 								<span>Email</span>
-								<input type="email" name="email" placeholder="mail@mail.ru" value="" onChange={this.handleChange} />
+								<input type="email" name="email" placeholder="mail@mail.ru" value={email} onChange={this.handleChange} />
 							</label>
 						</div>
-						<div class="form__item">
+						<div className="form__item">
 							<label>
 								<span>Пароль</span>
-								<input type="password" name="password" autocomplete="on" placeholder="********" value="" onChange={this.handleChange} />
+								<input type="password" name="password" placeholder="********" value={password} onChange={this.handleChange} />
 							</label>
 							<Button className="btn btn_text self-end" callBack={() => navigateTo("reg")} name="Забыли пароль" />
 						</div>
-						<div class="form__item form__item_submit">
-							<input type="submit" class="btn btn_bg theme-color" value="Войти" />
+						<div className="form__item form__item_submit">
+							<input type="submit" className="btn btn_bg theme-color" placeholder="Войти" defaultValue="Войти" />
 						</div>
-						<div class="d-flex justify-center items-center">
+						<div className="d-flex justify-center items-center">
 							<span>Новый пользователь?</span>
 							<Button className="btn btn_text theme-color" callBack={() => navigateTo("reg")} name="Регистрация" />
 						</div>
@@ -56,36 +53,47 @@ class LoginForm extends React.Component {
 }
 
 class RegForm extends React.Component {
+	state = {
+		email: ``,
+		name: ``,
+		password: ``
+	};
+
+	handleChange = e => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
 	render() {
 		const { navigateTo } = this.props;
+		const { email, name, password } = this.state;
 
 		return (
 			<>
-				<div class="form">
-					<div class="form__title">Регистрация</div>
+				<div className="form">
+					<div className="form__title">Регистрация</div>
 					<form onSubmit={() => navigateTo("map")}>
-						<div class="form__item">
+						<div className="form__item">
 							<label>
 								<span>Email*</span>
-								<input type="email" name="email" placeholder="mail@mail.ru" required="" value="" onChange={this.handleChange} />
+								<input type="email" name="email" placeholder="mail@mail.ru" value={email} onChange={this.handleChange} />
 							</label>
 						</div>
-						<div class="form__item">
+						<div className="form__item">
 							<label>
 								<span>Как вас зовут*</span>
-								<input type="text" name="name" placeholder="Гомер Симпсон" required="" value="" onChange={this.handleChange} />
+								<input type="text" name="name" placeholder="Гомер Симпсон" value={name} onChange={this.handleChange} />
 							</label>
 						</div>
-						<div class="form__item">
+						<div className="form__item">
 							<label>
 								<span>Придумайте пароль*</span>
-								<input type="password" name="password" autocomplete="on" placeholder="********" value="" onChange={this.handleChange} />
+								<input type="password" name="password" placeholder="********" value={password} onChange={this.handleChange} />
 							</label>
 						</div>
-						<div class="form__item form__item_submit">
-							<input type="submit" class="btn btn_bg theme-color" value="Зарегистрироваться" />
+						<div className="form__item form__item_submit">
+							<input type="submit" className="btn btn_bg theme-color" placeholder="Зарегистрироваться" defaultValue="Зарегистрироваться" />
 						</div>
-						<div class="d-flex justify-center items-center">
+						<div className="d-flex justify-center items-center">
 							<span>Уже зарегистрированы?</span>
 							<Button className="btn btn_text theme-color" callBack={() => navigateTo("login")} name="Войти" />
 						</div>
