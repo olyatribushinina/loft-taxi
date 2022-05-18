@@ -1,19 +1,19 @@
 import React from 'react';
-import { RegForm } from './../components/Forms'
+import LoginForm from './../components/LoginForm'
 
-function Reg(props) {
+function Login(props) {
 	const { navigateTo } = props;
 
 	return (
 		<>
 			<main className='maincontent'>
 				<div className='container'>
-					<h1>Регистрация</h1>
-					<RegForm navigateTo={navigateTo} />
+					<h1>Логин</h1>
+					<LoginForm navigateTo={navigateTo} />
 				</div>
 			</main>
 		</>
 	)
 }
 
-export default Reg;
+export default Login;
