@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from './Button';
-import logo from './../logo.svg';
+import { Logo } from 'loft-taxi-mui-theme'
 
 class Header extends React.Component {
 	render() {
@@ -12,7 +12,7 @@ class Header extends React.Component {
 				<div className="container">
 					<div className="d-flex items-center">
 						<div className="logo">
-							<img src={logo} className="App-logo" alt="logo" />
+							<img src={Logo} className="App-logo" alt="logo" />
 						</div>
 						<nav className='nav d-flex items-center'>
 							<ul className='nav__list d-flex items-center'>
