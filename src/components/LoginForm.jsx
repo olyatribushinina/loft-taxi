@@ -1,7 +1,15 @@
 import React from 'react';
 import Button from './Button';
+import PropTypes from "prop-types";
+import { AuthContext } from './AuthContext';
 
 class LoginForm extends React.Component {
+	static propTypes = {
+		navigateTo: PropTypes.func
+	}
+
+	static contextType = AuthContext;
+
 	state = {
 		email: ``,
 		password: ``
@@ -9,6 +17,15 @@ class LoginForm extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+
+		const { email, password } = this.state;
+
+		this.context.logIn(email, password);
+
+		if (this.context.isLoggedIn) {
+			this.props.navigateTo('map')
+		}
+
 	};
 
 	handleChange = e => {
@@ -21,9 +38,10 @@ class LoginForm extends React.Component {
 
 		return (
 			<>
+
 				<div className="form">
 					<div className="form__title">Войти</div>
-					<form onSubmit={() => navigateTo("map")}>
+					<form onSubmit={this.handleSubmit}>
 						<div className="form__item">
 							<label>
 								<span>Email</span>
@@ -46,6 +64,7 @@ class LoginForm extends React.Component {
 						</div>
 					</form>
 				</div>
+
 			</>
 
 		)

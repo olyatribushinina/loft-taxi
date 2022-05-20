@@ -178,3 +178,12 @@ input:-webkit-autofill:active  {
   -webkit-box-shadow: 0 0 0 30px white inset;
   -webkit-text-fill-color: #828282;
 }
+
+.map-container {
+	position: absolute;
+	top: 73px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	cursor: grab;
+}

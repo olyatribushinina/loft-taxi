@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
+import MapBox from '../components/MapBox';
+import PropTypes from "prop-types";
 
 function Map(props) {
 	const { navigateTo } = props;
@@ -7,14 +9,13 @@ function Map(props) {
 	return (
 		<>
 			<Header navigateTo={navigateTo} />
-			<main className='maincontent'>
-				<div className='container'>
-					<h1>Карта</h1>
-				</div>
-			</main>
+			<MapBox />
 		</>
 	)
 }
 
+Map.propTypes = {
+	navigateTo: PropTypes.func
+}
 
 export default Map;

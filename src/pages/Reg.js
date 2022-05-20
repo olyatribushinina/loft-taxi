@@ -1,5 +1,6 @@
 import React from 'react';
-import RegForm from './../components/RegForm'
+import RegForm from './../components/RegForm';
+import PropTypes from "prop-types";
 
 function Reg(props) {
 	const { navigateTo } = props;
@@ -14,6 +15,10 @@ function Reg(props) {
 			</main>
 		</>
 	)
+}
+
+Reg.propTypes = {
+	navigateTo: PropTypes.func
 }
 
 export default Reg;

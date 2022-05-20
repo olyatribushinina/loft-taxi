@@ -1,7 +1,12 @@
 import React from 'react';
 import Button from './Button';
+import PropTypes from "prop-types";
 
 class RegForm extends React.Component {
+	static propTypes = {
+		navigateTo: PropTypes.func
+	}
+
 	state = {
 		email: ``,
 		name: ``,

@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from './../components/Header'
+import Header from './../components/Header';
+import PropTypes from "prop-types";
 
 function Profile(props) {
 	const { navigateTo } = props;
@@ -14,6 +15,10 @@ function Profile(props) {
 			</main>
 		</>
 	)
+}
+
+Profile.propTypes = {
+	navigateTo: PropTypes.func
 }
 
 export default Profile;
