@@ -17,16 +17,14 @@ class LoginForm extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
-
 		const { email, password } = this.state;
-
 		this.context.logIn(email, password);
-
-		if (this.context.isLoggedIn) {
-			this.props.navigateTo('map')
-		}
-
+		this.handleReset();
 	};
+
+	handleReset = e => {
+		this.setState({ email: '', password: '' })
+	}
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -41,7 +39,7 @@ class LoginForm extends React.Component {
 
 				<div className="form">
 					<div className="form__title">Войти</div>
-					<form onSubmit={this.handleSubmit}>
+					<form ref={(el) => this.LoginFormRef = el} onSubmit={this.handleSubmit}>
 						<div className="form__item">
 							<label>
 								<span>Email</span>
@@ -68,6 +66,12 @@ class LoginForm extends React.Component {
 			</>
 
 		)
+	}
+
+	componentDidUpdate() {
+		if (this.context.isLoggedIn) {
+			this.props.navigateTo('map')
+		}
 	}
 }
 

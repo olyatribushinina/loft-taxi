@@ -11,13 +11,6 @@ class Header extends React.Component {
 
 	static contextType = AuthContext;
 
-	logOut = () => {
-		this.context.logOut();
-		if (this.context.isLoggedIn === false) {
-			this.props.navigateTo('login')
-		}
-	}
-
 	render() {
 		const { navigateTo } = this.props;
 		let className = 'btn btn_text';
@@ -39,7 +32,7 @@ class Header extends React.Component {
 										<Button className={className} callBack={() => navigateTo("profile")} name="Профиль" />
 									</li>
 									<li className='nav__item'>
-										<Button className={className} callBack={this.logOut} name="Выйти" />
+										<Button className={className} callBack={this.context.logOut} name="Выйти" />
 									</li>
 								</ul>
 							</nav>
@@ -48,6 +41,12 @@ class Header extends React.Component {
 				</header>
 			</>
 		)
+	}
+
+	componentDidUpdate() {
+		if (!this.context.isLoggedIn) {
+			this.props.navigateTo('login')
+		}
 	}
 }
 

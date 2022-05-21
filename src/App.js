@@ -17,7 +17,6 @@ class App extends React.Component {
 	static contextType = AuthContext;
 
 	navigateTo = (page) => {
-		console.log(this.context.isLoggedIn)
 		this.context.isLoggetIn === false
 			? this.setState({ currentPage: 'login' })
 			: this.setState({ currentPage: page })
