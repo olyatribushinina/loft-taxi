@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { theme } from "loft-taxi-mui-theme";
@@ -7,15 +8,17 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './components/AuthContext';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
 root.render(
-	<React.StrictMode>
+	<StrictMode>
 		<MuiThemeProvider theme={theme}>
 			<AuthProvider>
 				<App />
 			</AuthProvider>
 		</MuiThemeProvider>
-	</React.StrictMode>
+	</StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

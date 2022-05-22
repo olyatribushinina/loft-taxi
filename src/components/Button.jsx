@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 
 const Button = ({ className, name, callBack }) => {
 	return (
-		<button type="button" className={className} onClick={callBack}><span>{name}</span></button>
+		<>
+			<button type="button" className={className} onClick={callBack}><span>{name}</span></button>
+		</>
 	)
 }
 

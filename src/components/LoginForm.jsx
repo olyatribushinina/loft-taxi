@@ -36,7 +36,6 @@ class LoginForm extends React.Component {
 
 		return (
 			<>
-
 				<div className="form">
 					<div className="form__title">Войти</div>
 					<form ref={(el) => this.LoginFormRef = el} onSubmit={this.handleSubmit}>
