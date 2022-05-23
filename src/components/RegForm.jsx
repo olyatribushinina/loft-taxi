@@ -25,7 +25,7 @@ class RegForm extends React.Component {
 			<>
 				<div className="form">
 					<div className="form__title">Регистрация</div>
-					<form onSubmit={() => navigateTo("map")}>
+					<form name='RegForm' onSubmit={() => navigateTo("map")}>
 						<div className="form__item">
 							<label>
 								<span>Email*</span>

@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
 			<>
 				<div className="form">
 					<div className="form__title">Войти</div>
-					<form ref={(el) => this.LoginFormRef = el} onSubmit={this.handleSubmit}>
+					<form name='LoginForm' onSubmit={this.handleSubmit}>
 						<div className="form__item">
 							<label>
 								<span>Email</span>

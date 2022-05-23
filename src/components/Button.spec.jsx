@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow, mount, render } from 'enzyme';
+import { render, screen } from "@testing-library/react";
+import { shallow } from 'enzyme';
 import Button from './Button';
 
 const props = {
@@ -15,10 +16,15 @@ const props = {
 
 const setUp = (props) => shallow(<Button {...props} />)
 
-describe('rendering Button component', () => {
+describe('Button', () => {
 	it('renders Button component without crashing', () => {
 		const div = document.createElement('div');
 		ReactDOM.render(<Button />, div);
+	});
+
+	it('should contain <button type="button">', () => {
+		render(<Button />);
+		expect(screen.queryByRole('button')).toBeInTheDocument();
 	});
 
 	it('should render Button component with props', () => {
@@ -26,33 +32,7 @@ describe('rendering Button component', () => {
 		const button = component.find('button');
 		expect(button).toHaveLength(1);
 	});
-})
-
-describe('should render Button component', () => {
-	let component;
-
-	beforeEach(() => {
-		component = shallow(<Button />);
-	});
-
-	it('should contain <button>', () => {
-		const button = component.find('button');
-		expect(button.length).toBe(1);
-	})
 
 })
 
-describe('Button on click', () => {
-	let component;
-
-	beforeEach(() => {
-		component = shallow(<Button />);
-	});
-
-	it('should handle onClick call callback', () => {
-		component.find('button').simulate('click')
-		expect(component.props.navigateTo).toBeCalled();
-	});
-
-})
 
