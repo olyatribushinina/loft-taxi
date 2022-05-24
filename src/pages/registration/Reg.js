@@ -1,24 +1,24 @@
 import React from 'react';
-import Header from './../components/Header';
+import RegForm from '../../components/registration-form/RegForm';
 import PropTypes from "prop-types";
 
-function Profile(props) {
+function Reg(props) {
 	const { navigateTo } = props;
 
 	return (
 		<>
-			<Header navigateTo={navigateTo} />
 			<main className='maincontent'>
 				<div className='container'>
-					<h1>Профиль</h1>
+					<h1>Регистрация</h1>
+					<RegForm navigateTo={navigateTo} />
 				</div>
 			</main>
 		</>
 	)
 }
 
-Profile.propTypes = {
+Reg.propTypes = {
 	navigateTo: PropTypes.func
 }
 
-export default Profile;
+export default Reg;

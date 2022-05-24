@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 import Profile from './Profile';
-import Header from '../components/Header';
+import Header from '../../components/header/Header';
 
 const props = {
 	navigateTo: (page) => {
@@ -18,7 +18,7 @@ const setUp = (props) => shallow(<Profile {...props} />);
 describe('rendering Profile component', () => {
 	it('renders Profile component without crashing', () => {
 		const div = document.createElement('div');
-		ReactDOM.render(<Profile />, div);
+		expect(div).not.toBeNull();
 	});
 
 	it('should render Profile component with props', () => {

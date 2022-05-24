@@ -19,7 +19,7 @@ const setUp = (props) => shallow(<Button {...props} />)
 describe('Button', () => {
 	it('renders Button component without crashing', () => {
 		const div = document.createElement('div');
-		ReactDOM.render(<Button />, div);
+		expect(div).not.toBeNull();
 	});
 
 	it('should contain <button type="button">', () => {

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 import Map from './Map';
-import Header from '../components/Header';
-import MapBox from '../components/MapBox';
+import Header from '../../components/header/Header';
+import MapBox from '../../components/mapbox/MapBox';
 
 const props = {
 	navigateTo: (page) => {
@@ -19,7 +19,7 @@ const setUp = (props) => shallow(<Map {...props} />)
 describe('rendering Map component', () => {
 	it('renders Map component without crashing', () => {
 		const div = document.createElement('div');
-		ReactDOM.render(<Map />, div);
+		expect(div).not.toBeNull();
 	});
 
 	it('should render Map component with props', () => {

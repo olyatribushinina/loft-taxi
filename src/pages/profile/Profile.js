@@ -1,24 +1,24 @@
 import React from 'react';
-import LoginForm from './../components/LoginForm';
+import Header from '../../components/header/Header';
 import PropTypes from "prop-types";
 
-function Login(props) {
+function Profile(props) {
 	const { navigateTo } = props;
 
 	return (
 		<>
+			<Header navigateTo={navigateTo} />
 			<main className='maincontent'>
 				<div className='container'>
-					<h1>Логин</h1>
-					<LoginForm navigateTo={navigateTo} />
+					<h1>Профиль</h1>
 				</div>
 			</main>
 		</>
 	)
 }
 
-Login.propTypes = {
+Profile.propTypes = {
 	navigateTo: PropTypes.func
 }
 
-export default Login;
+export default Profile;

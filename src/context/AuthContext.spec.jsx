@@ -2,9 +2,10 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { AuthContext, AuthProvider } from './AuthContext';
-import Button from './Button';
+import Button from '../components/button/Button';
 
 describe('AuthContext', () => {
+
 	describe('#logIn', () => {
 		it('set "isLoggedIn" to true ', () => {
 			let isLoggedIn;
@@ -25,7 +26,7 @@ describe('AuthContext', () => {
 			expect(isLoggedIn).toBe(false)
 
 			act(() => {
-				logIn('welcome@mail.ru', '123')
+				logIn('test@test.com', '123123')
 			})
 
 			expect(isLoggedIn).toBe(true)

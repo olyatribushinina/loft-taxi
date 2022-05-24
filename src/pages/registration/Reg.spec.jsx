@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Reg from './Reg';
-import RegForm from '../components/RegForm';
+import RegForm from '../../components/registration-form/RegForm';
 import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 
@@ -18,7 +18,7 @@ const setUp = (props) => shallow(<Reg {...props} />)
 describe('rendering Registration component', () => {
 	it('renders Registration component without crashing', () => {
 		const div = document.createElement('div');
-		ReactDOM.render(<Reg />, div);
+		expect(div).not.toBeNull();
 	});
 
 	it('should render Registration component with props', () => {

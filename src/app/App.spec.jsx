@@ -3,16 +3,14 @@ import ReactDOM from 'react-dom';
 import { render, fireEvent, screen } from "@testing-library/react";
 import App from './App';
 import { shallow, mount } from 'enzyme';
-import { AuthContext } from './components/AuthContext';
-import Header from './components/Header';
-import Login from './pages/Login';
-import Button from './components/Button';
+import { AuthContext } from './../context/AuthContext';
+import Button from './../components/button/Button';
 
 describe('App', () => {
 	describe('rendering App component', () => {
 		it('renders App component without crashing', () => {
 			const div = document.createElement('div');
-			ReactDOM.render(<App />, div);
+			expect(div).not.toBeNull();
 		});
 	})
 

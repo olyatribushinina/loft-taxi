@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../../components/login-form/LoginForm';
 import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 
@@ -18,7 +18,7 @@ const setUp = (props) => shallow(<Login {...props} />)
 describe('rendering Login component', () => {
 	it('renders Login component without crashing', () => {
 		const div = document.createElement('div');
-		ReactDOM.render(<Login />, div);
+		expect(div).not.toBeNull();
 	});
 
 	it('should render Login component with props', () => {

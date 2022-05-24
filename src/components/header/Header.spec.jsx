@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header';
-import Logo from './../logo.svg';
+import Logo from './../../logo.svg';
 import { render, fireEvent, screen } from "@testing-library/react";
 import { shallow } from 'enzyme';
-import Button from './Button';
+import Button from './../button/Button';
 
 describe('Header', () => {
 	const props = {
@@ -20,7 +20,7 @@ describe('Header', () => {
 	describe('rendering Header component', () => {
 		it('renders Header component without crashing', () => {
 			const div = document.createElement('div');
-			ReactDOM.render(<Header />, div);
+			expect(div).not.toBeNull();
 		});
 
 		it('should render Header component with props', () => {

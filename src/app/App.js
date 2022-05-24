@@ -1,9 +1,9 @@
 import React from 'react';
-import Login from './pages/Login';
-import Reg from './pages/Reg';
-import Map from './pages/Map';
-import Profile from './pages/Profile';
-import { AuthContext } from './components/AuthContext';
+import Login from '../pages/login/Login';
+import Reg from '../pages/registration/Reg';
+import Map from '../pages/map/Map';
+import Profile from '../pages/profile/Profile';
+import { AuthContext } from '../context/AuthContext';
 
 const page = {
 	login: Login,

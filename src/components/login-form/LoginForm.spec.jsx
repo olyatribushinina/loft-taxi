@@ -1,27 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { unmountComponentAtNode } from "react-dom";
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../../components/login-form/LoginForm';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import Button from './Button';
+import Button from './../button/Button';
 
 describe('LoginForm', () => {
-
-	let container = null;
-	beforeEach(() => {
-		// подготавливаем DOM-элемент, куда будем рендерить
-		container = document.createElement("div");
-		document.body.appendChild(container);
-	});
-
-	afterEach(() => {
-		// подчищаем после завершения
-		unmountComponentAtNode(container);
-		container.remove();
-		container = null;
-	});
 
 	const props = {
 		navigateTo: (page) => {
@@ -36,7 +22,7 @@ describe('LoginForm', () => {
 	describe('rendering LoginForm component', () => {
 		it('renders LoginForm component without crashing', () => {
 			const div = document.createElement('div');
-			ReactDOM.render(<LoginForm />, div);
+			expect(div).not.toBeNull();
 		});
 		it('should render LoginForm component with props', () => {
 			const component = setUp(props);
@@ -113,8 +99,8 @@ describe('LoginForm', () => {
 				handleChange()
 			})
 
-			// expect(emailInput.value).toBe({ email });
-			// expect(passwordInput.value).toBe({ password });
+			expect(email).toBe(emailInput.value);
+			expect(password).toBe(passwordInput.value);
 			expect(handleChange).toHaveBeenCalled();
 		})
 
@@ -149,21 +135,16 @@ describe('LoginForm', () => {
 			const form = getByRole('form');
 			expect(form).toBeInTheDocument();
 
-			// expect(form).toHaveFormValues({
-			// 	email: 'welcome@mail.ru',
-			// 	password: '123',
-			// })
-
 			fireEvent.submit(form);
+
+			// expect(form).toHaveFormValues({
+			// 	email: 'test@test.com',
+			// 	password: '123123',
+			// })
 
 			act(() => {
 				handleSubmit();
 			})
-
-			// expect(form).toHaveFormValues({
-			// 	email: '',
-			// 	password: '',
-			// })
 
 			expect(handleSubmit).toHaveBeenCalled();
 		})

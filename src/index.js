@@ -2,11 +2,11 @@ import React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './app/App';
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from './components/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);

@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from './Button';
-import Logo from './../logo.svg';
+import Button from '../button/Button';
+import Logo from './../../logo.svg';
 import PropTypes from "prop-types";
-import { AuthContext } from './AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 class Header extends React.Component {
 	static propTypes = {
@@ -44,9 +44,8 @@ class Header extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (!this.context.isLoggedIn) {
+		if (!this.context.isLoggedIn)
 			this.props.navigateTo('login')
-		}
 	}
 }
 

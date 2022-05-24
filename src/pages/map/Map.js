@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/Header';
-import MapBox from '../components/MapBox';
+import Header from '../../components/header/Header';
+import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
 
 function Map(props) {

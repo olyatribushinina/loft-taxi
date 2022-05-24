@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../button/Button';
 import PropTypes from "prop-types";
-import { AuthContext } from './AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 class LoginForm extends React.Component {
 	static propTypes = {

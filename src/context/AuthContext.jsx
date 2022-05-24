@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const AuthContext = React.createContext({});
 
 const loginData = {
-	email: 'welcome@mail.ru',
-	password: '123'
+	email: 'test@test.com',
+	password: '123123'
 }
 
 const AuthProvider = props => {
