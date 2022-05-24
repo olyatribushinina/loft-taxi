@@ -1,7 +1,15 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../button/Button';
+import PropTypes from "prop-types";
+import { AuthContext } from '../../context/AuthContext';
 
 class LoginForm extends React.Component {
+	static propTypes = {
+		navigateTo: PropTypes.func
+	}
+
+	static contextType = AuthContext;
+
 	state = {
 		email: ``,
 		password: ``
@@ -9,7 +17,14 @@ class LoginForm extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		const { email, password } = this.state;
+		this.context.logIn(email, password);
+		this.handleReset();
 	};
+
+	handleReset = e => {
+		this.setState({ email: '', password: '' })
+	}
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -23,7 +38,7 @@ class LoginForm extends React.Component {
 			<>
 				<div className="form">
 					<div className="form__title">Войти</div>
-					<form onSubmit={() => navigateTo("map")}>
+					<form name='LoginForm' onSubmit={this.handleSubmit}>
 						<div className="form__item">
 							<label>
 								<span>Email</span>
@@ -46,9 +61,16 @@ class LoginForm extends React.Component {
 						</div>
 					</form>
 				</div>
+
 			</>
 
 		)
+	}
+
+	componentDidUpdate() {
+		if (this.context.isLoggedIn) {
+			this.props.navigateTo('map')
+		}
 	}
 }
 

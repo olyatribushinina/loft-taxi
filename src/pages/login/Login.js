@@ -1,5 +1,6 @@
 import React from 'react';
-import LoginForm from './../components/LoginForm'
+import LoginForm from '../../components/login-form/LoginForm';
+import PropTypes from "prop-types";
 
 function Login(props) {
 	const { navigateTo } = props;
@@ -14,6 +15,10 @@ function Login(props) {
 			</main>
 		</>
 	)
+}
+
+Login.propTypes = {
+	navigateTo: PropTypes.func
 }
 
 export default Login;
