@@ -1,36 +1,35 @@
 import React from 'react';
 import Button from '../button/Button';
 import PropTypes from "prop-types";
-import { AuthContext } from '../../context/AuthContext';
+import { connect } from 'react-redux';
+import { registration } from './../../actions';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class RegForm extends React.Component {
 	static propTypes = {
-		navigateTo: PropTypes.func
+		isLoggedIn: PropTypes.bool
 	}
-
-	static contextType = AuthContext;
 
 	state = {
 		email: ``,
+		password: ``,
 		name: ``,
-		password: ``
+		surname: ``
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
-		const { email, password } = this.state;
-		this.context.logIn(email, password);
+		const { email, password, name, surname } = this.state;
+		this.props.registration(email, password, name, surname);
 	};
-
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
-		const { navigateTo } = this.props;
-		const { email, name, password } = this.state;
-
+		const { email, name, surname, password } = this.state;
 		return (
 			<>
 				<div className="form">
@@ -44,8 +43,14 @@ class RegForm extends React.Component {
 						</div>
 						<div className="form__item">
 							<label>
-								<span>Как вас зовут*</span>
-								<input type="text" name="name" placeholder="Гомер Симпсон" value={name} onChange={this.handleChange} />
+								<span>Имя*</span>
+								<input type="text" name="name" placeholder="Гомер" value={name} onChange={this.handleChange} />
+							</label>
+						</div>
+						<div className="form__item">
+							<label>
+								<span>Фамилия*</span>
+								<input type="text" name="surname" placeholder="Симпсон" value={surname} onChange={this.handleChange} />
 							</label>
 						</div>
 						<div className="form__item">
@@ -59,7 +64,7 @@ class RegForm extends React.Component {
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Уже зарегистрированы?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("login")} name="Войти" />
+							<Link to="/">Войти</Link>
 						</div>
 					</form>
 				</div>
@@ -68,10 +73,12 @@ class RegForm extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (this.context.isLoggedIn) {
-			this.props.navigateTo('map')
+		if (this.props.isLoggedIn) {
 		}
 	}
 }
 
-export default RegForm;
+export default withRouter(connect(
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+	{ registration }
+)(RegForm));

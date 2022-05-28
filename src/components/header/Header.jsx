@@ -2,19 +2,24 @@ import React from 'react';
 import Button from '../button/Button';
 import Logo from './../../logo.svg';
 import PropTypes from "prop-types";
-import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logOut } from '../../actions';
+import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
 	static propTypes = {
-		navigateTo: PropTypes.func
+		isLoggedIn: PropTypes.bool
 	}
 
-	static contextType = AuthContext;
+	unauthenticate = (e) => {
+		e.preventDefault();
+		this.props.logOut();
+	};
 
 	render() {
-		const { navigateTo } = this.props;
 		let className = 'btn btn_text';
-
+		console.log(this.props.history)
 		return (
 			<>
 				<header className="header">
@@ -26,13 +31,13 @@ class Header extends React.Component {
 							<nav className='nav d-flex items-center'>
 								<ul className='nav__list d-flex items-center'>
 									<li className='nav__item'>
-										<Button className={className} callBack={() => navigateTo("map")} name="Карта" />
+										<Link className="btn btn_text" to="/map">Карта</Link>
 									</li>
 									<li className='nav__item'>
-										<Button className={className} callBack={() => navigateTo("profile")} name="Профиль" />
+										<Link className="btn btn_text" to="/profile">Профиль</Link>
 									</li>
 									<li className='nav__item'>
-										<Button className={className} callBack={this.context.logOut} name="Выйти" />
+										<Link className="btn btn_text" to="/">Выйти</Link>
 									</li>
 								</ul>
 							</nav>
@@ -44,9 +49,13 @@ class Header extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (!this.context.isLoggedIn)
-			this.props.navigateTo('login')
+		if (this.props.isLoggedIn === false) {
+			console.log(this.props)
+		}
 	}
 }
 
-export default Header;
+export default withRouter(connect(
+	state => ({ isLoggedIn: state.auth.isLoggedIn }),
+	{ logOut }
+)(Header));

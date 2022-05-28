@@ -6,18 +6,22 @@ import App from './app/App';
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from './context/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
 	<StrictMode>
-		<MuiThemeProvider theme={theme}>
-			<AuthProvider>
-				<App />
-			</AuthProvider>
-		</MuiThemeProvider>
+		<BrowserRouter>
+			<Provider store={store}>
+				<MuiThemeProvider theme={theme}>
+					<App />
+				</MuiThemeProvider>
+			</Provider>
+		</BrowserRouter>
 	</StrictMode>
 );
 

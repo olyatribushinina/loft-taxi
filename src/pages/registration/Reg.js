@@ -1,16 +1,17 @@
 import React from 'react';
 import RegForm from '../../components/registration-form/RegForm';
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 
 function Reg(props) {
-	const { navigateTo } = props;
-
 	return (
 		<>
 			<main className='maincontent'>
 				<div className='container'>
 					<h1>Регистрация</h1>
-					<RegForm navigateTo={navigateTo} />
+					{props.isLoggedIn ? (<Redirect to="/map" />) : (<RegForm />)}
+					{/* <RegForm /> */}
 				</div>
 			</main>
 		</>
@@ -18,7 +19,10 @@ function Reg(props) {
 }
 
 Reg.propTypes = {
-	navigateTo: PropTypes.func
+	isLoggedIn: PropTypes.bool
 }
 
-export default Reg;
+
+export default connect(
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+)(Reg);

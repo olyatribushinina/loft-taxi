@@ -1,14 +1,15 @@
 import React from 'react';
 import Button from '../button/Button';
 import PropTypes from "prop-types";
-import { AuthContext } from '../../context/AuthContext';
+import { connect } from 'react-redux';
+import { authenticate } from './../../actions';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class LoginForm extends React.Component {
 	static propTypes = {
-		navigateTo: PropTypes.func
+		isLoggedIn: PropTypes.bool
 	}
-
-	static contextType = AuthContext;
 
 	state = {
 		email: ``,
@@ -18,22 +19,21 @@ class LoginForm extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { email, password } = this.state;
-		this.context.logIn(email, password);
+		this.props.authenticate(email, password);
 		this.handleReset();
 	};
 
 	handleReset = e => {
 		this.setState({ email: '', password: '' })
-	}
+	};
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
-		const { navigateTo } = this.props;
 		const { email, password } = this.state;
-
+		// console.log(this.props.history.location)
 		return (
 			<>
 				<div className="form">
@@ -50,28 +50,29 @@ class LoginForm extends React.Component {
 								<span>Пароль</span>
 								<input type="password" name="password" placeholder="********" value={password} onChange={this.handleChange} />
 							</label>
-							<Button className="btn btn_text self-end" callBack={() => navigateTo("reg")} name="Забыли пароль" />
+							<Button className="btn btn_text self-end" name="Забыли пароль" />
 						</div>
 						<div className="form__item form__item_submit">
 							<input type="submit" className="btn btn_bg theme-color" placeholder="Войти" defaultValue="Войти" />
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Новый пользователь?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("reg")} name="Регистрация" />
+							<Link className="btn btn_text self-end" to="/registration">Регистрация</Link>
 						</div>
 					</form>
 				</div>
-
 			</>
 
 		)
 	}
 
-	componentDidUpdate() {
-		if (this.context.isLoggedIn) {
-			this.props.navigateTo('map')
+	async componentDidUpdate() {
+		if (this.props.isLoggedIn) {
 		}
 	}
 }
 
-export default LoginForm;
+export default withRouter(connect(
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+	{ authenticate }
+)(LoginForm));
