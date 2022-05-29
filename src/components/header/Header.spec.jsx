@@ -4,15 +4,13 @@ import Header from './Header';
 import Logo from './../../logo.svg';
 import { render, fireEvent, screen } from "@testing-library/react";
 import { shallow } from 'enzyme';
-import Button from './../button/Button';
+// import Button from './../button/Button';
+import { Link } from 'react-router-dom';
 
 describe('Header', () => {
 	const props = {
-		navigateTo: (page) => {
-			this.context.isLoggetIn === false
-				? this.setState({ currentPage: 'login' })
-				: this.setState({ currentPage: page })
-		}
+		isLoggedIn: true,
+		logOut: () => ({ type: LOG_OUT })
 	}
 
 	const setUp = (props) => shallow(<Header {...props} />)
@@ -44,9 +42,9 @@ describe('Header', () => {
 			expect(component.contains(logo)).toEqual(true);
 		})
 
-		it('should contain three <Button />', () => {
-			const buttons = component.find(Button);
-			expect(buttons.length).toBe(3);
+		it('should contain three <Link />', () => {
+			const links = component.find(Link);
+			expect(links.length).toBe(3);
 		})
 
 	})

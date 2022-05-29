@@ -6,15 +6,16 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import Button from './../button/Button';
+import PropTypes from "prop-types";
 
 describe('LoginForm', () => {
 
 	const props = {
-		navigateTo: (page) => {
-			this.context.isLoggetIn === false
-				? this.setState({ currentPage: 'login' })
-				: this.setState({ currentPage: page })
-		}
+		isLoggedIn: false,
+		authenticate: (email, password) => ({
+			type: AUTHENTICATE,
+			payload: { email, password }
+		})
 	}
 
 	const setUp = (props) => shallow(<LoginForm {...props} />)
@@ -76,14 +77,14 @@ describe('LoginForm', () => {
 								<span>Пароль</span>
 								<input type="password" name="password" placeholder="********" value={password} onChange={handleChange} data-testid="element" />
 							</label>
-							<Button className="btn btn_text self-end" callBack={() => navigateTo("reg")} name="Забыли пароль" />
+							<Button className="btn btn_text self-end" name="Забыли пароль" />
 						</div>
 						<div className="form__item form__item_submit">
 							<input type="submit" className="btn btn_bg theme-color" placeholder="Войти" defaultValue="Войти" />
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Новый пользователь?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("reg")} name="Регистрация" />
+							<Link className="btn btn_text self-end" to="/registration">Регистрация</Link>
 						</div>
 					</form>
 				</div>
@@ -120,14 +121,14 @@ describe('LoginForm', () => {
 								<span>Пароль</span>
 								<input type="password" name="password" placeholder="********" value={password} onChange={handleChange} data-testid="element" />
 							</label>
-							<Button className="btn btn_text self-end" callBack={() => navigateTo("reg")} name="Забыли пароль" />
+							<Button className="btn btn_text self-end" name="Забыли пароль" />
 						</div>
 						<div className="form__item form__item_submit">
 							<input type="submit" className="btn btn_bg theme-color" placeholder="Войти" defaultValue="Войти" />
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Новый пользователь?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("reg")} name="Регистрация" />
+							<Link className="btn btn_text self-end" to="/registration">Регистрация</Link>
 						</div>
 					</form>
 				</div>

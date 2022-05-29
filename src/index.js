@@ -15,13 +15,13 @@ const root = createRoot(rootElement);
 
 root.render(
 	<StrictMode>
-		<BrowserRouter>
-			<Provider store={store}>
-				<MuiThemeProvider theme={theme}>
+		<Provider store={store}>
+			<MuiThemeProvider theme={theme}>
+				<BrowserRouter>
 					<App />
-				</MuiThemeProvider>
-			</Provider>
-		</BrowserRouter>
+				</BrowserRouter>
+			</MuiThemeProvider>
+		</Provider>
 	</StrictMode>
 );
 

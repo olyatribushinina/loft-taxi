@@ -196,33 +196,33 @@ input:-webkit-autofill:active  {
 	cursor: grab;
 }
 
-#pay-data-form {
+#card-data-form {
 	max-width: 900px;
 	padding: 60px 44px;
 	margin: 0 auto;
 	max-width: 888px;
 }
 
-#pay-data-form .form__title {
+#card-data-form .form__title {
 	margin: 13px;
 }
 
-#pay-data-form .form__title + p {
+#card-data-form .form__title + p {
 	color: rgba(123, 123, 123, 1)
 }
 
-#pay-data-form form .form__inner {
+#card-data-form form .form__inner {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 100px;
 }
 
-#pay-data-form form .form__rows {
+#card-data-form form .form__rows {
 	flex: 1;
 }
 
-#pay-data-form form .card-image {
+#card-data-form form .card-image {
 	width: 347px;
 	height: 182px;
 	background: #FFFFFF;
@@ -230,7 +230,7 @@ input:-webkit-autofill:active  {
 	border-radius: 10px;
 }
 
-#pay-data-form form .btn {
+#card-data-form form .btn {
 	max-width: 350px;
 	margin: auto;
 }

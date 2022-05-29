@@ -10,8 +10,8 @@ function Reg(props) {
 			<main className='maincontent'>
 				<div className='container'>
 					<h1>Регистрация</h1>
-					{props.isLoggedIn ? (<Redirect to="/map" />) : (<RegForm />)}
-					{/* <RegForm /> */}
+					{/* {props.isLoggedIn ? (<Redirect to="/map" />) : (<RegForm />)} */}
+					<RegForm />
 				</div>
 			</main>
 		</>

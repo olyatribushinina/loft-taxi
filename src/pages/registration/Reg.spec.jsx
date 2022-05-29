@@ -6,11 +6,7 @@ import { render } from '@testing-library/react';
 import { shallow, mount } from 'enzyme';
 
 const props = {
-	navigateTo: (page) => {
-		this.context.isLoggetIn === false
-			? this.setState({ currentPage: 'login' })
-			: this.setState({ currentPage: page })
-	}
+	isLoggedIn: false
 }
 
 const setUp = (props) => shallow(<Reg {...props} />)

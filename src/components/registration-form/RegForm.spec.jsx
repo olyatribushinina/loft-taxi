@@ -5,16 +5,16 @@ import RegForm from './RegForm';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import Button from './../button/Button';
+import { Link } from 'react-router-dom';
 
 describe('RegForm', () => {
 
 	const props = {
-		navigateTo: (page) => {
-			this.context.isLoggetIn === false
-				? this.setState({ currentPage: 'login' })
-				: this.setState({ currentPage: page })
-		}
+		isLoggedIn: false,
+		registration: (email, password, name, surname) => ({
+			type: REGISTRATION,
+			payload: { email, password, name, surname }
+		})
 	}
 
 	const setUp = (props) => shallow(<RegForm {...props} />)
@@ -47,9 +47,7 @@ describe('RegForm', () => {
 
 	describe('input events', () => {
 		let handleSubmit,
-			handleChange,
-			navigateTo;
-
+			handleChange
 
 		const state = {
 			email: ``,
@@ -62,7 +60,6 @@ describe('RegForm', () => {
 		beforeEach(() => {
 			handleChange = jest.fn();
 			handleSubmit = jest.fn();
-			navigateTo = jest.fn();
 		});
 
 		it('#handleChange', () => {
@@ -93,7 +90,7 @@ describe('RegForm', () => {
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Уже зарегистрированы?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("login")} name="Войти" />
+							<Link to="/">Войти</Link>
 						</div>
 					</form>
 				</div>
@@ -121,7 +118,7 @@ describe('RegForm', () => {
 			const { getByRole } = render(
 				<div className="form">
 					<div className="form__title">Регистрация</div>
-					<form name='RegForm' onSubmit={() => navigateTo("map")}>
+					<form name='RegForm' onSubmit={handleSubmit}>
 						<div className="form__item">
 							<label>
 								<span>Email*</span>
@@ -145,7 +142,7 @@ describe('RegForm', () => {
 						</div>
 						<div className="d-flex justify-center items-center">
 							<span>Уже зарегистрированы?</span>
-							<Button className="btn btn_text theme-color" callBack={() => navigateTo("login")} name="Войти" />
+							<Link to="/">Войти</Link>
 						</div>
 					</form>
 				</div>

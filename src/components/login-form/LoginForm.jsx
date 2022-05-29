@@ -8,7 +8,8 @@ import { withRouter } from 'react-router-dom';
 
 class LoginForm extends React.Component {
 	static propTypes = {
-		isLoggedIn: PropTypes.bool
+		isLoggedIn: PropTypes.bool,
+		authenticate: PropTypes.func
 	}
 
 	state = {
@@ -33,7 +34,7 @@ class LoginForm extends React.Component {
 
 	render() {
 		const { email, password } = this.state;
-		// console.log(this.props.history.location)
+		// console.log(this.props)
 		return (
 			<>
 				<div className="form">
@@ -66,8 +67,10 @@ class LoginForm extends React.Component {
 		)
 	}
 
-	async componentDidUpdate() {
-		if (this.props.isLoggedIn) {
+	componentDidUpdate() {
+		const { history, isLoggedIn } = this.props;
+		if (isLoggedIn) {
+			history.push('/map')
 		}
 	}
 }

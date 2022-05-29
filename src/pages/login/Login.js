@@ -12,8 +12,8 @@ function Login(props) {
 			<main className='maincontent'>
 				<div className='container'>
 					<h1>Логин</h1>
-					{props.isLoggedIn ? (<Redirect to="/map" />) : (<LoginForm />)}
-					{/* <LoginForm /> */}
+					{/* {props.isLoggedIn ? (<Redirect to="/map" />) : (<LoginForm />)} */}
+					<LoginForm />
 				</div>
 			</main>
 

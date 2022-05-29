@@ -5,12 +5,13 @@ import Map from '../pages/map/Map';
 import Profile from '../pages/profile/Profile';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from '../PrivateRoute';
 
 class App extends React.Component {
 
 	render() {
+		// console.log(this.props.isLoggedIn)
 		return (
 			<>
 				<Switch>

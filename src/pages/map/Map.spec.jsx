@@ -7,11 +7,7 @@ import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 
 const props = {
-	navigateTo: (page) => {
-		this.context.isLoggetIn === false
-			? this.setState({ currentPage: 'login' })
-			: this.setState({ currentPage: page })
-	}
+	isLoggedIn: true
 }
 
 const setUp = (props) => shallow(<Map {...props} />)

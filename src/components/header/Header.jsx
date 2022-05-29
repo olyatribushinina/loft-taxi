@@ -9,7 +9,8 @@ import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
 	static propTypes = {
-		isLoggedIn: PropTypes.bool
+		isLoggedIn: PropTypes.bool,
+		logOut: PropTypes.func
 	}
 
 	unauthenticate = (e) => {
@@ -19,7 +20,7 @@ class Header extends React.Component {
 
 	render() {
 		let className = 'btn btn_text';
-		console.log(this.props.history)
+		// console.log(this.props.history)
 		return (
 			<>
 				<header className="header">
@@ -48,11 +49,11 @@ class Header extends React.Component {
 		)
 	}
 
-	componentDidUpdate() {
-		if (this.props.isLoggedIn === false) {
-			console.log(this.props)
-		}
-	}
+	// componentDidUpdate() {
+	// 	if (this.props.isLoggedIn === false) {
+	// 		console.log(this.props)
+	// 	}
+	// }
 }
 
 export default withRouter(connect(
