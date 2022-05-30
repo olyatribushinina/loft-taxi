@@ -70,6 +70,7 @@ class LoginForm extends React.Component {
 	componentDidUpdate() {
 		const { history, isLoggedIn } = this.props;
 		if (isLoggedIn) {
+			console.log(isLoggedIn)
 			history.push('/map')
 		}
 	}

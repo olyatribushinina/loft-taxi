@@ -6,24 +6,25 @@ export const authMiddleware = (store) => (next) => async (action) => {
 		const { email, password } = action.payload;
 		const success = await serverLogIn(email, password)
 		if (success) {
-			console.log('success')
-			store.dispatch(logIn())
+			store.dispatch(logIn());
+			console.log(store.getState())
 		}
 	} else if (action.type === REGISTRATION) {
 		const { email, password, name, surname } = action.payload;
 		const success = await serverRegistration(email, password, name, surname)
 		if (success) {
-			console.log('success')
+			// console.log('success')
 			store.dispatch(logIn())
 			userAuthState(store.getState());
+			console.log(store.getState())
 		}
 	} else if (action.type === SAVE_PROFILE_CARD_DATA) {
-		const { cardHolderName, cardNumber, cardDate, cardCVC } = action.payload;
-		const success = await serverSaveProfileCardData(cardHolderName, cardNumber, cardDate, cardCVC)
+		const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
+		const success = await serverSaveProfileCardData(cardNumber, expiryDate, cardName, cvc)
 		if (success) {
 			console.log('card data success');
-			let profileCardState = profileCardState(store.getState());
-			console.log(profileCardState);
+			profileCardState(store.getState());
+			console.log(store.getState())
 		}
 	} else {
 		next(action);
@@ -49,6 +50,7 @@ const profileCardState = () => {
 		return undefined;
 	}
 };
+
 
 
 

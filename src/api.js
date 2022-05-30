@@ -7,7 +7,13 @@ export const serverLogIn = async (email, password) => {
 
 	return await fetch('https://loft-taxi.glitch.me/auth', requestOptions)
 		.then(r => r.json())
-		.then(data => data.success)
+		.then(data => {
+			if (data.success) {
+				let token = data.token;
+				localStorage.setItem('token', token);
+				return data.success
+			}
+		})
 };
 
 export const serverRegistration = async (email, password, name, surname) => {
@@ -21,25 +27,26 @@ export const serverRegistration = async (email, password, name, surname) => {
 		.then(r => r.json())
 		.then(data => {
 			if (data.success) {
-				const userDetails = { 'email': email, 'name': name, 'surname': surname, token: data.token }
-				localStorage.setItem('userDetails', JSON.stringify(userDetails));
+				// let userDetails = { 'email': email, 'name': name, 'surname': surname, token: data.token }
+				let token = data.token;
+				localStorage.setItem('token', token);
 				return data.success
 			}
 		})
 };
 
-export const serverSaveProfileCardData = async (cardHolderName, cardNumber, cardDate, cardCVC) => {
+export const serverSaveProfileCardData = async (cardNumber, expiryDate, cardName, cvc, token) => {
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ cardHolderName, cardNumber, cardDate, cardCVC })
+		body: JSON.stringify({ cardNumber, expiryDate, cardName, cvc, token })
 	};
 
 	return await fetch('https://loft-taxi.glitch.me/card', requestOptions)
 		.then(r => r.json())
 		.then(data => {
 			if (data.success) {
-				const profileCardData = { 'cardHolderName': cardHolderName, 'cardNumber': cardNumber, 'cardDate': cardDate, 'cardCVC': cardCVC }
+				const profileCardData = { 'cardNumber': cardNumber, 'expiryDate': expiryDate, 'cardName': cardName }
 				localStorage.setItem('profileCardData', JSON.stringify(profileCardData));
 				return data.success
 			}

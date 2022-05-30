@@ -7,20 +7,21 @@ import { saveProfileCardData } from './../../actions'
 class Profile extends React.Component {
 	static propTypes = {
 		isLoggedIn: PropTypes.bool,
+		token: PropTypes.string,
 		saveProfileCardData: PropTypes.func
 	}
 
 	state = {
-		cardHolderName: ``,
 		cardNumber: ``,
-		cardDate: ``,
-		cardCVC: ``
+		expiryDate: ``,
+		cardName: ``,
+		cvc: ``
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
-		const { cardHolderName, cardNumber, cardDate, cardCVC } = this.state;
-		this.props.saveProfileCardData(cardHolderName, cardNumber, cardDate, cardCVC);
+		const { cardNumber, expiryDate, cardName, cvc } = this.state;
+		this.props.saveProfileCardData(cardNumber, expiryDate, cardName, cvc, this.props.token);
 	};
 
 	handleChange = e => {
@@ -28,7 +29,7 @@ class Profile extends React.Component {
 	};
 
 	render() {
-		const { cardHolderName, cardNumber, cardDate, cardCVC } = this.state;
+		const { cardNumber, expiryDate, cardName, cvc } = this.state;
 		return (
 			<>
 				<Header />
@@ -44,7 +45,7 @@ class Profile extends React.Component {
 										<div className="form__item">
 											<label>
 												<span>Имя владельца</span>
-												<input type="text" name="cardHolderName" placeholder="Loft" value={cardHolderName} onChange={this.handleChange} />
+												<input type="text" name="cardName" placeholder="Loft" value={cardName} onChange={this.handleChange} />
 											</label>
 										</div>
 										<div className="form__item">
@@ -56,13 +57,13 @@ class Profile extends React.Component {
 										<div className="form__item">
 											<label>
 												<span>MM/YY</span>
-												<input type="text" name="cardDate" placeholder="05/08" value={cardDate} onChange={this.handleChange} />
+												<input type="text" name="expiryDate" placeholder="05/08" value={expiryDate} onChange={this.handleChange} />
 											</label>
 										</div>
 										<div className="form__item">
 											<label>
 												<span>CVC</span>
-												<input type="password" name="cardCVC" placeholder="667" value={cardCVC} onChange={this.handleChange} />
+												<input type="password" name="cvc" placeholder="667" value={cvc} onChange={this.handleChange} />
 											</label>
 										</div>
 									</div>
@@ -82,6 +83,6 @@ class Profile extends React.Component {
 }
 
 export default connect(
-	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn, token: state.auth.token }),
 	{ saveProfileCardData }
 )(Profile);

@@ -14,7 +14,7 @@ export const registration = (email, password, name, surname) => ({
 	type: REGISTRATION,
 	payload: { email, password, name, surname }
 });
-export const saveProfileCardData = (cardHolderName, cardNumber, cardDate, cardCVC) => ({
+export const saveProfileCardData = (cardNumber, expiryDate, cardName, cvc, token) => ({
 	type: SAVE_PROFILE_CARD_DATA,
-	payload: { cardHolderName, cardNumber, cardDate, cardCVC }
+	payload: { cardNumber, expiryDate, cardName, cvc, token }
 })

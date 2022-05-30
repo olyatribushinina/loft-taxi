@@ -13,11 +13,6 @@ class Header extends React.Component {
 		logOut: PropTypes.func
 	}
 
-	unauthenticate = (e) => {
-		e.preventDefault();
-		this.props.logOut();
-	};
-
 	render() {
 		let className = 'btn btn_text';
 		// console.log(this.props.history)
@@ -38,7 +33,7 @@ class Header extends React.Component {
 										<Link className="btn btn_text" to="/profile">Профиль</Link>
 									</li>
 									<li className='nav__item'>
-										<Link className="btn btn_text" to="/">Выйти</Link>
+										<Button className={className} callBack={this.props.logOut} name="Выйти" />
 									</li>
 								</ul>
 							</nav>
@@ -49,11 +44,12 @@ class Header extends React.Component {
 		)
 	}
 
-	// componentDidUpdate() {
-	// 	if (this.props.isLoggedIn === false) {
-	// 		console.log(this.props)
-	// 	}
-	// }
+	componentDidUpdate() {
+		if (this.props.isLoggedIn === false) {
+			console.log(this.props.isLoggedIn)
+			this.props.history.push('/')
+		}
+	}
 }
 
 export default withRouter(connect(

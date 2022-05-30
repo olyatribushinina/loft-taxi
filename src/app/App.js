@@ -5,20 +5,27 @@ import Map from '../pages/map/Map';
 import Profile from '../pages/profile/Profile';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PrivateRoute } from '../PrivateRoute';
+import { Switch, Route, Redirect } from "react-router-dom";
 
 class App extends React.Component {
 
 	render() {
-		// console.log(this.props.isLoggedIn)
+		console.log(this.props.isLoggedIn)
 		return (
 			<>
 				<Switch>
 					<Route exact path="/" component={Login} />
 					<Route path="/registration" component={Reg} />
-					<PrivateRoute path="/map" component={Map} />
-					<PrivateRoute path="/profile" component={Profile} />
+					{
+						this.props.isLoggedIn
+							? (<>
+								<Route path="/map" component={Map} />
+								<Route path="/profile" component={Profile} />
+							</>)
+							: (<>
+								<Redirect to="/" />
+							</>)
+					}
 				</Switch>
 			</>
 		);
