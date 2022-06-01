@@ -2,13 +2,12 @@ import React from 'react'
 import Header from '../../components/header/Header';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { saveProfileCardData } from './../../actions'
+import { saveUserCardData } from './../../actions'
 
 class Profile extends React.Component {
 	static propTypes = {
 		isLoggedIn: PropTypes.bool,
-		token: PropTypes.string,
-		saveProfileCardData: PropTypes.func
+		saveUserCardData: PropTypes.func
 	}
 
 	state = {
@@ -21,7 +20,11 @@ class Profile extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
-		this.props.saveProfileCardData(cardNumber, expiryDate, cardName, cvc, this.props.token);
+		let token = '';
+		if (localStorage.length && localStorage.getItem('redux-store')) {
+			token = JSON.parse(localStorage.getItem('redux-store')).auth.token;
+		}
+		this.props.saveUserCardData(cardNumber, expiryDate, cardName, cvc, token);
 	};
 
 	handleChange = e => {
@@ -83,6 +86,6 @@ class Profile extends React.Component {
 }
 
 export default connect(
-	(state) => ({ isLoggedIn: state.auth.isLoggedIn, token: state.auth.token }),
-	{ saveProfileCardData }
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+	{ saveUserCardData }
 )(Profile);

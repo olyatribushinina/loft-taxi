@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logOut } from '../../actions';
-import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
 	static propTypes = {
@@ -43,16 +42,9 @@ class Header extends React.Component {
 			</>
 		)
 	}
-
-	componentDidUpdate() {
-		if (this.props.isLoggedIn === false) {
-			console.log(this.props.isLoggedIn)
-			this.props.history.push('/')
-		}
-	}
 }
 
-export default withRouter(connect(
+export default connect(
 	state => ({ isLoggedIn: state.auth.isLoggedIn }),
 	{ logOut }
-)(Header));
+)(Header);

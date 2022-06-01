@@ -1,12 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { unmountComponentAtNode } from "react-dom";
 import LoginForm from '../../components/login-form/LoginForm';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import Button from './../button/Button';
-import PropTypes from "prop-types";
+import { BrowserRouter } from 'react-router-dom';
 
 describe('LoginForm', () => {
 
@@ -27,8 +25,8 @@ describe('LoginForm', () => {
 		});
 		it('should render LoginForm component with props', () => {
 			const component = setUp(props);
-			const form = component.find('.form');
-			expect(form).toHaveLength(1);
+			const form = component.find('form');
+			expect(form).toBeInTheDocument();
 		});
 	})
 
@@ -36,7 +34,7 @@ describe('LoginForm', () => {
 		it('should contain one <form>', () => {
 			const component = shallow(<LoginForm />);
 			const form = component.find('form');
-			expect(form.length).toBe(1);
+			expect(form.length).toBeInTheDocument();
 		})
 		it('should contain two <label>', () => {
 			render(<LoginForm />);

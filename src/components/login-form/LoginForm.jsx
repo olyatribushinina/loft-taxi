@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { authenticate } from './../../actions';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 class LoginForm extends React.Component {
 	static propTypes = {
@@ -66,17 +65,9 @@ class LoginForm extends React.Component {
 
 		)
 	}
-
-	componentDidUpdate() {
-		const { history, isLoggedIn } = this.props;
-		if (isLoggedIn) {
-			console.log(isLoggedIn)
-			history.push('/map')
-		}
-	}
 }
 
-export default withRouter(connect(
+export default connect(
 	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
 	{ authenticate }
-)(LoginForm));
+)(LoginForm);

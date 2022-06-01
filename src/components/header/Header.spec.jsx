@@ -4,7 +4,7 @@ import Header from './Header';
 import Logo from './../../logo.svg';
 import { render, fireEvent, screen } from "@testing-library/react";
 import { shallow } from 'enzyme';
-// import Button from './../button/Button';
+import Button from './../button/Button';
 import { Link } from 'react-router-dom';
 
 describe('Header', () => {
@@ -24,7 +24,7 @@ describe('Header', () => {
 		it('should render Header component with props', () => {
 			const component = setUp(props);
 			const header = component.find('header');
-			expect(header).toHaveLength(1);
+			expect(header).toBeInTheDocument();
 		});
 	})
 
@@ -44,7 +44,7 @@ describe('Header', () => {
 
 		it('should contain three <Link />', () => {
 			const links = component.find(Link);
-			expect(links.length).toBe(3);
+			expect(links.length).toBe(2);
 		})
 
 	})

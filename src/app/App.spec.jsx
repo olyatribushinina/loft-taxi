@@ -2,8 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render, fireEvent, screen } from "@testing-library/react";
 import App from './App';
+import { createMemoryHistory } from "history";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { theme } from "loft-taxi-mui-theme";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import { shallow, mount } from 'enzyme';
-import { AuthContext } from './../context/AuthContext';
 import Button from './../components/button/Button';
 
 // describe('App', () => {
@@ -53,10 +57,11 @@ import Button from './../components/button/Button';
 // 	})
 // })
 
-jest.mock("./../pages/Login", () => ({ Login: () => <div>Login content</div> }));
-jest.mock("./../pages/Reg", () => ({ Reg: () => <div>Registration content</div> }));
-jest.mock("./../pages/Map", () => ({ Map: () => <div>Map content</div> }));
-jest.mock("./../pages/Profile", () => ({ Profile: () => <div>Profile content</div>, }));
+
+jest.mock("../pages/login/Login", () => ({ Login: () => <div>Login content</div> }));
+jest.mock("../pages/registration/Reg", () => ({ Reg: () => <div>Registration content</div> }));
+jest.mock("../pages/map/Map", () => ({ Map: () => <div>Map content</div> }));
+jest.mock("../pages/profile/Profile", () => ({ Profile: () => <div>Profile content</div>, }));
 
 describe("App", () => {
 	it("renders correctly", () => {
@@ -67,11 +72,13 @@ describe("App", () => {
 		};
 		const history = createMemoryHistory();
 		const { container } = render(
-			<Router history={history}>
-				<Provider store={mockStore}>
-					<App />
-				</Provider>
-			</Router>
+			<Provider store={mockStore}>
+				<MuiThemeProvider theme={theme}>
+					<BrowserRouter history={history}>
+						<App />
+					</BrowserRouter>
+				</MuiThemeProvider>
+			</Provider>
 		);
 		expect(container.innerHTML).toMatch("Login content");
 	});
@@ -85,11 +92,13 @@ describe("App", () => {
 			};
 			const history = createMemoryHistory();
 			const { container, getByText } = render(
-				<Router history={history}>
-					<Provider store={mockStore}>
-						<App />
-					</Provider>
-				</Router>
+				<Provider store={mockStore}>
+					<MuiThemeProvider theme={theme}>
+						<BrowserRouter history={history}>
+							<App />
+						</BrowserRouter>
+					</MuiThemeProvider>
+				</Provider>
 			);
 			expect(container.innerHTML).toMatch("Login content");
 			fireEvent.click(getByText("Map"));

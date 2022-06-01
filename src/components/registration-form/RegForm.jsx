@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { registration } from './../../actions';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 class RegForm extends React.Component {
 	static propTypes = {
@@ -23,6 +22,7 @@ class RegForm extends React.Component {
 		e.preventDefault();
 		const { email, password, name, surname } = this.state;
 		this.props.registration(email, password, name, surname);
+
 	};
 
 	handleChange = e => {
@@ -73,16 +73,9 @@ class RegForm extends React.Component {
 			</>
 		)
 	}
-
-	componentDidUpdate() {
-		const { history, isLoggedIn } = this.props
-		if (isLoggedIn) {
-			history.push('/map')
-		}
-	}
 }
 
-export default withRouter(connect(
+export default connect(
 	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
 	{ registration }
-)(RegForm));
+)(RegForm);
