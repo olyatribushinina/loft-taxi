@@ -1,10 +1,10 @@
 import { authMiddleware } from './authMiddleware';
-import { authenticate, registration, saveProfileCardData } from "./actions";
-import { serverLogIn, serverRegistration, serverSaveProfileCardData } from "./api";
+import { authenticate, registration, saveUserCardData } from "./actions";
+import { serverLogIn, serverRegistration, serverSaveUserCardData } from "./api";
 
 jest.mock("./api", () => ({ serverLogIn: jest.fn(() => true) }));
 jest.mock("./api", () => ({ serverRegistration: jest.fn(() => true) }));
-jest.mock("./api", () => ({ serverSaveProfileCardData: jest.fn(() => true) }));
+jest.mock("./api", () => ({ serverSaveUserCardData: jest.fn(() => true) }));
 
 describe("authMiddleware", () => {
 	afterAll(jest.clearAllMocks)
@@ -65,28 +65,28 @@ describe("authMiddleware", () => {
 		});
 	});
 
-	describe("#SAVE_PROFILE_CARD_DATA", () => {
+	describe("#SAVE_USER_CARD_DATA", () => {
 		describe("with correct credentials", () => {
-			it("saveProfileCardData through api", async () => {
-				serverSaveProfileCardData.mockImplementation(async () => true);
+			it("saveUserCardData through api", async () => {
+				serverSaveUserCardData.mockImplementation(async () => true);
 				const dispatch = jest.fn();
 
 				await authMiddleware({ dispatch })()(
-					saveProfileCardData("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv")
+					saveUserCardData("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv", "testtoken")
 				);
-				expect(serverSaveProfileCardData).toBeCalledWith("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv");
-				// expect(dispatch).toBeCalledWith({
-				// 	type: "LOG_IN",
-				// });
+				expect(serverSaveUserCardData).toBeCalledWith("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv", "testtoken");
+				expect(dispatch).toBeCalledWith({
+					type: "SAVED_CARD_DATA",
+				});
 			});
 		});
 		describe("with wrong credentials", () => {
-			it("saveProfileCardData through api", async () => {
-				serverSaveProfileCardData.mockImplementation(() => false);
+			it("saveUserCardData through api", async () => {
+				serverSaveUserCardData.mockImplementation(() => false);
 				const dispatch = jest.fn();
 
 				await authMiddleware({ dispatch })()(
-					saveProfileCardData("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv")
+					saveUserCardData("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv", "testtoken")
 				);
 				expect(dispatch).not.toBeCalled();
 			});

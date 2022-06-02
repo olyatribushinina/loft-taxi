@@ -16,7 +16,7 @@ class Header extends React.Component {
 		let className = 'btn btn_text';
 		// console.log(this.props.history)
 		return (
-			<>
+			<div data-testid="header">
 				<header className="header">
 					<div className="container">
 						<div className="d-flex items-center">
@@ -39,7 +39,7 @@ class Header extends React.Component {
 						</div>
 					</div>
 				</header>
-			</>
+			</div>
 		)
 	}
 }

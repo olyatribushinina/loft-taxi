@@ -35,10 +35,10 @@ class LoginForm extends React.Component {
 		const { email, password } = this.state;
 		// console.log(this.props)
 		return (
-			<>
+			<div data-testid="login-form-component">
 				<div className="form">
 					<div className="form__title">Войти</div>
-					<form name='LoginForm' onSubmit={this.handleSubmit}>
+					<form name='LoginForm' onSubmit={this.handleSubmit} data-testid="login-form">
 						<div className="form__item">
 							<label>
 								<span>Email</span>
@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
 						</div>
 					</form>
 				</div>
-			</>
+			</div>
 
 		)
 	}

@@ -10,5 +10,4 @@ store.subscribe(() => {
 	console.log(localStorage);
 });
 
-console.log(localStorage);
 // localStorage.clear()

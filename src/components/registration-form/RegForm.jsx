@@ -33,10 +33,10 @@ class RegForm extends React.Component {
 		const { email, name, surname, password } = this.state;
 
 		return (
-			<>
+			<div data-testid="registration-form-component">
 				<div className="form">
 					<div className="form__title">Регистрация</div>
-					<form name='RegForm' onSubmit={this.handleSubmit}>
+					<form name='RegForm' onSubmit={this.handleSubmit} data-testid="registration-form">
 						<div className="form__item">
 							<label>
 								<span>Email*</span>
@@ -70,7 +70,7 @@ class RegForm extends React.Component {
 						</div>
 					</form>
 				</div>
-			</>
+			</div>
 		)
 	}
 }

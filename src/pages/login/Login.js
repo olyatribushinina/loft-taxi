@@ -6,18 +6,15 @@ import { Redirect } from "react-router-dom";
 
 
 function Login(props) {
-	// console.log(props.history.location)
 	return (
-		<>
+		<div data-testid="login-page">
 			<main className='maincontent'>
 				<div className='container'>
 					<h1>Логин</h1>
-					{/* {props.isLoggedIn ? (<Redirect to="/map" />) : (<LoginForm />)} */}
 					<LoginForm />
 				</div>
 			</main>
-
-		</>
+		</div>
 	)
 }
 

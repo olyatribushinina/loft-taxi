@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { render } from '@testing-library/react';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { shallow } from 'enzyme';
 import Profile from './Profile';
 import Header from '../../components/header/Header';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 describe('Profile', () => {
 
@@ -15,7 +16,27 @@ describe('Profile', () => {
 		})
 	}
 
-	const setUp = (props) => shallow(<Profile {...props} />);
+	beforeEach(() => {
+		mockStore = {
+			getState: () => ({
+				auth: {
+					isLoggedIn: false,
+					token: '',
+					userData: {},
+					userCardData: {}
+				}
+			}),
+			subscribe: () => { },
+			dispatch: () => { },
+		};
+	});
+
+	const setUp = (props) => shallow(
+		<MemoryRouter>
+			<Provider store={mockStore}>
+				<Profile {...props} />
+			</Provider>
+		</MemoryRouter>)
 
 	describe('rendering Profile component', () => {
 		it('renders Profile component without crashing', () => {
@@ -24,8 +45,7 @@ describe('Profile', () => {
 		});
 		it('should render Profile component with props', () => {
 			const component = setUp(props);
-			const main = component.find('main');
-			expect(main).toHaveLength(1);
+			expect(screen.getByTestId('profile-page')).toBeInTheDocument()
 		});
 	})
 
@@ -33,7 +53,7 @@ describe('Profile', () => {
 		let component;
 
 		beforeEach(() => {
-			component = shallow(<Profile />);
+			component = setUp(props);
 		});
 
 		it('should contain <Header />', () => {

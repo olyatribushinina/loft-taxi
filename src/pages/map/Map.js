@@ -7,10 +7,10 @@ import { connect } from 'react-redux'
 
 function Map(props) {
 	return (
-		<>
+		<div data-testid="map-page">
 			<Header />
 			<MapBox />
-		</>
+		</div>
 	)
 }
 

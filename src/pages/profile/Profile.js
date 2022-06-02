@@ -34,7 +34,7 @@ class Profile extends React.Component {
 	render() {
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
 		return (
-			<>
+			<div data-testid="profile-page">
 				<Header />
 				<main className='maincontent'>
 					<div className='container'>
@@ -79,7 +79,7 @@ class Profile extends React.Component {
 						</div>
 					</div>
 				</main>
-			</>
+			</div>
 		)
 	}
 
