@@ -10,6 +10,11 @@ function Map(props) {
 		<div data-testid="map-page">
 			<Header />
 			<MapBox />
+			<div className='form form_route'>
+				<form name="RouteForm">
+
+				</form>
+			</div>
 		</div>
 	)
 }

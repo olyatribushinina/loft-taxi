@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../components/header/Header';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { saveUserCardData } from './../../actions'
+import { saveUserCardData } from './../../actions/actions'
 
 class Profile extends React.Component {
 	static propTypes = {

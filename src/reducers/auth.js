@@ -1,10 +1,10 @@
-import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA, SAVED_CARD_DATA } from "../actions";
+import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA, SAVED_CARD_DATA } from "../actions/actions";
 
+// Reducer
 export const initialState = {
 	isLoggedIn: false,
 	token: '',
 	userData: {},
-	userCardData: {}
 };
 
 export default function (state = initialState, action) {
@@ -25,12 +25,6 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				userData: { ...action.userData }
-			}
-		}
-		case SAVED_CARD_DATA: {
-			return {
-				...state,
-				userCardData: { ...action.userCardData }
 			}
 		}
 		default:

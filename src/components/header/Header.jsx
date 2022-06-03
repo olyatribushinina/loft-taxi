@@ -4,7 +4,7 @@ import Logo from './../../logo.svg';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOut } from '../../actions';
+import { logOut } from '../../actions/actions';
 
 class Header extends React.Component {
 	static propTypes = {

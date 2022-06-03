@@ -1,8 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReduser from './reducers';
-import { authMiddleware } from './authMiddleware';
+import Sagas from './sagas/sagas';
 
-export const store = createStore(rootReduser, applyMiddleware(authMiddleware));
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = createStore(rootReduser, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(Sagas);
 
 store.subscribe(() => {
 	localStorage['redux-store'] = JSON.stringify(store.getState());
