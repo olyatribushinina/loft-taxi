@@ -9,12 +9,11 @@ import { logOut } from '../../actions';
 class Header extends React.Component {
 	static propTypes = {
 		isLoggedIn: PropTypes.bool,
-		logOut: PropTypes.func
+		logOut: PropTypes.func,
 	}
 
 	render() {
 		let className = 'btn btn_text';
-		// console.log(this.props.history)
 		return (
 			<div data-testid="header">
 				<header className="header">

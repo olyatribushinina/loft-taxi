@@ -43,7 +43,7 @@ describe('rendering Map component', () => {
 
 	it('should render Map component with props', () => {
 		const component = setUp(props);
-		expect(screen.getByTestId('map-page')).toBeInTheDocument()
+		expect(component.contains(<MapBox />)).not.toBeNull()
 	});
 })
 
@@ -51,19 +51,15 @@ describe('should render Map component', () => {
 	let component;
 
 	beforeEach(() => {
-		component = shallow(<MemoryRouter>
-			<Provider store={mockStore}>
-				<Map />
-			</Provider>
-		</MemoryRouter>);
+		component = setUp(props)
 	});
 
 	it('should contain <Header />', () => {
 		let header = component.find(Header);
-		expect(header).toBeInTheDocument();
+		expect(header).not.toBeNull()
 	})
 
 	it('should contain <MapBox />', () => {
-		expect(component.contains(<MapBox />)).toEqual(true);
+		expect(component.contains(<MapBox />)).not.toBeNull()
 	})
 })

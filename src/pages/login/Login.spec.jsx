@@ -6,12 +6,6 @@ import { shallow } from 'enzyme';
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
-jest.mock("../../components/login-form/LoginForm", () => ({
-	LoginForm: jest.fn(() => (
-		<div data-testid="LoginForm" />
-	))
-}))
-
 describe('Login', () => {
 	let mockStore;
 
@@ -34,7 +28,7 @@ describe('Login', () => {
 		isLoggedIn: false
 	}
 
-	const setUp = (props) => shallow(
+	const setUp = (props) => render(
 		<MemoryRouter>
 			<Provider store={mockStore}>
 				<Login {...props} />
@@ -58,7 +52,7 @@ describe('Login', () => {
 	describe('should render Login component', () => {
 		it('should contain <LoginForm />', () => {
 			const component = setUp(props);
-			expect(screen.queryByTestId("LoginForm")).toBeInTheDocument()
+			expect(screen.queryByTestId("login-form-component")).toBeInTheDocument()
 		})
 	})
 })

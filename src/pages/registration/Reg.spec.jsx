@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Reg from './Reg';
-import RegForm from '../../components/registration-form/RegForm';
 import { render, screen } from '@testing-library/react';
-import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -28,7 +25,7 @@ beforeEach(() => {
 	};
 });
 
-const setUp = (props) => shallow(
+const setUp = (props) => render(
 	<MemoryRouter>
 		<Provider store={mockStore}>
 			<Reg {...props} />
@@ -48,18 +45,8 @@ describe('rendering Registration component', () => {
 })
 
 describe('should render Registration component', () => {
-	let component;
-
-	beforeEach(() => {
-		component = setUp(props);
-	});
-
-	it('should contain main', () => {
-		const main = component.find('main');
-		expect(main).toHaveLength(1);
-	})
-
 	it('should contain <RegForm />', () => {
-		expect(component.contains(<RegForm />)).toEqual(true);
+		const component = setUp(props);
+		expect(screen.queryByTestId('registration-form-component')).toBeInTheDocument();
 	})
 })

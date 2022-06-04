@@ -3,23 +3,9 @@ import Header from './Header';
 import { render, fireEvent, screen } from "@testing-library/react";
 import { Provider } from 'react-redux';
 import { MemoryRouter } from "react-router-dom";
-
-jest.mock("../../pages/login/Login", () => {
-	const Login = () => <div>Login content</div>
-	return Login
-});
-jest.mock("../../pages/registration/Reg", () => {
-	const Reg = () => <div>Reg content</div>
-	return Reg
-});
-jest.mock("../../pages/map/Map", () => {
-	const Map = () => <div>Map content</div>
-	return Map
-});
-jest.mock("../../pages/profile/Profile", () => {
-	const Profile = () => <div>Profile content</div>
-	return Profile
-});
+import { createMemoryHistory } from 'history';
+import { Link } from 'react-router-dom';
+import { Router } from "react-router-dom";
 
 describe('Header', () => {
 
@@ -99,48 +85,6 @@ describe('Header', () => {
 		})
 
 	})
-
-	describe("when clicked on navigation buttons", () => {
-
-		it("testing map link", () => {
-			const { container } = render(
-				<MemoryRouter>
-					<Provider store={mockStore}>
-						<Header />
-					</Provider>
-				</MemoryRouter>
-			)
-
-			screen.debug()
-
-			fireEvent.click(screen.getByText("Карта"));
-			expect(container.textContent).toMatch('Map content');
-		});
-
-		it("testing profile link", () => {
-			const { container } = render(
-				<MemoryRouter>
-					<Provider store={mockStore}>
-						<Header />
-					</Provider>
-				</MemoryRouter>
-			)
-			fireEvent.click(screen.getByText("Профиль"));
-			expect(container.textContent).toMatch('Profile content');
-		});
-
-		it("testing exit btn", () => {
-			const { container } = render(
-				<MemoryRouter>
-					<Provider store={mockStore}>
-						<Header />
-					</Provider>
-				</MemoryRouter>
-			)
-			fireEvent.click(screen.getByText("Выйти"));
-			expect(container.textContent).toMatch('Login content');
-		});
-	});
 })
 
 

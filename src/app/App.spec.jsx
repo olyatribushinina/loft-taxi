@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from './App';
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import Header from '../components/header/Header';
 
 describe("App", () => {
 
@@ -37,7 +38,6 @@ describe("App", () => {
 		expect(screen.queryByTestId('map-page')).not.toBeInTheDocument();
 		expect(screen.queryByTestId('profile-page')).not.toBeInTheDocument();
 	});
-
 });
 
 
