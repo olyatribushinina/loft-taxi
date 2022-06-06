@@ -10,7 +10,7 @@ export const serverLogIn = async (email, password) => {
 	return await fetch('https://loft-taxi.glitch.me/auth', requestOptions)
 		.then((res) => {
 			if (res.ok) {
-				console.log(res)
+				// console.log(res)
 				return res;
 			} else {
 				let error = new Error(res.statusText);
@@ -61,6 +61,7 @@ export const serverPostPayment = async (cardNumber, expiryDate, cardName, cvc, t
 	return await fetch('https://loft-taxi.glitch.me/card', requestOptions)
 		.then((res) => {
 			if (res.ok) {
+				console.log(res)
 				return res;
 			} else {
 				let error = new Error(res.statusText);
@@ -100,9 +101,10 @@ export const serverGetPayment = async (token) => {
 
 export const serverGetAdressList = async () => {
 
-	return await fetch('https://loft-taxi.glitch.me/addressList')
+	return await fetch('https://loft-taxi.glitch.me/addressList', { method: 'GET' })
 		.then((res) => {
 			if (res.ok) {
+				// alert(res)
 				return res;
 			} else {
 				let error = new Error(res.statusText);
@@ -115,5 +117,5 @@ export const serverGetAdressList = async () => {
 		.catch((e) => {
 			console.log('Error: ' + e.message);
 			console.log(e.response);
-		});
+		})
 };

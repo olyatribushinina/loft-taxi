@@ -10,20 +10,19 @@ import { Switch, Route, Redirect } from "react-router-dom";
 class App extends React.Component {
 
 	render() {
-		let storageIsLoggedIn = false;
+		let storageAuth = {}
 
-		if (localStorage.length && localStorage.getItem('redux-store')) {
-			storageIsLoggedIn = JSON.parse(localStorage.getItem('redux-store')).auth.isLoggedIn;
+		if (localStorage.length && localStorage.getItem('auth')) {
+			storageAuth = JSON.parse(localStorage.getItem('auth'))
 		}
-		console.log(storageIsLoggedIn)
-		const { isLoggedIn } = this.props;
+		console.log(storageAuth)
 
 		return (
 			<>
 				<Switch>
 
 					{
-						storageIsLoggedIn
+						storageAuth.isLoggedIn
 							?
 							(<>
 								<Route path="/map" component={Map} />

@@ -234,3 +234,14 @@ input:-webkit-autofill:active  {
 	max-width: 350px;
 	margin: auto;
 }
+
+#routepoints {
+	position: absolute;
+    max-width: 30%;
+    padding: 44px 60px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    /* top: 0; */
+    left: 20px;
+    min-width: 384px;
+}

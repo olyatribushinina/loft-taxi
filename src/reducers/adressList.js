@@ -1,17 +1,16 @@
-import { SAVED_CARD_DATA } from "../actions/actions";
+import { FETCH_ADRESS_LIST_SUCCESS } from "../actions/actions";
 
 // Reducer
 export const initialState = {
-	// userCardData: {}
+	adress: {}
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case SAVED_CARD_DATA: {
+		case FETCH_ADRESS_LIST_SUCCESS: {
 			return {
 				...state,
-				// userCardData: { ...action.userCardData }
-				...action.userCardData
+				adress: { ...action.data }
 			}
 		}
 		default:

@@ -4,7 +4,7 @@ import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA, SAVED_CARD_DATA } from "..
 export const initialState = {
 	isLoggedIn: false,
 	token: '',
-	userData: {},
+	// userData: {},
 };
 
 export default function (state = initialState, action) {
@@ -24,7 +24,8 @@ export default function (state = initialState, action) {
 		case SAVED_USER_DATA: {
 			return {
 				...state,
-				userData: { ...action.userData }
+				// userData: { ...action.userData }
+				...action.userData
 			}
 		}
 		default:

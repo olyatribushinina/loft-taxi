@@ -8,6 +8,7 @@ export const SAVE_USER_CARD_DATA = 'SAVE_USER_CARD_DATA';
 export const SAVED_CARD_DATA = 'SAVED_CARD_DATA';
 export const GET_USER_CARD_DATA = 'GET_USER_CARD_DATA';
 export const GET_ADRESS_LIST = 'GET_ADRESS_LIST';
+export const FETCH_ADRESS_LIST_SUCCESS = 'FETCH_ADRESS_LIST_SUCCESS';
 
 // Action Creators
 export const logIn = () => ({ type: LOG_IN });
@@ -34,4 +35,6 @@ export const getUserCardData = (token) => ({
 	payload: { token }
 })
 
-export const getAdressList = () => ({ type: GET_ADRESS_LIST })
+export const getAdressList = (data) => ({ type: GET_ADRESS_LIST, data })
+
+export const fetchAddressListSuccess = (data) => ({ type: FETCH_ADRESS_LIST_SUCCESS, data })
