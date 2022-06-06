@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import Profile from './Profile';
 import Header from '../../components/header/Header';
@@ -15,7 +15,7 @@ describe('Profile', () => {
 			payload: { cardHolderName, cardNumber, cardDate, cardCVC }
 		})
 	}
-
+	let mockStore;
 	beforeEach(() => {
 		mockStore = {
 			getState: () => ({
@@ -31,7 +31,7 @@ describe('Profile', () => {
 		};
 	});
 
-	const setUp = (props) => shallow(
+	const setUp = (props) => render(
 		<MemoryRouter>
 			<Provider store={mockStore}>
 				<Profile {...props} />
@@ -50,29 +50,28 @@ describe('Profile', () => {
 	})
 
 	describe('should render Profile component', () => {
-		let component;
 
 		beforeEach(() => {
-			component = setUp(props);
+			render(
+				<MemoryRouter>
+					<Provider store={mockStore}>
+						<Profile />
+					</Provider>
+				</MemoryRouter>
+			)
 		});
 
 		it('should contain <Header />', () => {
-			expect(component.contains(<Header />)).toEqual(true);
-		})
-
-		it('should contain main', () => {
-			const main = component.find('main');
-			expect(main).toHaveLength(1);
+			expect(screen.queryByTestId('header')).toBeInTheDocument()
 		})
 
 		it('should contain one <form>', () => {
-			const form = component.find('form');
-			expect(form.length).toBe(1);
+			expect(screen.getByRole('form')).toBeInTheDocument();
 		})
 
 		it('should contain four <label>', () => {
-			render(<Profile />);
-			expect(screen.getByLabelText(/Имя владельца/i)).toBeInTheDocument();
+
+			expect(screen.queryByLabelText(/Имя владельца/i)).toBeInTheDocument();
 			expect(screen.getByLabelText(/Номер карты/i)).toBeInTheDocument();
 			expect(screen.getByLabelText('MM/YY')).toBeInTheDocument();
 			expect(screen.getByLabelText(/CVC/i)).toBeInTheDocument();
@@ -90,7 +89,7 @@ describe('Profile', () => {
 			cardCVC: ``
 		};
 
-		const { cardHolderName, cardNumber, cardDate, cardCVC } = this.state;
+		const { cardHolderName, cardNumber, cardDate, cardCVC } = state;
 
 		beforeEach(() => {
 			handleChange = jest.fn();
@@ -126,7 +125,7 @@ describe('Profile', () => {
 								<div className="form__item">
 									<label>
 										<span>CVC</span>
-										<input type="password" name="cardCVC" placeholder="667" value={cardCVC} onChange={this.handleChange} />
+										<input type="password" name="cardCVC" placeholder="667" value={cardCVC} onChange={handleChange} />
 									</label>
 								</div>
 							</div>
@@ -189,7 +188,7 @@ describe('Profile', () => {
 								<div className="form__item">
 									<label>
 										<span>CVC</span>
-										<input type="password" name="cardCVC" placeholder="667" value={cardCVC} onChange={this.handleChange} />
+										<input type="password" name="cardCVC" placeholder="667" value={cardCVC} onChange={handleChange} />
 									</label>
 								</div>
 							</div>

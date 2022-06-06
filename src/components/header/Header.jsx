@@ -19,7 +19,7 @@ import { useTheme } from '@material-ui/core/styles';
 class Header extends React.Component {
 	static propTypes = {
 		isLoggedIn: PropTypes.bool,
-		logOut: PropTypes.func
+		logOut: PropTypes.func,
 	}
 
 	exit = () => {
