@@ -1,57 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from './App';
-import { shallow, mount } from 'enzyme';
-import { AuthContext } from './../context/AuthContext';
-import Button from './../components/button/Button';
+import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import Header from '../components/header/Header';
 
-describe('App', () => {
-	describe('rendering App component', () => {
-		it('renders App component without crashing', () => {
-			const div = document.createElement('div');
-			expect(div).not.toBeNull();
-		});
+describe("App", () => {
+
+	let mockStore;
+
+	beforeEach(() => {
+		mockStore = {
+			getState: () => ({
+				auth: {
+					isLoggedIn: false,
+					token: '',
+					userData: {},
+					userCardData: {}
+				}
+			}),
+			subscribe: () => { },
+			dispatch: () => { },
+		};
 	})
 
-	describe('should render App component', () => {
-		it('should contain <AuthContext.Comsumer />', () => {
-			const component = shallow(<App />);
-			let AuthContextComsumer = (<AuthContext.Consumer>
-				{({ login, logout, isLoggedIn }) => (
-					<Page navigateTo={this.navigateTo} />
-				)}
-			</AuthContext.Consumer>);
-			expect(component.contains(AuthContextComsumer)).toEqual(true);
-		})
-	})
+	it("renders correctly", () => {
 
-	describe('#navigateTo', () => {
-		let navigateTo,
-			className;
+		render(
+			<Provider store={mockStore}>
+				<MemoryRouter>
+					<App />
+				</MemoryRouter>
+			</Provider>
+		)
+		expect(screen.getByTestId('login-page')).toBeInTheDocument();
+		expect(screen.queryByTestId('registration-page')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('map-page')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('profile-page')).not.toBeInTheDocument();
+	});
+});
 
-		beforeEach(() => {
-			navigateTo = jest.fn();
-			className = 'btn btn_text';
-		});
-
-		it('should call #navigateTo when click to Map Button', () => {
-			const { getByText } = render(<Button className={className} callBack={() => navigateTo("map")} name="Карта" />);
-			fireEvent.click(getByText(/Карта/i));
-			expect(navigateTo).toHaveBeenCalled();
-		});
-		it('should call #navigateTo when click to Profile Button', () => {
-			const { getByText } = render(<Button className={className} callBack={() => navigateTo("profile")} name="Профиль" />);
-			fireEvent.click(getByText(/Профиль/i));
-			expect(navigateTo).toHaveBeenCalled();
-		});
-		it('should call #navigateTo when click to LogState Button', () => {
-			const { getByText } = render(<Button className={className} callBack={() => navigateTo("login")} name="Выйти" />);
-			fireEvent.click(getByText(/Выйти/i));
-			expect(navigateTo).toHaveBeenCalled();
-		});
-	})
-})
 
 
 

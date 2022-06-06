@@ -1,19 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Reg from './Reg';
-import RegForm from '../../components/registration-form/RegForm';
-import { render } from '@testing-library/react';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 const props = {
-	navigateTo: (page) => {
-		this.context.isLoggetIn === false
-			? this.setState({ currentPage: 'login' })
-			: this.setState({ currentPage: page })
-	}
+	isLoggedIn: false
 }
 
-const setUp = (props) => shallow(<Reg {...props} />)
+let mockStore;
+
+beforeEach(() => {
+	mockStore = {
+		getState: () => ({
+			auth: {
+				isLoggedIn: false,
+				token: '',
+				userData: {},
+				userCardData: {}
+			}
+		}),
+		subscribe: () => { },
+		dispatch: () => { },
+	};
+});
+
+const setUp = (props) => render(
+	<MemoryRouter>
+		<Provider store={mockStore}>
+			<Reg {...props} />
+		</Provider>
+	</MemoryRouter>)
 
 describe('rendering Registration component', () => {
 	it('renders Registration component without crashing', () => {
@@ -23,29 +40,13 @@ describe('rendering Registration component', () => {
 
 	it('should render Registration component with props', () => {
 		const component = setUp(props);
-		const main = component.find('main');
-		expect(main).toHaveLength(1);
+		expect(screen.getByTestId('registration-page')).toBeInTheDocument()
 	});
 })
 
 describe('should render Registration component', () => {
-	let component;
-
-	beforeEach(() => {
-		component = shallow(<Reg />);
-	});
-
-	it('should contain main', () => {
-		const main = component.find('main');
-		expect(main).toHaveLength(1);
-	})
-
-	it('should contain <h1>Регистрация</h1>', () => {
-		const header = (<h1>Регистрация</h1>);
-		expect(component.contains(header)).toEqual(true);
-	})
-
 	it('should contain <RegForm />', () => {
-		expect(component.contains(<RegForm />)).toEqual(true);
+		const component = setUp(props);
+		expect(screen.queryByTestId('registration-form-component')).toBeInTheDocument();
 	})
 })

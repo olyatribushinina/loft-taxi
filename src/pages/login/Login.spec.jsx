@@ -1,46 +1,60 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Login from './Login';
 import LoginForm from '../../components/login-form/LoginForm';
-import { render } from '@testing-library/react';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { shallow } from 'enzyme';
+import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
-const props = {
-	navigateTo: (page) => {
-		this.context.isLoggetIn === false
-			? this.setState({ currentPage: 'login' })
-			: this.setState({ currentPage: page })
-	}
-}
-
-const setUp = (props) => shallow(<Login {...props} />)
-
-describe('rendering Login component', () => {
-	it('renders Login component without crashing', () => {
-		const div = document.createElement('div');
-		expect(div).not.toBeNull();
-	});
-
-	it('should render Login component with props', () => {
-		const component = setUp(props);
-		const main = component.find('main');
-		expect(main).toHaveLength(1);
-	});
-})
-
-describe('should render Login component', () => {
-	let component;
+describe('Login', () => {
+	let mockStore;
 
 	beforeEach(() => {
-		component = shallow(<Login />);
-	});
-
-	it('should contain <h1>Логин</h1>', () => {
-		const header = (<h1>Логин</h1>);
-		expect(component.contains(header)).toEqual(true);
+		mockStore = {
+			getState: () => ({
+				auth: {
+					isLoggedIn: false,
+					token: '',
+					userData: {},
+					userCardData: {}
+				}
+			}),
+			subscribe: () => { },
+			dispatch: () => { },
+		};
 	})
 
-	it('should contain <LoginForm />', () => {
-		expect(component.contains(<LoginForm />)).toEqual(true);
+	const props = {
+		isLoggedIn: false
+	}
+
+	const setUp = (props) => render(
+		<MemoryRouter>
+			<Provider store={mockStore}>
+				<Login {...props} />
+			</Provider>
+		</MemoryRouter>
+	)
+
+	describe('rendering Login component', () => {
+		it('renders Login component without crashing', () => {
+			const div = document.createElement('div');
+			expect(div).not.toBeNull();
+		});
+
+		it('should render Login component with props', () => {
+			const component = setUp(props);
+			expect(screen.getByTestId('login-page')).toBeInTheDocument()
+			screen.debug()
+		});
+	})
+
+	describe('should render Login component', () => {
+		it('should contain <LoginForm />', () => {
+			const component = setUp(props);
+			expect(screen.queryByTestId("login-form-component")).toBeInTheDocument()
+		})
 	})
 })
+
+

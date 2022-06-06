@@ -2,20 +2,22 @@ import React from 'react';
 import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
+import { connect } from 'react-redux'
+
 
 function Map(props) {
-	const { navigateTo } = props;
-
 	return (
-		<>
-			<Header navigateTo={navigateTo} />
+		<div data-testid="map-page">
+			<Header />
 			<MapBox />
-		</>
+		</div>
 	)
 }
 
 Map.propTypes = {
-	navigateTo: PropTypes.func
+	isLoggedIn: PropTypes.bool
 }
 
-export default Map;
+export default connect(
+	(state) => ({ isLoggedIn: state.auth.isLoggedIn })
+)(Map);

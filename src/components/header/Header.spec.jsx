@@ -1,21 +1,44 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Header from './Header';
-import Logo from './../../logo.svg';
 import { render, fireEvent, screen } from "@testing-library/react";
-import { shallow } from 'enzyme';
-import Button from './../button/Button';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from "react-router-dom";
+import { createMemoryHistory } from 'history';
+import { Link } from 'react-router-dom';
+import { Router } from "react-router-dom";
 
 describe('Header', () => {
+
+	let mockStore;
+
+	beforeEach(() => {
+		mockStore = {
+			getState: () => ({
+				auth: {
+					isLoggedIn: false,
+					token: '',
+					userData: {},
+					userCardData: {}
+				}
+			}),
+			subscribe: () => { },
+			dispatch: () => { },
+		};
+	});
+
 	const props = {
-		navigateTo: (page) => {
-			this.context.isLoggetIn === false
-				? this.setState({ currentPage: 'login' })
-				: this.setState({ currentPage: page })
-		}
+		isLoggedIn: true,
+		logOut: () => ({ type: LOG_OUT })
 	}
 
-	const setUp = (props) => shallow(<Header {...props} />)
+	const setUp = (props) => render(
+		<MemoryRouter>
+			<Provider store={mockStore}>
+				<Header {...props} />
+			</Provider>
+		</MemoryRouter>
+
+	)
 
 	describe('rendering Header component', () => {
 		it('renders Header component without crashing', () => {
@@ -25,31 +48,44 @@ describe('Header', () => {
 
 		it('should render Header component with props', () => {
 			const component = setUp(props);
-			const header = component.find('header');
-			expect(header).toHaveLength(1);
+			expect(screen.getByTestId('header')).toBeInTheDocument();
 		});
 	})
 
 	describe('should render Header component', () => {
-		let component;
 
 		beforeEach(() => {
-			component = shallow(<Header />);
-		});
-
-		it('should contain logo', () => {
-			const logo = (<div className="logo">
-				<img src={Logo} className="App-logo" alt="logo" />
-			</div>);
-			expect(component.contains(logo)).toEqual(true);
+			render(
+				<MemoryRouter>
+					<Provider store={mockStore}>
+						<Header {...props} />
+					</Provider>
+				</MemoryRouter>
+			)
 		})
 
-		it('should contain three <Button />', () => {
-			const buttons = component.find(Button);
-			expect(buttons.length).toBe(3);
+		it('should contain logo', () => {
+			const logo = screen.getByAltText(/logo/i);
+			expect(logo).toBeInTheDocument();
+		})
+
+		it('should contain map link', () => {
+			const map = screen.getByText(/Карта/i);
+			expect(map).toBeInTheDocument();
+		})
+
+		it('should contain profile link', () => {
+			const profile = screen.getByText(/Профиль/i);
+			expect(profile).toBeInTheDocument();
+		})
+
+		it('should contain exit btn', () => {
+			const exit = screen.getByText(/Выйти/i);
+			expect(exit).toBeInTheDocument();
 		})
 
 	})
 })
+
 
 
