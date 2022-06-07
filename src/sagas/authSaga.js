@@ -34,8 +34,6 @@ export function* authenticateSaga(action) {
 				'isLoggedIn': true,
 				'token': result.token
 			}
-			// localStorage.setItem('isLoggedIn', true);
-			// localStorage.setItem('token', result.token);
 			localStorage.setItem('auth', JSON.stringify(auth));
 		}
 	} catch (error) {
@@ -46,10 +44,6 @@ export function* authenticateSaga(action) {
 function* authSaga() {
 	yield takeEvery(REGISTRATION, registrationSaga);
 	yield takeEvery(AUTHENTICATE, authenticateSaga);
-	// yield takeEvery(SAVE_USER_CARD_DATA, paymentSaga);
-	// yield takeEvery(GET_USER_CARD_DATA, paymentSaga);
-	// yield takeEvery(fetchAddressListRequest, addressListSaga);
-	// yield takeEvery(fetchRouteRequest, routeSaga);
 }
 
 export default authSaga;

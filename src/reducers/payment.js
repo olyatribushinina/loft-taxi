@@ -1,8 +1,6 @@
 import { SAVED_CARD_DATA } from "../actions/actions";
 
-// Reducer
 export const initialState = {
-	// userCardData: {}
 };
 
 export default function (state = initialState, action) {
@@ -10,7 +8,6 @@ export default function (state = initialState, action) {
 		case SAVED_CARD_DATA: {
 			return {
 				...state,
-				// userCardData: { ...action.userCardData }
 				...action.userCardData
 			}
 		}

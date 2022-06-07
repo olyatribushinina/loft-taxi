@@ -1,15 +1,15 @@
-import { FETCH_ADRESS_LIST_SUCCESS } from "../actions/actions";
+import { FETCH_ROUTE_SUCCESS } from "../actions/actions";
 
 export const initialState = {
-	adress: {}
+	routePoints: {}
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case FETCH_ADRESS_LIST_SUCCESS: {
+		case FETCH_ROUTE_SUCCESS: {
 			return {
 				...state,
-				adress: { ...action.data }
+				routePoints: { ...action.data }
 			}
 		}
 		default:

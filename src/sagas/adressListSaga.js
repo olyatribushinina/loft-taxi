@@ -6,8 +6,9 @@ export function* fetchAddressList(action) {
 	try {
 		const result = yield call(serverGetAdressList);
 		if (result) {
-			console.log(result.addresses)
+			// console.log(result.addresses)
 			yield put(fetchAddressListSuccess(result.addresses))
+			localStorage.setItem('addresses', JSON.stringify(result.addresses));
 		}
 
 	} catch (error) {

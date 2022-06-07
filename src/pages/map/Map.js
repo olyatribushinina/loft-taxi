@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
@@ -11,16 +11,26 @@ import { Button } from '@mui/material';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import { Link } from 'react-router-dom';
-import { getAdressList } from '../../actions/actions';
+import { getAdressList, getRouteData } from '../../actions/actions';
 import { useEffect } from 'react';
 
 function Map(props) {
 	const theme = useTheme();
 	let storageUserCardData = {};
+	let adresses = Object.values(props.adress);
 
 	if (localStorage.length && localStorage.getItem('userCardData')) {
 		storageUserCardData = JSON.parse(localStorage.getItem('userCardData'))
 	}
+
+	const [inputValues, setInputValues] = useState({
+		from: '', to: ''
+	})
+
+	const handleChange = useCallback(e => {
+		const { name, value } = e.target;
+		setInputValues({ ...inputValues, [name]: value });
+	});
 
 	useEffect(() => {
 		if (Object.keys(storageUserCardData).length) {
@@ -28,19 +38,14 @@ function Map(props) {
 		}
 	}, [])
 
-	const handleFocus = (e) => {
-		// console.log('focus')
-	}
-
-	const handleChange = (e) => {
-		let filteredAdresses = adresses.filter(i => i !== e.target.value)
-		console.log(filteredAdresses)
-	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (Object.values(inputValues).length) {
+			props.getRouteData(inputValues.from, inputValues.to)
+		}
+		console.log(props.routePoints)
 	}
 
-	let adresses = Object.values(props.adress);
 	return (
 		<div data-testid="map-page">
 			<Header />
@@ -56,14 +61,14 @@ function Map(props) {
 										<Autocomplete
 											autoComplete
 											includeInputInList
-											options={adresses}
-											renderInput={(params) => <TextField {...params} onFocus={handleFocus} onSelect={handleChange} label="откуда" margin="none" />}
+											options={adresses.filter(i => i !== inputValues.to)}
+											renderInput={(params) => <TextField {...params} name="from" label="откуда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
 										/>
 										<Autocomplete
 											autoComplete
 											includeInputInList
-											options={adresses}
-											renderInput={(params) => <TextField {...params} label="куда" margin="none" onFocus={handleFocus} onSelect={handleChange} />}
+											options={adresses.filter(i => i !== inputValues.from)}
+											renderInput={(params) => <TextField {...params} name="to" label="куда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
 										/>
 									</Stack>
 								</Grid>
@@ -116,14 +121,17 @@ function Map(props) {
 Map.propTypes = {
 	isLoggedIn: PropTypes.bool,
 	userCardData: PropTypes.object,
-	adress: PropTypes.object
+	adress: PropTypes.object,
+	getAdressList: PropTypes.func,
+	getRouteData: PropTypes.func
 }
 
 export default connect(
 	(state) => ({
 		isLoggedIn: state.auth.isLoggedIn,
 		userCardData: state.payment.userCardData,
-		adress: state.adressList.adress
+		adress: state.adressList.adress,
+		routePoints: state.route.routePoints
 	}),
-	{ getAdressList }
+	{ getAdressList, getRouteData }
 )(Map);

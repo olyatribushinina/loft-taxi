@@ -1,8 +1,21 @@
-// function* routeSaga(action) {
-// 	try {
-// 		const result = yield call(serverRoute);
-// 		yield put(fetchRouteSuccess(result))
-// 	} catch (error) {
-// 		yield put(fetchRouteFailure(error))
-// 	}
-// }
+import { takeEvery, call, put } from 'redux-saga/effects'
+import { GET_ROUTE_DATA, fetchRouteSuccess } from '../actions/actions';
+import { serverGetRoute } from '../api/api'
+
+function* getRouteDataSaga(action) {
+	try {
+		const { from, to } = action.payload;
+		const result = yield call(serverGetRoute, from, to);
+		// console.log(result)
+		yield put(fetchRouteSuccess(result))
+		// localStorage.setItem('routePoints', JSON.stringify(result));
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+function* routeSaga() {
+	yield takeEvery(GET_ROUTE_DATA, getRouteDataSaga);
+}
+
+export default routeSaga;

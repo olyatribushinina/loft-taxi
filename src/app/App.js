@@ -15,7 +15,6 @@ class App extends React.Component {
 		if (localStorage.length && localStorage.getItem('auth')) {
 			storageAuth = JSON.parse(localStorage.getItem('auth'))
 		}
-		console.log(storageAuth)
 
 		return (
 			<>

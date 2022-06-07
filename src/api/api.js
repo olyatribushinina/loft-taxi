@@ -119,3 +119,23 @@ export const serverGetAdressList = async () => {
 			console.log(e.response);
 		})
 };
+
+export const serverGetRoute = async (from, to) => {
+
+	return await fetch(`https://loft-taxi.glitch.me/route?address1=${from}&address2=${to}`, { method: 'GET' })
+		.then((res) => {
+			if (res.ok) {
+				return res;
+			} else {
+				let error = new Error(res.statusText);
+				error.response = res;
+				throw error
+			}
+		})
+		.then(r => r.json())
+		.then(data => data)
+		.catch((e) => {
+			console.log('Error: ' + e.message);
+			console.log(e.response);
+		})
+};

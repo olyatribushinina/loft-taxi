@@ -24,35 +24,13 @@ class Header extends React.Component {
 
 	exit = () => {
 		this.props.logOut()
-		localStorage.removeItem('auth')
+		localStorage.removeItem('auth');
+		localStorage.removeItem('userCardData');
 	}
 
 	render() {
 		let className = 'btn btn_text';
 		return (
-			// <div data-testid="header">
-			// 	<header className="header">
-			// 		<div className="container">
-			// 			<div className="d-flex items-center">
-			// 				<div className="logo">
-			// 					<img src={Logo} className="App-logo" alt="logo" />
-			// 				</div>
-			// 				<nav className='nav d-flex items-center'>
-			// 					<ul className='nav__list d-flex items-center'>
-			// 						<li className='nav__item'>
-			// 							<Link className="btn btn_text" to="/map">Карта</Link>
-			// 						</li>
-			// 						<li className='nav__item'>
-			// 							<Link className="btn btn_text" to="/profile">Профиль</Link>
-			// 						</li>
-			// 						<li className='nav__item'>
-			// 							<Button className={className} callBack={this.props.logOut} name="Выйти" />
-			// 						</li>
-			// 					</ul>
-			// 				</nav>
-			// 			</div>
-			// 		</div>
-			// 	</header>
 			<div data-testid="header">
 				<AppBar className="header" color="primary" position="static">
 					<Container maxWidth="xl">

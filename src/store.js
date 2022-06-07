@@ -11,8 +11,7 @@ sagaMiddleware.run(RootSaga);
 
 store.subscribe(() => {
 	// localStorage['redux-store'] = JSON.stringify(store.getState());
-	// console.log(store.getState())
-	// console.log(JSON.parse(localStorage.getItem('redux-store')).payment.userCardData);
+	console.log(store.getState())
 });
 
 // localStorage.clear()
