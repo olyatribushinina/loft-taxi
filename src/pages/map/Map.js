@@ -43,7 +43,6 @@ function Map(props) {
 		if (Object.values(inputValues).length) {
 			props.getRouteData(inputValues.from, inputValues.to)
 		}
-		console.log(props.routePoints)
 	}
 
 	return (
@@ -130,8 +129,7 @@ export default connect(
 	(state) => ({
 		isLoggedIn: state.auth.isLoggedIn,
 		userCardData: state.payment.userCardData,
-		adress: state.adressList.adress,
-		routePoints: state.route.routePoints
+		adress: state.adressList.adress
 	}),
 	{ getAdressList, getRouteData }
 )(Map);

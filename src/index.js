@@ -1,6 +1,6 @@
 import React from 'react';
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 import App from './app/App';
 import { theme } from "loft-taxi-mui-theme";

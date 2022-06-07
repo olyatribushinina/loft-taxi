@@ -21,9 +21,10 @@ class Profile extends React.Component {
 		e.preventDefault();
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
 		let token = '';
-		if (localStorage.length && localStorage.getItem('redux-store')) {
-			token = JSON.parse(localStorage.getItem('redux-store')).auth.token;
+		if (localStorage.length && localStorage.getItem('auth')) {
+			token = JSON.parse(localStorage.getItem('auth')).token;
 		}
+
 		this.props.saveUserCardData(cardNumber, expiryDate, cardName, cvc, token);
 	};
 
@@ -33,6 +34,7 @@ class Profile extends React.Component {
 
 	render() {
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
+
 		return (
 			<div data-testid="profile-page">
 				<Header />

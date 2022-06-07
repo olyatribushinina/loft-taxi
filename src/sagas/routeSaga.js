@@ -6,9 +6,7 @@ function* getRouteDataSaga(action) {
 	try {
 		const { from, to } = action.payload;
 		const result = yield call(serverGetRoute, from, to);
-		// console.log(result)
 		yield put(fetchRouteSuccess(result))
-		// localStorage.setItem('routePoints', JSON.stringify(result));
 	} catch (error) {
 		console.log(error)
 	}
