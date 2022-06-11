@@ -1,6 +1,8 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import MapBox from './MapBox'
+import { render, shallow } from "@testing-library/react";
+import MapBox from './MapBox';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from "react-router-dom";
 
 jest.mock("mapbox-gl", () => ({
 	GeolocateControl: jest.fn(),
@@ -13,8 +15,24 @@ jest.mock("mapbox-gl", () => ({
 
 describe("MapBox", () => {
 	it("renders correctly", () => {
-		const { container } = render(<MapBox />)
 
-		expect(container.getElementsByClassName('map-container').length).toBeTruthy();
+		let mockStore = {
+			getState: () => ({
+				route: {
+					coords: []
+				}
+			}),
+			subscribe: () => { },
+			dispatch: () => { },
+		};
+		const { getByTestId } = render(
+			<MemoryRouter>
+				<Provider store={mockStore}>
+					<MapBox />
+				</Provider>
+			</MemoryRouter>
+		)
+
+		expect(getByTestId('map').length).toBeTruthy();
 	});
 });

@@ -10,8 +10,7 @@ export const store = createStore(rootReduser, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(RootSaga);
 
 store.subscribe(() => {
-	// localStorage['redux-store'] = JSON.stringify(store.getState());
-	console.log(store.getState())
+	// console.log(store.getState())
 });
 
 // localStorage.clear()

@@ -20,6 +20,7 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		const { email, password } = this.state;
 		this.props.authenticate(email, password);
+		// console.log(this.props.isLoggedIn)
 		this.handleReset();
 	};
 

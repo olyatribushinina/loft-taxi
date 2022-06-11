@@ -21,10 +21,10 @@ const MapBox = ({ coords }) => {
 			zoom: zoom
 		});
 
-		console.log(coords)
+		// console.log(coords)
 
 		map.on('load', () => {
-			if (coords) {
+			if (coords.length) {
 				drawRoute(map, coords)
 			}
 		})
@@ -41,7 +41,7 @@ const MapBox = ({ coords }) => {
 };
 
 MapBox.propTypes = {
-	coords: PropTypes.object
+	coords: PropTypes.array
 }
 
 export default connect(

@@ -1,11 +1,11 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
 import { GET_ROUTE_DATA, fetchRouteSuccess } from '../actions/actions';
-import { serverGetRoute } from '../api/api'
+import { serverGetCoords } from '../api/api'
 
-function* getRouteDataSaga(action) {
+export function* getRouteDataSaga(action) {
 	try {
 		const { from, to } = action.payload;
-		const result = yield call(serverGetRoute, from, to);
+		const result = yield call(serverGetCoords, from, to);
 		yield put(fetchRouteSuccess(result))
 	} catch (error) {
 		console.log(error)

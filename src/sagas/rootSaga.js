@@ -4,7 +4,7 @@ import AddressListSaga from './adressListSaga';
 import RouteSaga from './routeSaga';
 import { fork, call } from 'redux-saga/effects';
 
-function* rootSaga() {
+export function* rootSaga() {
 	yield fork(AuthSaga);
 	yield fork(PaymentSaga);
 	yield fork(AddressListSaga);

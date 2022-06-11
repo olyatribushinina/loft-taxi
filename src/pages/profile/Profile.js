@@ -20,10 +20,8 @@ class Profile extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
-		let token = '';
-		if (localStorage.length && localStorage.getItem('auth')) {
-			token = JSON.parse(localStorage.getItem('auth')).token;
-		}
+		// console.log(this.props.setStorageAuth)
+		let token = this.props.storage.token;
 
 		this.props.saveUserCardData(cardNumber, expiryDate, cardName, cvc, token);
 	};
@@ -37,7 +35,7 @@ class Profile extends React.Component {
 
 		return (
 			<div data-testid="profile-page">
-				<Header />
+				<Header setStorageAuth={this.props.setStorageAuth} />
 				<main className='maincontent'>
 					<div className='container'>
 						<h1>Профиль</h1>

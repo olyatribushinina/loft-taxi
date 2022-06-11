@@ -1,7 +1,7 @@
 import { FETCH_ROUTE_SUCCESS } from "../actions/actions";
 
 export const initialState = {
-	coords: {}
+	coords: []
 };
 
 export default function (state = initialState, action) {
@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
 		case FETCH_ROUTE_SUCCESS: {
 			return {
 				...state,
-				coords: { ...action.data }
+				coords: [...action.data]
 			}
 		}
 		default:

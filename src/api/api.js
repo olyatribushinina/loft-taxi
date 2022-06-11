@@ -51,7 +51,7 @@ export const serverRegistration = async (email, password, name, surname) => {
 		});
 };
 
-export const serverPostPayment = async (cardNumber, expiryDate, cardName, cvc, token) => {
+export const serverPostCardData = async (cardNumber, expiryDate, cardName, cvc, token) => {
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -79,7 +79,7 @@ export const serverPostPayment = async (cardNumber, expiryDate, cardName, cvc, t
 
 // GET 
 
-export const serverGetPayment = async (token) => {
+export const serverGetCardData = async (token) => {
 
 	return await fetch(`https://loft-taxi.glitch.me/card?token=${token}`)
 		.then((res) => {
@@ -120,7 +120,7 @@ export const serverGetAdressList = async () => {
 		})
 };
 
-export const serverGetRoute = async (from, to) => {
+export const serverGetCoords = async (from, to) => {
 
 	return await fetch(`https://loft-taxi.glitch.me/route?address1=${from}&address2=${to}`, { method: 'GET' })
 		.then((res) => {

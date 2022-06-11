@@ -1,6 +1,6 @@
-import { takeEvery, call, put } from 'redux-saga/effects'
-import { AUTHENTICATE, REGISTRATION, logIn, getToken, savedUserData } from '../actions/actions';
-import { serverRegistration, serverLogIn } from '../api/api'
+import { takeEvery, call, fork, put } from 'redux-saga/effects'
+import { AUTHENTICATE, REGISTRATION, logIn, getToken, savedUserData, savedCardData } from '../actions/actions';
+import { serverRegistration, serverLogIn, serverGetCardData } from '../api/api'
 
 export function* registrationSaga(action) {
 	try {
@@ -35,6 +35,15 @@ export function* authenticateSaga(action) {
 				'token': result.token
 			}
 			localStorage.setItem('auth', JSON.stringify(auth));
+
+			const { token } = action.payload;
+			const resultCardData = yield call(serverGetCardData, token);
+			if (resultCardData) {
+				// console.log(resultCardData)
+				yield put(savedCardData(resultCardData))
+				localStorage.setItem('userCardData', JSON.stringify(resultCardData));
+			}
+
 		}
 	} catch (error) {
 		console.log(error)

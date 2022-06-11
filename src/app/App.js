@@ -8,24 +8,46 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from "react-router-dom";
 
 class App extends React.Component {
+	static propTypes = {
+		isLoggedIn: PropTypes.bool
+	}
 
-	render() {
-		let storageAuth = {}
+	state = {
+		storageAuth: {},
+	}
 
-		if (localStorage.length && localStorage.getItem('auth')) {
-			storageAuth = JSON.parse(localStorage.getItem('auth'))
+	componentDidMount() {
+		this.setState({ storageAuth: JSON.parse(localStorage.getItem('auth')) })
+		const { storageAuth } = this.state;
+		console.log(storageAuth)
+	}
+
+	componentDidUpdate(prevProps) {
+		const { storageAuth } = this.state;
+		if (this.props !== prevProps) {
+			let prop = JSON.parse(localStorage.getItem('auth'));
+			this.setStorage(prop)
 		}
 
+		// console.log(storageAuth)
+	}
+
+	setStorage = (prop) => {
+		this.setState({ storageAuth: prop })
+	}
+
+	render() {
+		const { storageAuth } = this.state;
 		return (
 			<>
 				<Switch>
 
 					{
-						storageAuth.isLoggedIn
+						storageAuth?.isLoggedIn
 							?
 							(<>
-								<Route path="/map" component={Map} />
-								<Route path="/profile" component={Profile} />
+								<Route path="/map" render={() => <Map storage={storageAuth} setStorageAuth={this.setStorage} />} />
+								<Route path="/profile" render={() => <Profile storage={storageAuth} setStorageAuth={this.setStorage} />} />
 								<Redirect to="/map" />
 
 							</>)
@@ -40,10 +62,6 @@ class App extends React.Component {
 			</>
 		);
 	}
-}
-
-App.propTypes = {
-	isLoggedIn: PropTypes.bool
 }
 
 export default connect(

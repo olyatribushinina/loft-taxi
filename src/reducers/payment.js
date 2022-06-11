@@ -1,6 +1,7 @@
 import { SAVED_CARD_DATA } from "../actions/actions";
 
 export const initialState = {
+	userCardData: {}
 };
 
 export default function (state = initialState, action) {
@@ -8,7 +9,7 @@ export default function (state = initialState, action) {
 		case SAVED_CARD_DATA: {
 			return {
 				...state,
-				...action.userCardData
+				userCardData: { ...action.userCardData }
 			}
 		}
 		default:

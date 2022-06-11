@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
@@ -8,20 +8,13 @@ import { Paper } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { Button } from '@mui/material';
-import { useTheme } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import { Link } from 'react-router-dom';
-import { getAdressList, getRouteData } from '../../actions/actions';
-import { useEffect } from 'react';
+import { getAdressList, getRouteData, getUserCardData } from '../../actions/actions';
 
 function Map(props) {
-	const theme = useTheme();
-	let storageUserCardData = {};
 	let adresses = Object.values(props.adress);
-
-	if (localStorage.length && localStorage.getItem('userCardData')) {
-		storageUserCardData = JSON.parse(localStorage.getItem('userCardData'))
-	}
+	const storagePayment = JSON.parse(localStorage.getItem('userCardData'));
 
 	const [inputValues, setInputValues] = useState({
 		from: '', to: ''
@@ -33,24 +26,24 @@ function Map(props) {
 	});
 
 	useEffect(() => {
-		if (Object.keys(storageUserCardData).length) {
+		if (storagePayment) {
 			props.getAdressList()
 		}
-	}, [])
+	}, [storagePayment])
 
-	const handleSubmit = (e) => {
+	function handleSubmit(e) {
 		e.preventDefault();
 		if (Object.values(inputValues).length) {
-			props.getRouteData(inputValues.from, inputValues.to)
+			props.getRouteData(inputValues.from, inputValues.to);
 		}
 	}
 
 	return (
 		<div data-testid="map-page">
-			<Header />
+			<Header setStorageAuth={props.setStorageAuth} />
 			<MapBox />
 			{
-				storageUserCardData.hasOwnProperty("cardNumber", "expiryDate", "cardName", "cvc")
+				storagePayment?.hasOwnProperty("cardNumber", "expiryDate", "cardName", "cvc")
 					?
 					(<Paper variant="elevation" square={true} id="routepoints">
 						<form name="RouteForm" onSubmit={handleSubmit}>
@@ -131,5 +124,5 @@ export default connect(
 		userCardData: state.payment.userCardData,
 		adress: state.adressList.adress
 	}),
-	{ getAdressList, getRouteData }
+	{ getAdressList, getRouteData, getUserCardData }
 )(Map);

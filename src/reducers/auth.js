@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA, SAVED_CARD_DATA } from "../actions/actions";
+import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA } from "../actions/actions";
 
 export const initialState = {
 	isLoggedIn: false,

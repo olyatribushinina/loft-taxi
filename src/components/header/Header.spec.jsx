@@ -3,9 +3,6 @@ import Header from './Header';
 import { render, fireEvent, screen } from "@testing-library/react";
 import { Provider } from 'react-redux';
 import { MemoryRouter } from "react-router-dom";
-import { createMemoryHistory } from 'history';
-import { Link } from 'react-router-dom';
-import { Router } from "react-router-dom";
 
 describe('Header', () => {
 
