@@ -10,9 +10,27 @@ import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 import { Button } from '@mui/material';
 import Typography from "@material-ui/core/Typography";
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { withStyles } from '@material-ui/core';
 import { getAdressList, getRouteData, getUserCardData } from '../../actions/actions';
+import moduleButtonStyles from '../../components/Button.module.css';
+
+const styles = theme => ({
+	paper: {
+		boxShadow: '0px 0px 40px rgba(0, 0, 0, 0.1)',
+		borderRadius: '20px'
+	},
+	link: {
+		color: '#fff',
+	},
+	button: {
+		backgroundColor: '#FDBF5A',
+		borderRadius: ' 40px',
+	}
+})
 
 function Map(props) {
+	const { paper, link, button } = props.classes;
 	let adresses = Object.values(props.adress);
 	const storagePayment = JSON.parse(localStorage.getItem('userCardData'));
 
@@ -45,7 +63,7 @@ function Map(props) {
 			{
 				storagePayment?.hasOwnProperty("cardNumber", "expiryDate", "cardName", "cvc")
 					?
-					(<Paper variant="elevation" square={true} id="routepoints">
+					(<Paper className={paper} id="routepoints">
 						<form name="RouteForm" onSubmit={handleSubmit}>
 							<Grid container>
 								<Grid item xs={12}>
@@ -93,14 +111,14 @@ function Map(props) {
 						</form>
 					</Paper>)
 					:
-					(<Paper variant="elevation" square={true} id="routepoints">
-						<Grid container>
+					(<Paper className={paper} id="routepoints">
+						<Grid container spacing={6}>
 							<Grid item xs={12}>
-								<Typography color="inherit" variant="h4">Введите данные карты</Typography>
+								<Typography align="center" color="inherit" variant="h4">Введите данные карты</Typography>
 							</Grid>
 							<Grid item xs={12}>
-								<Button variant="contained" color="inherit" fullWidth>
-									<Link to="/profile">Перейти в профиль</Link>
+								<Button variant="contained" color="primary" className={button} fullWidth>
+									<Link to="/profile" className={link}>Перейти в профиль</Link>
 								</Button>
 							</Grid>
 						</Grid>
@@ -118,11 +136,14 @@ Map.propTypes = {
 	getRouteData: PropTypes.func
 }
 
-export default connect(
-	(state) => ({
-		isLoggedIn: state.auth.isLoggedIn,
-		userCardData: state.payment.userCardData,
-		adress: state.adressList.adress
-	}),
-	{ getAdressList, getRouteData, getUserCardData }
+export default compose(
+	connect(
+		state => ({
+			isLoggedIn: state.auth.isLoggedIn,
+			userCardData: state.payment.userCardData,
+			adress: state.adressList.adress
+		}),
+		{ getAdressList, getRouteData, getUserCardData }
+	),
+	withStyles(styles),
 )(Map);

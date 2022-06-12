@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import Button from '../button/Button';
-import Logo from './../../logo.svg';
+import HeaderModuleStyles from './Header.module.css';
+import Logo from './../../images/logo-header.svg';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,9 +12,24 @@ import { ButtonGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core';
+import { compose } from 'redux';
 
-const Header = ({ isLoggedIn, logOut, setStorageAuth }) => {
+const styles = theme => ({
+	appbar: {
+		backgroundColor: ' #1C1A19',
+		paddingTop: '4px',
+		paddingBottom: '4px'
+	},
+	button: {
+		color: '#fff'
+	}
+})
+
+const Header = (props) => {
 	// console.log(setStorage)
+	const { isLoggedIn, logOut, setStorageAuth } = props;
+	const { appbar, button } = props.classes;
 	const exit = () => {
 		logOut()
 		// console.log(isLoggedIn)
@@ -27,7 +42,7 @@ const Header = ({ isLoggedIn, logOut, setStorageAuth }) => {
 
 	return (
 		<div data-testid="header">
-			<AppBar className="header" color="primary" position="static">
+			<AppBar className={appbar} position="static">
 				<Container maxWidth="xl">
 					<Toolbar>
 						<Grid container spacing={2}
@@ -43,9 +58,9 @@ const Header = ({ isLoggedIn, logOut, setStorageAuth }) => {
 								<Grid container
 									direction="row"
 									justifyContent="flex-end">
-									<Button variant="text"><Link className="btn btn_text" to="/map">Карта</Link></Button>
-									<Button variant="text"><Link className="btn btn_text" to="/profile">Профиль</Link></Button>
-									<Button variant="text" onClick={exit}>Выйти</Button>
+									<Button variant="text"><Link className={button} to="/map">Карта</Link></Button>
+									<Button variant="text"><Link className={button} to="/profile">Профиль</Link></Button>
+									<Button variant="text" onClick={exit} className={button}>Выйти</Button>
 								</Grid>
 							</Grid>
 						</Grid>
@@ -62,7 +77,10 @@ Header.propTypes = {
 	logOut: PropTypes.func
 }
 
-export default connect(
-	state => ({ isLoggedIn: state.auth.isLoggedIn }),
-	{ logOut }
+export default compose(
+	connect(
+		state => ({ isLoggedIn: state.auth.isLoggedIn }),
+		{ logOut }
+	),
+	withStyles(styles),
 )(Header);

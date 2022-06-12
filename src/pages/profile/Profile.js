@@ -1,8 +1,18 @@
 import React from 'react'
 import Header from '../../components/header/Header';
+import Logo from './../../images/logo-main.svg';
+import Background from '../../images/map-over.png'
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { saveUserCardData } from './../../actions/actions'
+import { saveUserCardData } from './../../actions/actions';
+import { compose } from 'redux';
+import { withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+	filled: {
+		background: `center / cover no-repeat url(${Background})`
+	}
+})
 
 class Profile extends React.Component {
 	static propTypes = {
@@ -32,13 +42,12 @@ class Profile extends React.Component {
 
 	render() {
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
-
+		const { filled } = this.props.classes;
 		return (
 			<div data-testid="profile-page">
 				<Header setStorageAuth={this.props.setStorageAuth} />
-				<main className='maincontent'>
+				<main className={filled} >
 					<div className='container'>
-						<h1>Профиль</h1>
 						<div className="form" id="card-data-form">
 							<div className="form__title">Профиль</div>
 							<p className="t-center">Введите платежные данные</p>
@@ -85,7 +94,10 @@ class Profile extends React.Component {
 
 }
 
-export default connect(
-	(state) => ({ isLoggedIn: state.auth.isLoggedIn }),
-	{ saveUserCardData }
+export default compose(
+	connect(
+		state => ({ isLoggedIn: state.auth.isLoggedIn }),
+		{ saveUserCardData }
+	),
+	withStyles(styles),
 )(Profile);
