@@ -101,11 +101,7 @@ class RegForm extends React.Component {
 								</Stack>
 							</Grid>
 							<Grid item mb={4}>
-								<input
-									type="submit"
-									className={moduleButtonStyles.themeBackgroundColor}
-									placeholder="Зарегистрироваться"
-									defaultValue="Зарегистрироваться" />
+								<Button variant="contained" fullWidth type="submit">Зарегистрироваться</Button>
 							</Grid>
 							<Grid item>
 								<Stack direction="row" alignItems="center" justifyContent="center">

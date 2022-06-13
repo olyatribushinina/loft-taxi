@@ -70,6 +70,7 @@ input {
 .container {
   margin: 0 auto;
   height: 100%;
+  min-height: inherit;
 }
 
 .maincontent {
@@ -78,6 +79,10 @@ input {
 
 .header {
   background-color: #1C1A19;
+}
+
+section {
+	min-height: inherit;
 }
 
 .logo {
@@ -123,8 +128,6 @@ input {
 .btn_text.active {
   color: #FDBF5A;
 }
-
-
 
 .form {
   max-width: 580px;

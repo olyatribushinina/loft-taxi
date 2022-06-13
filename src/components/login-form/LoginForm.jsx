@@ -89,10 +89,11 @@ class LoginForm extends React.Component {
 								</Stack>
 							</Grid>
 							<Grid item mt={4}>
-								<input type="submit"
+								{/* <input type="submit"
 									className={moduleButtonStyles.themeBackgroundColor}
 									placeholder="Войти"
-									defaultValue="Войти" />
+									defaultValue="Войти" /> */}
+								<Button variant="contained" fullWidth type="submit">Войти</Button>
 							</Grid>
 						</Grid>
 					</form>
