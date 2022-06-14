@@ -1,6 +1,7 @@
-import { FETCH_ROUTE_SUCCESS } from "../actions/actions";
+import { FETCH_ROUTE_SUCCESS, ORDER, RESET_ROUTE_DATA } from "../actions/actions";
 
 export const initialState = {
+	isOrdered: false,
 	coords: []
 };
 
@@ -9,7 +10,15 @@ export default function (state = initialState, action) {
 		case FETCH_ROUTE_SUCCESS: {
 			return {
 				...state,
-				coords: [...action.data]
+				coords: [...action.data],
+				isOrdered: true
+			}
+		}
+		case RESET_ROUTE_DATA: {
+			return {
+				...state,
+				coords: [],
+				isOrdered: false
 			}
 		}
 		default:

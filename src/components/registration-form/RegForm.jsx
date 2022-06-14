@@ -1,12 +1,10 @@
 import React from 'react';
-// import Button from '../button/Button';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { registration } from './../../actions/actions';
 import { Link } from 'react-router-dom';
 import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box, Grid, Button, Stack } from '@mui/material';
 import moduleFormStyles from '../Form.module.css';
-import moduleButtonStyles from '../Button.module.css';
 
 class RegForm extends React.Component {
 	static propTypes = {
@@ -59,7 +57,7 @@ class RegForm extends React.Component {
 								</FormControl>
 							</Grid>
 							<Grid item mb={3}>
-								<Stack direction="column">
+								<Stack direction="row" spacing={1}>
 									<FormControl fullWidth>
 										<InputLabel htmlFor="name">Имя*</InputLabel>
 										<Input
@@ -70,10 +68,6 @@ class RegForm extends React.Component {
 											value={name}
 											onChange={this.handleChange} />
 									</FormControl>
-								</Stack>
-							</Grid>
-							<Grid item mb={3}>
-								<Stack direction="column">
 									<FormControl fullWidth>
 										<InputLabel htmlFor="surname">Фамилия*</InputLabel>
 										<Input
@@ -87,18 +81,16 @@ class RegForm extends React.Component {
 								</Stack>
 							</Grid>
 							<Grid item mb={3}>
-								<Stack direction="column">
-									<FormControl fullWidth>
-										<InputLabel htmlFor="password">Придумайте пароль*</InputLabel>
-										<Input
-											id="password"
-											type="password"
-											name="password"
-											placeholder="********"
-											value={password}
-											onChange={this.handleChange} />
-									</FormControl>
-								</Stack>
+								<FormControl fullWidth>
+									<InputLabel htmlFor="password">Придумайте пароль*</InputLabel>
+									<Input
+										id="password"
+										type="password"
+										name="password"
+										placeholder="********"
+										value={password}
+										onChange={this.handleChange} />
+								</FormControl>
 							</Grid>
 							<Grid item mb={4}>
 								<Button variant="contained" fullWidth type="submit">Зарегистрироваться</Button>
@@ -107,7 +99,6 @@ class RegForm extends React.Component {
 								<Stack direction="row" alignItems="center" justifyContent="center">
 									<span>Уже зарегистрированы?</span>
 									<Link
-										className={moduleButtonStyles.themeColor}
 										to="/">Войти</Link>
 								</Stack>
 							</Grid>

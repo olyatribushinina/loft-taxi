@@ -1,5 +1,6 @@
 .section {
     position: relative;
+	pointer-events: none;
 }
 
 .container {
@@ -12,6 +13,7 @@
 	width: 486px;
 	left: 24px;
 	top: 24px;
+	pointer-events: all;
 }
 
 .paper {

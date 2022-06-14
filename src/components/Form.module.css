@@ -21,6 +21,20 @@
 	margin-bottom: 55px;
 }
 
+.messageBlockTitle {
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 42px;
+	margin: 0;
+}
+
+.messageBlockDescription {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	color: #7B7B7B;
+}
+
 .item {
 	display: flex;
 	flex-direction: column;

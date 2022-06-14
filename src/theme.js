@@ -2,7 +2,8 @@ import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
 	palette: {
-		primary: { main: '#ffc617', dark: '#c27c23' }
+		primary: { main: '#ffc617' },
+		secondary: { main: '#1C1A19' }
 	},
 	components: {
 		// Name of the component
@@ -10,31 +11,33 @@ export const theme = createTheme({
 			styleOverrides: {
 				// Name of the slot
 				root: {
-					textTransform: 'none !Important'
+					textTransform: 'none'
 				},
 				containedPrimary: {
-					fontSize: "1.3rem !Important",
-					boxShadow: "none !Important",
-					borderRadius: "70px !Important",
-					backgroundColor: "#FDBF5A !Important",
+					fontSize: "1.3rem",
+					boxShadow: "none",
+					borderRadius: "70px",
+					backgroundColor: "#FDBF5A",
 					"&:focus": {
-						backgroundColor: "#FFA842 !Important",
-						boxShadow: "none !Important",
+						backgroundColor: "#FFA842",
+						boxShadow: "none",
 					},
 					"&:hover": {
-						backgroundColor: "#FFA842 !Important",
+						backgroundColor: "#FFA842",
 						boxShadow: "none !Important",
 					},
 					"&:disabled": {
-						backgroundColor: "##D8D7D5 !Important",
+						backgroundColor: "##D8D7D5",
 					},
+				},
+				textPrimary: {
+					color: '#fff'
 				}
 			},
 		},
 		MuiFormLabel: {
 			styleOverrides: {
 				root: {
-					// transform: 'translateX(0) !Important',
 					"&$focused": {
 						color: "#1473e6"
 					}
@@ -56,7 +59,7 @@ export const theme = createTheme({
 				},
 				underline: {
 					"&:after": {
-						"border-bottom-color": "#1473e6"
+						"borderBottomColor": "#1473e6"
 					}
 				}
 			}
@@ -73,6 +76,13 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					borderRadius: '10px',
+				}
+			}
+		},
+		MuiAppBar: {
+			styleOverrides: {
+				root: {
+					borderRadius: '0',
 				}
 			}
 		},

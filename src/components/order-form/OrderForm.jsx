@@ -1,0 +1,145 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import Standart from '../../images/cars/standart.png';
+import Premium from '../../images/cars/premium.png';
+import Bisness from '../../images/cars/bisness.png';
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import { Stack, Autocomplete, TextField, Paper, Grid, Button, Typography, CardMedia, Container } from '@mui/material';
+import { getAdressList, getRouteData, resetRouteData, getUserCardData } from '../../actions/actions';
+import moduleMapStyles from '../../pages/map/Map.module.css';
+import moduleFormStyles from '../Form.module.css';
+
+function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
+	let adresses = Object.values(adress);
+
+	const [inputValues, setInputValues] = useState({
+		from: '', to: ''
+	})
+
+	const handleChange = useCallback(e => {
+		const { name, value } = e.target;
+		setInputValues({ ...inputValues, [name]: value });
+	});
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		if (Object.values(inputValues).length) {
+			getRouteData(inputValues.from, inputValues.to);
+		}
+	}
+	return (
+		!isOrdered
+			?
+			(<div className={moduleMapStyles.box}>
+				<form name="RouteForm" onSubmit={handleSubmit}>
+					<Grid container>
+						<Grid item xs={12} >
+							<Paper elevation={1} className={moduleMapStyles.selectPaper}>
+								<Stack spacing={0} className={moduleMapStyles.paperContainer}>
+									<Autocomplete
+										autoComplete
+										includeInputInList
+										options={adresses.filter(i => i !== inputValues.to)}
+										renderInput={(params) => <TextField {...params} name="from" label="откуда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
+									/>
+									<Autocomplete
+										autoComplete
+										includeInputInList
+										options={adresses.filter(i => i !== inputValues.from)}
+										renderInput={(params) => <TextField {...params} name="to" label="куда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
+									/>
+								</Stack>
+							</Paper>
+						</Grid>
+						<Grid item xs={12}>
+							<Paper elevation={5} className={moduleMapStyles.radioPaper}>
+								<Stack spacing={0}>
+									<Stack direction="row" justifyContent="center">
+										<input id="standart" type="radio" name="car" value="standart" />
+										<label htmlFor='standart'>
+											<Paper elevation={3} className={moduleMapStyles.radioItem}>
+												<Typography variant="body1">Стандарт</Typography>
+												<Typography variant="inherit">Стоимость</Typography>
+												<Typography variant="h6">150P</Typography>
+												<CardMedia
+													style={{ backgroundImage: `url(${Standart})` }}
+													className={moduleMapStyles.media}>
+												</CardMedia>
+											</Paper>
+
+										</label>
+										<input id="premium" type="radio" name="car" value="premium" />
+										<label htmlFor='premium'>
+											<Paper elevation={3} className={moduleMapStyles.radioItem}>
+
+												<Typography variant="body1">Премиум</Typography>
+												<Typography variant="inherit">Стоимость</Typography>
+												<Typography variant="h6">250P</Typography>
+												<CardMedia
+													style={{ backgroundImage: `url(${Premium})` }}
+													className={moduleMapStyles.media}>
+												</CardMedia>
+											</Paper>
+										</label>
+										<input id="bisness" type="radio" name="car" value="bisness" />
+										<label htmlFor='bisness'>
+											<Paper elevation={3} className={moduleMapStyles.radioItem}>
+												<Typography variant="body1">Бизнес</Typography>
+												<Typography variant="inherit">Стоимость</Typography>
+												<Typography variant="h6">300P</Typography>
+												<CardMedia
+													style={{ backgroundImage: `url(${Bisness})` }}
+													className={moduleMapStyles.media}>
+												</CardMedia>
+											</Paper>
+										</label>
+									</Stack>
+									<Button
+										type="submit"
+										variant="contained"
+										fullWidth
+										sx={{ marginTop: "30px !Important" }}
+									>
+										Заказать
+									</Button>
+								</Stack>
+							</Paper>
+						</Grid>
+					</Grid>
+				</form>
+			</div>)
+			:
+			(
+				<div className={moduleMapStyles.box}>
+					<Container className={moduleMapStyles.container}>
+						<Paper className={moduleMapStyles.paper}>
+							<Stack spacing="15px">
+								<h2 className={moduleFormStyles.messageBlockTitle}>Заказ размещен</h2>
+								<p className={moduleFormStyles.messageBlockDescription}>Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
+								<Button variant="contained" onClick={resetRouteData}>Сделать новый заказ</Button>
+							</Stack>
+						</Paper>
+					</Container>
+				</div>
+			)
+	)
+}
+
+OrderForm.propTypes = {
+	isLoggedIn: PropTypes.bool,
+	userCardData: PropTypes.object,
+	adress: PropTypes.object,
+	getAdressList: PropTypes.func,
+	getRouteData: PropTypes.func
+}
+
+export default connect(
+	state => ({
+		isLoggedIn: state.auth.isLoggedIn,
+		token: state.auth.token,
+		userCardData: state.payment.userCardData,
+		adress: state.adressList.adress,
+		isOrdered: state.route.isOrdered
+	}),
+	{ getAdressList, getRouteData, resetRouteData, getUserCardData }
+)(OrderForm);

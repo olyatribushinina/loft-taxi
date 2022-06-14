@@ -1,5 +1,4 @@
 import React from 'react';
-// import Button from '../button/Button';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { authenticate } from './../../actions/actions';
@@ -8,7 +7,6 @@ import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box,
 import { withStyles } from '@material-ui/core';
 import { compose } from 'redux';
 import moduleFormStyles from '../Form.module.css';
-import moduleButtonStyles from '../Button.module.css';
 
 const styles = theme => ({
 })
@@ -105,7 +103,6 @@ class LoginForm extends React.Component {
 						mt={3}>
 						<span>Новый пользователь?</span>
 						<Link
-							className={moduleButtonStyles.themeColor}
 							to="/registration">Регистрация
 						</Link>
 					</Stack>

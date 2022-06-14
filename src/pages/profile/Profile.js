@@ -8,19 +8,7 @@ import { connect } from 'react-redux';
 import { saveUserCardData } from './../../actions/actions';
 import { compose } from 'redux';
 import { Typography, withStyles } from '@material-ui/core';
-import {
-	Grid,
-	Paper,
-	Button,
-	Box,
-	FormControl,
-	InputLabel,
-	Input,
-	TextField,
-	CardMedia
-} from '@mui/material';
-
-import moduleFormStyles from '../../components/Form.module.css';
+import { Grid, Paper, Button, Box, FormControl, InputLabel, Input, CardMedia } from '@mui/material';
 import moduleProfileStyles from './Profile.module.css';
 
 
@@ -28,7 +16,7 @@ const styles = theme => ({
 	filled: {
 		background: `center / cover no-repeat url(${Background})`,
 		['@media (min-width: 900px)']: {
-			minHeight: '100vh',
+			minHeight: 'calc(100vh - 102px)',
 		}
 	},
 })
@@ -61,7 +49,12 @@ class Profile extends React.Component {
 
 	render() {
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
-		const { filled, fullHeight } = this.props.classes;
+		console.log(this.props.userCardData)
+		const { filled } = this.props.classes;
+
+		const storagePayment = JSON.parse(localStorage.getItem('userCardData'));
+		// console.log(storagePayment)
+
 		return (
 			<div data-testid="profile-page">
 				<Header setStorageAuth={this.props.setStorageAuth} />
@@ -73,6 +66,7 @@ class Profile extends React.Component {
 								justifyContent="center"
 								alignItems="center"
 								sx={{ minHeight: 'inherit' }}>
+
 								<Paper elevation={1} className={moduleProfileStyles.paper}>
 									<h1 className={moduleProfileStyles.title}>Профиль</h1>
 									<p className={moduleProfileStyles.subTitle}>Введите платежные данные</p>
@@ -85,7 +79,7 @@ class Profile extends React.Component {
 														id="cardName"
 														type="text"
 														name="cardName"
-														placeholder="Loft"
+														placeholder={storagePayment ? `${storagePayment.cardName}` : 'Loft'}
 														value={cardName}
 														onChange={this.handleChange} />
 												</FormControl>
@@ -95,7 +89,7 @@ class Profile extends React.Component {
 														id="cardNumber"
 														type="text"
 														name="cardNumber"
-														placeholder="5545  2300  3432  4521"
+														placeholder={storagePayment ? `${storagePayment.cardNumber}` : '5545 2300 3432 4521'}
 														value={cardNumber}
 														onChange={this.handleChange} />
 												</FormControl>
@@ -105,7 +99,7 @@ class Profile extends React.Component {
 														id="expiryDate"
 														type="text"
 														name="expiryDate"
-														placeholder="05/08"
+														placeholder={storagePayment ? `${storagePayment.expiryDate}` : '05/08'}
 														value={expiryDate}
 														onChange={this.handleChange} />
 												</FormControl>
@@ -115,7 +109,7 @@ class Profile extends React.Component {
 														id="cvc"
 														type="password"
 														name="cvc"
-														placeholder="667"
+														placeholder={storagePayment ? `${storagePayment.cvc}` : '667'}
 														value={cvc}
 														onChange={this.handleChange} />
 												</FormControl>
@@ -130,9 +124,9 @@ class Profile extends React.Component {
 																width: '33px'
 															}}>
 														</CardMedia>
-														<Typography variant="body1">01/09</Typography>
+														<Typography variant="body1">{storagePayment ? `${storagePayment.expiryDate}` : '05/08'}</Typography>
 													</Box>
-													<Typography variant="body1">7659657656756</Typography>
+													<Typography variant="body1">{storagePayment ? `${storagePayment.cardNumber}` : '5545 2300 3432 4521'}</Typography>
 													<Box className={moduleProfileStyles.cardFooter}>
 														<CardMedia
 															style={{
@@ -163,7 +157,10 @@ class Profile extends React.Component {
 
 export default compose(
 	connect(
-		state => ({ isLoggedIn: state.auth.isLoggedIn }),
+		state => ({
+			isLoggedIn: state.auth.isLoggedIn,
+			userCardData: state.payment.userCardData,
+		}),
 		{ saveUserCardData }
 	),
 	withStyles(styles),

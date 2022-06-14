@@ -5,11 +5,8 @@ import RegForm from '../../components/registration-form/RegForm';
 import Logo from './../../images/logo-main.svg';
 import Background from '../../images/map.png';
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 
 const styles = theme => ({
 	filled: {
@@ -61,7 +58,6 @@ function Reg(props) {
 										sx={{ minHeight: 'inherit' }}>
 										<RegForm />
 									</Stack>
-
 								</Grid>
 							</Grid>
 						</Grid>

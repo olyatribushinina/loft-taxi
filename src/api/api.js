@@ -80,10 +80,11 @@ export const serverPostCardData = async (cardNumber, expiryDate, cardName, cvc, 
 // GET 
 
 export const serverGetCardData = async (token) => {
-
+	// console.log(token)
 	return await fetch(`https://loft-taxi.glitch.me/card?token=${token}`)
 		.then((res) => {
 			if (res.ok) {
+				console.log(res)
 				return res;
 			} else {
 				let error = new Error(res.statusText);
@@ -92,7 +93,10 @@ export const serverGetCardData = async (token) => {
 			}
 		})
 		.then(r => r.json())
-		.then(data => data)
+		.then(data => {
+			console.log(data)
+			return data;
+		})
 		.catch((e) => {
 			console.log('Error: ' + e.message);
 			console.log(e.response);

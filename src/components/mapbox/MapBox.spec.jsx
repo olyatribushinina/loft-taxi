@@ -1,10 +1,10 @@
 import React from "react";
-import { render, shallow } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import MapBox from './MapBox';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from "react-router-dom";
 
-jest.mock("mapbox-gl", () => ({
+jest.mock('mapbox-gl', () => ({
 	GeolocateControl: jest.fn(),
 	Map: function () {
 		this.on = jest.fn();
@@ -14,10 +14,19 @@ jest.mock("mapbox-gl", () => ({
 }));
 
 describe("MapBox", () => {
+	afterAll(() => {
+		cleanup();
+		jest.clearAllMocks();
+	})
 	it("renders correctly", () => {
-
 		let mockStore = {
 			getState: () => ({
+				auth: {
+					isLoggedIn: false,
+					token: '',
+					userData: {},
+					userCardData: {}
+				},
 				route: {
 					coords: []
 				}
@@ -25,14 +34,14 @@ describe("MapBox", () => {
 			subscribe: () => { },
 			dispatch: () => { },
 		};
-		const { getByTestId } = render(
+		render(
 			<MemoryRouter>
 				<Provider store={mockStore}>
 					<MapBox />
 				</Provider>
 			</MemoryRouter>
 		)
-
-		expect(getByTestId('map').length).toBeTruthy();
+		const map = screen.getByTestId('map');
+		expect(map).toBeInTheDocument();
 	});
 });

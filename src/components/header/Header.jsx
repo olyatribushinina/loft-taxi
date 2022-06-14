@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import HeaderModuleStyles from './Header.module.css';
 import Logo from './../../images/logo-header.svg';
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logOut } from '../../actions/actions';
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
-import Toolbar from '@material-ui/core/Toolbar';
-import { ButtonGroup } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import { AppBar, Toolbar, Button, Container, Grid } from '@mui/material'
 import { withStyles } from '@material-ui/core';
 import { compose } from 'redux';
 
 const styles = theme => ({
 	appbar: {
-		backgroundColor: ' #1C1A19',
-		paddingTop: '4px',
-		paddingBottom: '4px'
+		minHeight: '102px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center'
 	},
 	button: {
-		color: '#fff'
+		color: '#fff',
+		textTransform: 'none',
+		'&.active': {
+			color: '#ffc617',
+		},
 	}
 })
 
 const Header = (props) => {
-	// console.log(setStorage)
+
 	const { isLoggedIn, logOut, setStorageAuth } = props;
 	const { appbar, button } = props.classes;
 	const exit = () => {
 		logOut()
-		// console.log(isLoggedIn)
 		let prop = {};
 		setStorageAuth(prop)
 		localStorage.removeItem('auth');
@@ -42,7 +39,7 @@ const Header = (props) => {
 
 	return (
 		<div data-testid="header">
-			<AppBar className={appbar} position="static">
+			<AppBar className={appbar} color="secondary" position="static">
 				<Container maxWidth="xl">
 					<Toolbar>
 						<Grid container spacing={2}
@@ -58,8 +55,8 @@ const Header = (props) => {
 								<Grid container
 									direction="row"
 									justifyContent="flex-end">
-									<Button variant="text"><Link className={button} to="/map">Карта</Link></Button>
-									<Button variant="text"><Link className={button} to="/profile">Профиль</Link></Button>
+									<Button variant="text"><NavLink className={button} to="/map">Карта</NavLink></Button>
+									<Button variant="text"><NavLink className={button} to="/profile">Профиль</NavLink></Button>
 									<Button variant="text" onClick={exit} className={button}>Выйти</Button>
 								</Grid>
 							</Grid>

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import LoginForm from '../../components/login-form/LoginForm';
 import Logo from './../../images/logo-main.svg';
 import Background from '../../images/map.png'
@@ -7,9 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core';
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 
 const styles = theme => ({
 	filled: {
@@ -18,12 +15,12 @@ const styles = theme => ({
 	paper: {
 		backgroundColor: '#1C1A19',
 		['@media (min-width: 900px)']: {
-			minHeight: '100vh',
+			minHeight: 'calc(100vh - 102px)',
 		}
 	},
 	fullHeight: {
 		['@media (min-width: 900px)']: {
-			minHeight: '100vh',
+			minHeight: 'calc(100vh - 102px)',
 		}
 	}
 })
@@ -61,7 +58,6 @@ function Login(props) {
 										sx={{ minHeight: 'inherit' }}>
 										<LoginForm />
 									</Stack>
-
 								</Grid>
 							</Grid>
 						</Grid>

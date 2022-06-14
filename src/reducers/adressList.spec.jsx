@@ -1,4 +1,4 @@
-import adressListReduser from "./adressList";
+import adressListReducer from "./adressList";
 import { fetchAddressListSuccess } from '../actions/actions';
 
 describe('adressList reducer', () => {
@@ -6,6 +6,6 @@ describe('adressList reducer', () => {
 
 	it('FETCH_ADRESS_LIST_SUCCESS', () => {
 		const action = fetchAddressListSuccess();
-		expect(adressListReduser(state = { adress: {} }, action)).toEqual(state, { adress: { ...action.adress } })
+		expect(adressListReducer(state = { adress: {} }, action)).toEqual(state, { adress: { ...action.adress } })
 	})
 })

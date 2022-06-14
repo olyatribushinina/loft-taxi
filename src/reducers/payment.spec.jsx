@@ -1,4 +1,4 @@
-import paymentReduser from "./payment";
+import paymentReducer from "./payment";
 import { savedCardData } from '../actions/actions';
 
 describe('payment reducer', () => {
@@ -6,6 +6,6 @@ describe('payment reducer', () => {
 
 	it('SAVED_CARD_DATA', () => {
 		const action = savedCardData();
-		expect(paymentReduser({ userCardData: {} }, action)).toEqual({ userCardData: {}, userCardData: { ...action.userCardData } })
+		expect(paymentReducer({ userCardData: {} }, action)).toEqual({ userCardData: {}, userCardData: { ...action.userCardData } })
 	})
 })

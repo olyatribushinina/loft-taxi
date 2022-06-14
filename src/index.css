@@ -74,11 +74,7 @@ input {
 }
 
 .maincontent {
-	height: 100vh;
-}
-
-.header {
-  background-color: #1C1A19;
+	height: calc(100vh - 102px);
 }
 
 section {
@@ -87,95 +83,6 @@ section {
 
 .logo {
   flex-grow: 1;
-}
-
-.btn {
-  cursor: pointer;
-}
-
-.btn_text {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 8px;
-  color: #fff;
-}
-
-.form .btn_text {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #828282;
-}
-
-.btn_text.theme-color {
-  color: #FDBF5A;
-}
-
-.btn_bg {
-  background: #FDBF5A;
-  border-radius: 70px;
-  width: 100%;
-  padding: 16px;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.btn_bg.theme-color {
-  background: #FDBF5A;
-  color: inherit;
-}
-
-.btn_text.active {
-  color: #FDBF5A;
-}
-
-.form {
-  max-width: 580px;
-  background-color: #fff;
-  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  padding: 55px 112px;
-  color: #000;
-  margin-left: auto;
-}
-
-.form__item {
-  display: flex;
-  flex-direction: column;
-}
-
-.form .form__item {
-  margin-bottom: 25px;
-}
-
-.form .form__item_submit {
-  margin: 40px 0 25px;
-}
-
-.form label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-bottom: 2px solid #E4E4E4;
-}
-
-.form label > * {
-  margin: 5px 0;
-}
-
-.form label > span {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.form input {
-  font-weight: 400;
-}
-
-.form input:not(.btn) {
-  font-size: 18px;
-  line-height: 21px;
-  color: #828282;
 }
 
 input:-webkit-autofill,
@@ -188,7 +95,7 @@ input:-webkit-autofill:active  {
 
 .map {
 	position: absolute;
-	top: 70px;
+	top: 102px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -200,47 +107,4 @@ input:-webkit-autofill:active  {
 	padding: 60px 44px;
 	margin: 0 auto;
 	max-width: 888px;
-}
-
-#card-data-form .form__title {
-	margin: 13px;
-}
-
-#card-data-form .form__title + p {
-	color: rgba(123, 123, 123, 1)
-}
-
-#card-data-form form .form__inner {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 100px;
-}
-
-#card-data-form form .form__rows {
-	flex: 1;
-}
-
-#card-data-form form .card-image {
-	width: 347px;
-	height: 182px;
-	background: #FFFFFF;
-	box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-}
-
-#card-data-form form .btn {
-	max-width: 350px;
-	margin: auto;
-}
-
-#routepoints {
-	position: absolute;
-    max-width: 30%;
-    padding: 44px 60px;
-    margin-top: 48px;
-    margin-bottom: 48px;
-    /* top: 0; */
-    left: 20px;
-    min-width: 384px;
 }
