@@ -1,20 +1,22 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import MapBox from './MapBox'
+import { render, screen } from "@testing-library/react";
+import MapBox from './MapBox';
+import { Provider } from 'react-redux';
 
-jest.mock("mapbox-gl", () => ({
-	GeolocateControl: jest.fn(),
-	Map: function () {
-		this.on = jest.fn();
-		this.remove = jest.fn();
-	},
-	NavigationControl: jest.fn(),
-}));
+jest.mock("mapbox-gl");
+
+const mockStore = {
+	getState: () => ({ route: {} }),
+	subscribe: () => { },
+	dispatch: () => { }
+}
 
 describe("MapBox", () => {
-	it("renders correctly", () => {
-		const { container } = render(<MapBox />)
-
-		expect(container.getElementsByClassName('map-container').length).toBeTruthy();
-	});
+	it('renders correctly', () => {
+		render(
+			<Provider store={mockStore}>
+				<MapBox />
+			</Provider>);
+		expect(screen.getByTestId('map')).toBeInTheDocument();
+	})
 });

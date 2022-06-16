@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../components/header/Header';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { saveUserCardData } from './../../actions'
+import { saveUserCardData } from './../../actions/actions'
 
 class Profile extends React.Component {
 	static propTypes = {
@@ -20,10 +20,9 @@ class Profile extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
-		let token = '';
-		if (localStorage.length && localStorage.getItem('redux-store')) {
-			token = JSON.parse(localStorage.getItem('redux-store')).auth.token;
-		}
+		// console.log(this.props.setStorageAuth)
+		let token = this.props.storage.token;
+
 		this.props.saveUserCardData(cardNumber, expiryDate, cardName, cvc, token);
 	};
 
@@ -33,9 +32,10 @@ class Profile extends React.Component {
 
 	render() {
 		const { cardNumber, expiryDate, cardName, cvc } = this.state;
+
 		return (
 			<div data-testid="profile-page">
-				<Header />
+				<Header setStorageAuth={this.props.setStorageAuth} />
 				<main className='maincontent'>
 					<div className='container'>
 						<h1>Профиль</h1>

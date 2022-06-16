@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../button/Button';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { authenticate } from './../../actions';
+import { authenticate } from './../../actions/actions';
 import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component {
@@ -20,6 +20,7 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		const { email, password } = this.state;
 		this.props.authenticate(email, password);
+		// console.log(this.props.isLoggedIn)
 		this.handleReset();
 	};
 

@@ -1,76 +1,47 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { shallow } from 'enzyme';
 import Profile from './Profile';
-import Header from '../../components/header/Header';
-import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-describe('Profile', () => {
+const mockStore = {
+	getState: () => ({ auth: {} }),
+	subscribe: () => { },
+	dispatch: () => { },
+};
 
-	const props = {
-		isLoggedIn: true,
-		saveProfileCardData: (cardHolderName, cardNumber, cardDate, cardCVC) => ({
-			type: SAVE_PROFILE_CARD_DATA,
-			payload: { cardHolderName, cardNumber, cardDate, cardCVC }
-		})
-	}
-	let mockStore;
-	beforeEach(() => {
-		mockStore = {
-			getState: () => ({
-				auth: {
-					isLoggedIn: false,
-					token: '',
-					userData: {},
-					userCardData: {}
-				}
-			}),
-			subscribe: () => { },
-			dispatch: () => { },
-		};
-	});
+jest.mock("../../components/header/Header", () => {
+	const Header = () => <div>Header component</div>
+	return Header
+});
 
-	const setUp = (props) => render(
-		<MemoryRouter>
-			<Provider store={mockStore}>
-				<Profile {...props} />
-			</Provider>
-		</MemoryRouter>)
-
-	describe('rendering Profile component', () => {
-		it('renders Profile component without crashing', () => {
-			const div = document.createElement('div');
-			expect(div).not.toBeNull();
-		});
-		it('should render Profile component with props', () => {
-			const component = setUp(props);
-			expect(screen.getByTestId('profile-page')).toBeInTheDocument()
-		});
-	})
+describe('ProfilePage', () => {
 
 	describe('should render Profile component', () => {
 
-		beforeEach(() => {
-			render(
-				<MemoryRouter>
-					<Provider store={mockStore}>
-						<Profile />
-					</Provider>
-				</MemoryRouter>
-			)
-		});
-
 		it('should contain <Header />', () => {
-			expect(screen.queryByTestId('header')).toBeInTheDocument()
+			const { container } = render(
+				<Provider store={mockStore}>
+					<Profile />
+				</Provider>
+			);
+			expect(container.innerHTML).toMatch("Header component")
 		})
 
 		it('should contain one <form>', () => {
+			render(
+				<Provider store={mockStore}>
+					<Profile />
+				</Provider>
+			)
 			expect(screen.getByRole('form')).toBeInTheDocument();
 		})
 
 		it('should contain four <label>', () => {
-
+			render(
+				<Provider store={mockStore}>
+					<Profile />
+				</Provider>
+			)
 			expect(screen.queryByLabelText(/Имя владельца/i)).toBeInTheDocument();
 			expect(screen.getByLabelText(/Номер карты/i)).toBeInTheDocument();
 			expect(screen.getByLabelText('MM/YY')).toBeInTheDocument();

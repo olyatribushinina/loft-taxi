@@ -8,26 +8,46 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from "react-router-dom";
 
 class App extends React.Component {
+	static propTypes = {
+		isLoggedIn: PropTypes.bool
+	}
+
+	state = {
+		storageAuth: {},
+	}
+
+	componentDidMount() {
+		this.setState({ storageAuth: JSON.parse(localStorage.getItem('auth')) })
+		const { storageAuth } = this.state;
+		console.log(storageAuth)
+	}
+
+	componentDidUpdate(prevProps) {
+		const { storageAuth } = this.state;
+		if (this.props !== prevProps) {
+			let prop = JSON.parse(localStorage.getItem('auth'));
+			this.setStorage(prop)
+		}
+
+		// console.log(storageAuth)
+	}
+
+	setStorage = (prop) => {
+		this.setState({ storageAuth: prop })
+	}
 
 	render() {
-		let storageIsLoggedIn = false;
-
-		if (localStorage.length && localStorage.getItem('redux-store')) {
-			storageIsLoggedIn = JSON.parse(localStorage.getItem('redux-store')).auth.isLoggedIn;
-		}
-		console.log(storageIsLoggedIn)
-		const { isLoggedIn } = this.props;
-
+		const { storageAuth } = this.state;
 		return (
 			<>
 				<Switch>
 
 					{
-						storageIsLoggedIn
+						storageAuth?.isLoggedIn
 							?
 							(<>
-								<Route path="/map" component={Map} />
-								<Route path="/profile" component={Profile} />
+								<Route path="/map" render={() => <Map storage={storageAuth} setStorageAuth={this.setStorage} />} />
+								<Route path="/profile" render={() => <Profile storage={storageAuth} setStorageAuth={this.setStorage} />} />
 								<Redirect to="/map" />
 
 							</>)
@@ -42,10 +62,6 @@ class App extends React.Component {
 			</>
 		);
 	}
-}
-
-App.propTypes = {
-	isLoggedIn: PropTypes.bool
 }
 
 export default connect(

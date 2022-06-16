@@ -2,31 +2,18 @@ import React from 'react';
 import LoginForm from '../../components/login-form/LoginForm';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
 import Button from './../button/Button';
 import { MemoryRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+const mockStore = {
+	getState: () => ({ auth: {} }),
+	subscribe: () => { },
+	dispatch: () => { },
+};
+
 describe('LoginForm', () => {
-
-	let mockStore;
-
-	beforeEach(() => {
-		mockStore = {
-			getState: () => ({
-				auth: {
-					isLoggedIn: false,
-					token: '',
-					userData: {},
-					userCardData: {}
-				}
-			}),
-			subscribe: () => { },
-			dispatch: () => { },
-		};
-	});
-
 
 	const props = {
 		isLoggedIn: false,

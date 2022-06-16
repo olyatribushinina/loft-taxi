@@ -2,8 +2,6 @@ import React from 'react';
 import LoginForm from '../../components/login-form/LoginForm';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { Redirect } from "react-router-dom";
-
 
 function Login(props) {
 	return (

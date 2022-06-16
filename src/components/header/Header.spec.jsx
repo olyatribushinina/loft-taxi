@@ -1,86 +1,62 @@
 import React from 'react';
 import Header from './Header';
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from 'react-redux';
 import { MemoryRouter } from "react-router-dom";
-import { createMemoryHistory } from 'history';
-import { Link } from 'react-router-dom';
-import { Router } from "react-router-dom";
+
+const mockStore = {
+	getState: () => ({ auth: {} }),
+	subscribe: () => { },
+	dispatch: () => { },
+};
 
 describe('Header', () => {
-
-	let mockStore;
-
-	beforeEach(() => {
-		mockStore = {
-			getState: () => ({
-				auth: {
-					isLoggedIn: false,
-					token: '',
-					userData: {},
-					userCardData: {}
-				}
-			}),
-			subscribe: () => { },
-			dispatch: () => { },
-		};
-	});
-
 	const props = {
 		isLoggedIn: true,
 		logOut: () => ({ type: LOG_OUT })
 	}
 
 	const setUp = (props) => render(
-		<MemoryRouter>
-			<Provider store={mockStore}>
+		<Provider store={mockStore}>
+			<MemoryRouter>
 				<Header {...props} />
-			</Provider>
-		</MemoryRouter>
-
+			</MemoryRouter>
+		</Provider>
 	)
 
 	describe('rendering Header component', () => {
-		it('renders Header component without crashing', () => {
-			const div = document.createElement('div');
-			expect(div).not.toBeNull();
-		});
 
 		it('should render Header component with props', () => {
-			const component = setUp(props);
-			expect(screen.getByTestId('header')).toBeInTheDocument();
+			const { getByText } = setUp(props);
+
+			expect(getByText('Карта')).toBeInTheDocument();
+			expect(getByText('Профиль')).toBeInTheDocument();
 		});
 	})
 
 	describe('should render Header component', () => {
 
-		beforeEach(() => {
-			render(
-				<MemoryRouter>
-					<Provider store={mockStore}>
-						<Header {...props} />
-					</Provider>
-				</MemoryRouter>
-			)
-		})
-
 		it('should contain logo', () => {
-			const logo = screen.getByAltText(/logo/i);
+			const { getByAltText } = setUp(props);
+			const logo = getByAltText(/logo/i);
 			expect(logo).toBeInTheDocument();
 		})
 
 		it('should contain map link', () => {
-			const map = screen.getByText(/Карта/i);
+			const { getByText } = setUp(props);
+			const map = getByText(/Карта/i);
 			expect(map).toBeInTheDocument();
 		})
 
 		it('should contain profile link', () => {
-			const profile = screen.getByText(/Профиль/i);
+			const { getByText } = setUp(props);
+			const profile = getByText(/Профиль/i);
 			expect(profile).toBeInTheDocument();
 		})
 
 		it('should contain exit btn', () => {
-			const exit = screen.getByText(/Выйти/i);
+			const { getByText } = setUp(props);
+			const exit = getByText(/Выйти/i);
 			expect(exit).toBeInTheDocument();
 		})
 
