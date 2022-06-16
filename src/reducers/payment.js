@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
 		case SAVED_CARD_DATA: {
 			return {
 				...state,
-				userCardData: { ...action.userCardData }
+				userCardData: action.payload
 			}
 		}
 		default:

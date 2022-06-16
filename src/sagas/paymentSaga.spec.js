@@ -1,36 +1,41 @@
 import { recordSaga } from "../helpers/recordSaga";
 import { saveCardDataSaga } from "./paymentSaga";
-import { saveUserCardData, getUserCardData } from "../actions/actions";
+import { saveUserCardData } from "../actions/actions";
+import { serverPostCardData } from '../api/api';
 
-const userCardData = { 'cardNumber': 'testnumber', 'expiryDate': 'testexpiry', 'cardName': 'testname' }
-
-jest.mock("../api/api", () => ({ serverPostCardData: jest.fn(() => true) }));
-jest.mock("../api/api", () => ({ serverGetCardData: jest.fn(() => (userCardData)) }));
+jest.mock("../api/api");
 
 describe("paymentSaga", () => {
-	describe("#SAVE_USER_CARD_DATA", () => {
-		it("saveUserCardData through api", async () => {
-			const dispatched = await recordSaga(
-				saveCardDataSaga,
-				saveUserCardData("testcardholdername", "testcardnumber", "testcarddata", "testcardcvv", "testtoken")
-			);
-			expect(dispatched).toEqual([
-				{
-					type: "SAVED_CARD_DATA"
-				}
-			]);
-		});
-	});
 
-	describe("#GET_USER_CARD_DATA", () => {
+	describe("#SAVE_USER_CARD_DATA", () => {
+
 		it("saveUserCardData through api", async () => {
+
+			const cardNumber = 'testnumber',
+				cardExpiryDate = 'testexpiry',
+				cardUserName = 'testname',
+				cardCvc = "test",
+				token = 'testtoken';
+
+			serverPostCardData.mockImplementation(() => true);
+
 			const dispatched = await recordSaga(
 				saveCardDataSaga,
-				getUserCardData(userCardData)
+				saveUserCardData(cardNumber, cardExpiryDate, cardUserName, cardCvc, token)
 			);
+
+			expect(serverPostCardData).toBeCalledWith(cardNumber, cardExpiryDate, cardUserName, cardCvc, token);
+
 			expect(dispatched).toEqual([
 				{
-					type: "SAVED_CARD_DATA"
+					type: "SAVED_CARD_DATA",
+					payload: {
+						"cardName": "testname",
+						"cardNumber": "testnumber",
+						"cvc": "test",
+						"expiryDate": "testexpiry",
+						"token": "testtoken",
+					},
 				}
 			]);
 		});

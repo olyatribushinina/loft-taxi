@@ -1,14 +1,15 @@
 import { recordSaga } from "../helpers/recordSaga";
 import { authenticateSaga, registrationSaga } from "./authSaga";
 import { authenticate, registration } from "../actions/actions";
+import { serverLogIn } from '../api/api';
+import { act } from "@testing-library/react";
 
 const data = {
 	success: true,
 	token: "testtoken"
 }
 
-jest.mock("../api/api", () => ({ serverLogIn: jest.fn(() => (data)) }));
-jest.mock("../api/api", () => ({ serverRegistration: jest.fn(() => (data)) }));
+jest.mock("../api/api");
 
 describe("authSaga", () => {
 	beforeEach(() => {
@@ -18,39 +19,27 @@ describe("authSaga", () => {
 	describe("#AUTHENTICATE", () => {
 		it("authenticates through api", async () => {
 
+			serverLogIn.mockImplementation(() => (
+				{ success: true, token: 'testtoken' }
+			));
+
 			const dispatched = await recordSaga(
 				authenticateSaga,
 				authenticate("testemail", "testpassword"),
 			);
-			expect(dispatched).toEqual([
-				{
-					type: "LOG_IN"
-				},
-				{
-					type: "GET_TOKEN"
-				}
-			]);
-		});
-	});
 
-	describe("REGISTRATION", () => {
-		it("registration through api", async () => {
-			const dispatched = await recordSaga(
-				registrationSaga,
-				registration("testemail", "testpassword", "testname", "testsurname")
+			act(() =>
+				serverLogIn("testemail", "testpassword")
 			);
 
+			expect(serverLogIn).toBeCalledWith("testemail", "testpassword");
+
 			expect(dispatched).toEqual([
-				{
-					type: "LOG_IN"
-				},
-				{
-					type: "GET_TOKEN"
-				},
-				{
-					type: "SAVED_USER_DATA"
-				}
-			]);
+				{ type: 'LOG_IN' },
+				{ type: 'GET_TOKEN', 'token': 'testtoken' }
+			])
+
 		});
 	});
+
 });

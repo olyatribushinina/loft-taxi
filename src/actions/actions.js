@@ -17,7 +17,10 @@ export const logIn = () => ({ type: LOG_IN });
 export const logOut = () => ({ type: LOG_OUT });
 export const getToken = (token) => ({ type: GET_TOKEN, token })
 export const savedUserData = (userData) => ({ type: SAVED_USER_DATA, userData });
-export const savedCardData = (userCardData) => ({ type: SAVED_CARD_DATA, userCardData });
+export const savedCardData = (cardNumber, expiryDate, cardName, cvc, token) => ({
+	type: SAVED_CARD_DATA,
+	payload: { cardNumber, expiryDate, cardName, cvc, token }
+});
 export const authenticate = (email, password) => ({
 	type: AUTHENTICATE,
 	payload: { email, password }
@@ -39,7 +42,10 @@ export const getUserCardData = (token) => ({
 
 export const getAdressList = (data) => ({ type: GET_ADRESS_LIST, data })
 
-export const fetchAddressListSuccess = (data) => ({ type: FETCH_ADRESS_LIST_SUCCESS, data })
+export const fetchAddressListSuccess = (data) => ({
+	type: FETCH_ADRESS_LIST_SUCCESS,
+	data
+})
 
 export const getRouteData = (from, to) => ({
 	type: GET_ROUTE_DATA,

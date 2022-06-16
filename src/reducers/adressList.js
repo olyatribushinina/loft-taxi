@@ -1,7 +1,7 @@
 import { FETCH_ADRESS_LIST_SUCCESS } from "../actions/actions";
 
 export const initialState = {
-	adress: {}
+	adress: []
 };
 
 export default function (state = initialState, action) {
@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
 		case FETCH_ADRESS_LIST_SUCCESS: {
 			return {
 				...state,
-				adress: { ...action.data }
+				adress: action.data
 			}
 		}
 		default:
