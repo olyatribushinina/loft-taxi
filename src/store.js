@@ -16,6 +16,6 @@ store.subscribe(() => {
 	localStorage['redux-state'] = JSON.stringify(store.getState());
 
 })
-console.log(store.getState())
+// console.log(store.getState())
 
-// localStorage.clear()
+

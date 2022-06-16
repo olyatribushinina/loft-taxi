@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Standart from '../../images/cars/standart.png';
 import Premium from '../../images/cars/premium.png';
 import Bisness from '../../images/cars/bisness.png';
@@ -8,7 +8,7 @@ import { Stack, Autocomplete, TextField, Paper, Grid, Button, Typography, CardMe
 import { getAdressList, getRouteData, resetRouteData, getUserCardData } from '../../actions/actions';
 import moduleMapStyles from '../../pages/map/Map.module.css';
 import moduleFormStyles from '../Form.module.css';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 
 function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
@@ -42,7 +42,7 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 		!isOrdered
 			?
 			(<div className={moduleMapStyles.box}>
-				<form name="RouteForm" onSubmit={handleSubmit(onSubmit)}>
+				<form name="RouteForm" onSubmit={handleSubmit(onSubmit)} className={moduleMapStyles.routeForm}>
 					<Grid container>
 						<Grid item xs={12} >
 							<Paper elevation={1} className={moduleMapStyles.selectPaper}>
@@ -66,7 +66,7 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 						</Grid>
 						<Grid item xs={12}>
 							<Paper elevation={5} className={moduleMapStyles.radioPaper}>
-								<Stack spacing={0}>
+								<Stack spacing={0} alignItems="center">
 									<Stack direction="row" justifyContent="center">
 										<input
 											{...register('car', { required: true })}
@@ -149,7 +149,7 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 				<div className={moduleMapStyles.box}>
 					<Container className={moduleMapStyles.container}>
 						<Paper className={moduleMapStyles.paper}>
-							<Stack spacing="15px">
+							<Stack spacing="15px" alignItems="center">
 								<h2 className={moduleFormStyles.messageBlockTitle}>Заказ размещен</h2>
 								<p className={moduleFormStyles.messageBlockDescription}>Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
 								<Button variant="contained" onClick={resetRouteData}>Сделать новый заказ</Button>
@@ -163,10 +163,14 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 
 OrderForm.propTypes = {
 	isLoggedIn: PropTypes.bool,
+	token: PropTypes.string,
 	userCardData: PropTypes.object,
 	adress: PropTypes.object,
+	isOrdered: PropTypes.bool,
 	getAdressList: PropTypes.func,
-	getRouteData: PropTypes.func
+	getRouteData: PropTypes.func,
+	resetRouteData: PropTypes.func,
+	getUserCardData: PropTypes.func
 }
 
 export default connect(

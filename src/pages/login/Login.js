@@ -10,12 +10,15 @@ import { Box, Grid, Stack } from '@mui/material';
 
 const styles = theme => ({
 	filled: {
-		background: `center / cover no-repeat url(${Background})`
+		background: `center / cover no-repeat url(${Background})`,
 	},
 	paper: {
 		backgroundColor: '#1C1A19',
+		padding: '52px 0 24px',
+
 		['@media (min-width: 900px)']: {
 			minHeight: '100vh',
+			padding: '0'
 		}
 	},
 	fullHeight: {

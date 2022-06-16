@@ -1,6 +1,10 @@
+.section {
+	min-height: 100vh;
+}
+
 .paper {
-	padding: 60px 44px;
-	margin: 40px 0;
+	padding: 60px 10px;
+	margin: 20px auto;
 }
 
 .title {
@@ -24,10 +28,11 @@
 }
 
 .card {
-	width: 347px;
+	max-width: 347px;
     height: 182px;
     display: flex;
     padding: 18px 28px;
+	margin: auto;
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
@@ -65,5 +70,7 @@
 @media screen and (min-width: 900px) {
 	.paper {
 		max-width: 888px;
+		padding: 60px 44px;
+		margin: 40px 0;
 	}
 }

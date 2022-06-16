@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect, useDispatch } from 'react-redux';
 import { registration } from './../../actions/actions';
 import { Link } from 'react-router-dom';
-import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box, Grid, Button, Stack } from '@mui/material';
+import { FormControl, InputLabel, Input, FormHelperText, Grid, Button, Stack } from '@mui/material';
 import moduleFormStyles from '../Form.module.css';
 import { useForm } from 'react-hook-form';
 
@@ -35,10 +35,11 @@ const RegForm = ({ registration }) => {
 					data-testid="registration-form">
 					<Grid container
 						spacing={0}
-						direction="column">
+						direction="column"
+					>
 						<Grid item mb={3}>
-							<FormControl fullWidth>
-								<InputLabel htmlFor="email">Email*</InputLabel>
+							<FormControl fullWidth variant="standard">
+								<InputLabel htmlFor="email" shrink>Email*</InputLabel>
 								<Input
 									{...register('email', {
 										required: {
@@ -63,9 +64,19 @@ const RegForm = ({ registration }) => {
 							</FormControl>
 						</Grid>
 						<Grid item mb={3}>
-							<Stack direction="row" spacing={1}>
-								<FormControl fullWidth>
-									<InputLabel htmlFor="name">Имя*</InputLabel>
+							<Stack
+								sx={{
+									flexDirection: {
+										md: "row",
+									},
+									gap: {
+										md: "10px",
+										xs: "24px",
+									}
+								}}
+							>
+								<FormControl fullWidth variant="standard">
+									<InputLabel htmlFor="name" shrink>Имя*</InputLabel>
 									<Input
 										{...register('name', {
 											required: {
@@ -93,7 +104,7 @@ const RegForm = ({ registration }) => {
 									</FormHelperText>
 								</FormControl>
 								<FormControl fullWidth variant="standard">
-									<InputLabel htmlFor="surname">Фамилия*</InputLabel>
+									<InputLabel htmlFor="surname" shrink>Фамилия*</InputLabel>
 									<Input
 										{...register('surname', {
 											required: {
@@ -124,7 +135,7 @@ const RegForm = ({ registration }) => {
 						</Grid>
 						<Grid item mb={3}>
 							<FormControl fullWidth variant="standard">
-								<InputLabel htmlFor="password">Придумайте пароль*</InputLabel>
+								<InputLabel htmlFor="password" shrink>Придумайте пароль*</InputLabel>
 								<Input
 									{...register('password', {
 										required: {
@@ -148,23 +159,34 @@ const RegForm = ({ registration }) => {
 								</FormHelperText>
 							</FormControl>
 						</Grid>
-						<Grid item mb={4}>
-							<Button disabled={!isValid} variant="contained" fullWidth type="submit">Зарегистрироваться</Button>
+						<Grid item mt={4} display="flex" justifyContent="center">
+							<Button
+								disabled={!isValid}
+								variant="contained"
+								fullWidth type="submit">
+								Зарегистрироваться
+							</Button>
 						</Grid>
-						<Grid item>
-							<Stack direction="row" alignItems="center" justifyContent="center">
-								<span>Уже зарегистрированы?</span>
-								<Button variant="text" color="primary" sx={{}}>
-									<Link to="/" style={{ color: '#ffc617', fontSize: '14px' }}>Войти</Link>
-								</Button>
-							</Stack>
-						</Grid>
+						<Stack
+							mt={3}
+							direction="row"
+							alignItems="center"
+							justifyContent="center">
+							<span>Уже зарегистрированы?</span>
+							<Button variant="text" color="primary">
+								<Link to="/" style={{ color: '#ffc617', fontSize: '14px' }}>Войти</Link>
+							</Button>
+						</Stack>
 					</Grid>
 				</form>
 			</div>
 		</div>
 	)
+}
 
+RegForm.propTypes = {
+	isLoggedIn: PropTypes.bool,
+	registration: PropTypes.func
 }
 
 export default connect(

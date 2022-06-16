@@ -3,14 +3,9 @@ import PropTypes from "prop-types";
 import { connect, useDispatch } from 'react-redux';
 import { authenticate } from './../../actions/actions';
 import { Link } from 'react-router-dom';
-import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box, Grid, Button, Stack } from '@mui/material';
-import { withStyles } from '@material-ui/core';
-import { compose } from 'redux';
+import { FormControl, InputLabel, Input, FormHelperText, Grid, Button, Stack } from '@mui/material';
 import moduleFormStyles from '../Form.module.css';
 import { useForm } from 'react-hook-form';
-
-const styles = theme => ({
-})
 
 const LoginForm = ({ authenticate }) => {
 
@@ -21,7 +16,7 @@ const LoginForm = ({ authenticate }) => {
 			errors, isValid
 		}
 	} = useForm({
-		mode: 'onChange'
+		mode: 'onChange',
 	});
 	const dispatch = useDispatch()
 
@@ -31,7 +26,7 @@ const LoginForm = ({ authenticate }) => {
 	};
 
 	return (
-		<div data-testid="login-form-component">
+		<div data-testid="login-form-component" >
 			<div className={moduleFormStyles.form}>
 				<h1 className={moduleFormStyles.title}>Войти</h1>
 				<form name='LoginForm'
@@ -42,7 +37,7 @@ const LoginForm = ({ authenticate }) => {
 						direction="column">
 						<Grid item>
 							<FormControl fullWidth variant="standard">
-								<InputLabel htmlFor="email">Email</InputLabel>
+								<InputLabel htmlFor="email" shrink>Email</InputLabel>
 								<Input
 									{...register('email', {
 										required: {
@@ -69,7 +64,7 @@ const LoginForm = ({ authenticate }) => {
 						<Grid item>
 							<Stack direction="column">
 								<FormControl fullWidth margin="normal" variant="standard">
-									<InputLabel htmlFor="password">Пароль</InputLabel>
+									<InputLabel htmlFor="password" shrink>Пароль</InputLabel>
 									<Input
 										{...register('password', {
 											required: {
@@ -102,8 +97,14 @@ const LoginForm = ({ authenticate }) => {
 								</Button>
 							</Stack>
 						</Grid>
-						<Grid item mt={4}>
-							<Button disabled={!isValid} variant="contained" fullWidth type="submit">Войти</Button>
+						<Grid item mt={6} display="flex" justifyContent="center">
+							<Button
+								disabled={!isValid}
+								variant="contained"
+								fullWidth
+								type="submit">
+								Войти
+							</Button>
 						</Grid>
 					</Grid>
 				</form>
@@ -122,10 +123,12 @@ const LoginForm = ({ authenticate }) => {
 	)
 }
 
-export default compose(
-	connect(
-		state => ({ isLoggedIn: state.auth.isLoggedIn }),
-		{ authenticate }
-	),
-	withStyles(styles),
+LoginForm.propTypes = {
+	isLoggedIn: PropTypes.bool,
+	authenticate: PropTypes.func
+}
+
+export default connect(
+	state => ({ isLoggedIn: state.auth.isLoggedIn }),
+	{ authenticate }
 )(LoginForm);

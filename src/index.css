@@ -79,10 +79,19 @@ input {
 
 section {
 	min-height: inherit;
+	top: 102px;
+}
+
+header {
+	display: none !important;
 }
 
 .logo {
   flex-grow: 1;
+}
+
+.App-logo {
+	max-height: 116px;
 }
 
 input:-webkit-autofill,
@@ -95,7 +104,7 @@ input:-webkit-autofill:active  {
 
 .map {
 	position: absolute;
-	top: 102px;
+	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -107,4 +116,107 @@ input:-webkit-autofill:active  {
 	padding: 60px 44px;
 	margin: 0 auto;
 	max-width: 888px;
+}
+
+.bm-item {
+	display: inline-block;
+	text-decoration: none;
+	margin-bottom: 10px;
+	color: #000;
+	transition: color 0.2s;
+}
+
+.bm-burger-button {
+	display: block;
+	position: fixed;
+	width: 25px;
+	height: 16px;
+	left: 10px;
+	top: 40px;
+}
+
+.bm-burger-bars {
+	background: #000;
+	width: 25px;
+	max-height: 3px;
+	border-radius: 4px;
+	
+}
+.bm-burger-button > span > span:nth-of-type(2) {
+	top: 50% !important;
+	width: 17px;
+}
+.bm-burger-button > span > span:nth-of-type(3) {
+	top: 100%  !important;
+}
+
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+	min-height: 30px;
+	min-width: 30px;
+	right: 20px !important;
+	top: 20px !important;
+  }
+
+  .bm-cross-button > span > span {
+	min-height: 23px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+	background: #000;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 600px) {
+	.bm-menu-wrap {
+		min-width: 100%;
+	  }
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+	background: #fff;
+	padding: 2.5em 1.5em 0;
+	font-size: 1.15em;
+	width: 100%;
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+	fill: #fff;
+  }
+  
+  /* Wrapper for item list */
+  .bm-item-list {
+	color: #b8b7ad;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+	background: rgba(0, 0, 0, 0.3);
+  }
+  
+
+  @media screen and (min-width: 600px) {
+	.App-logo {
+		max-height: unset;
+	}
+
+	.bm-burger-button {
+		display: none;
+	}
+
+	header {
+		display: flex !important;
+	}
+
+	.map {
+		top: 102px;
+	}
+
+	section {
+		top: unset;
+	}
+	
 }

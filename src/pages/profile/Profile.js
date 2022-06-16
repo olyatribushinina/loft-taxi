@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React from 'react';
 import Header from '../../components/header/Header';
 import { Link } from 'react-router-dom';
 import Background from '../../images/map-over.png';
@@ -9,18 +9,18 @@ import { connect, useDispatch } from 'react-redux';
 import { saveUserCardData } from './../../actions/actions';
 import { compose } from 'redux';
 import { Typography, withStyles } from '@material-ui/core';
-import { Grid, Paper, Button, Box, FormControl, FormHelperText, InputLabel, Input, CardMedia, TextField } from '@mui/material';
+import { Grid, Paper, Button, Box, CardMedia, TextField } from '@mui/material';
 import moduleProfileStyles from './Profile.module.css';
-import { useForm, Controller, useWatch } from 'react-hook-form';
-import ReactDatePicker from "react-datepicker";
+import { useForm, Controller } from 'react-hook-form';
 import "react-datepicker/dist/react-datepicker.css";
 import NumberFormat from "react-number-format";
 
 const styles = theme => ({
 	filled: {
+		minHeight: '100vh',
 		background: `center / cover no-repeat url(${Background})`,
 		['@media (min-width: 900px)']: {
-			minHeight: '100vh',
+
 		}
 	},
 })
@@ -50,10 +50,6 @@ const Profile = (props) => {
 
 	const dispatch = useDispatch();
 
-	const [cardNumberVal, setCardNumberVal] = useState(`${userCardData.cardNumber}`);
-	const [cardExpiryVal, setCardExpiryVal] = useState(`${userCardData.expiryDate}`);
-
-
 	const onSubmit = (data) => {
 		const { cardNumber, expiryDate, cardName, cvc } = data;
 		dispatch(saveUserCardData(cardNumber, expiryDate, cardName, cvc, token))
@@ -63,7 +59,7 @@ const Profile = (props) => {
 		<div data-testid="profile-page">
 			<Header />
 			<main className={filled} >
-				<section>
+				<section >
 					<div className='container'>
 						<Grid container
 							direction="column"
@@ -78,36 +74,56 @@ const Profile = (props) => {
 										Введите платежные данные
 									</p>
 									<form name='CardDataForm' onSubmit={handleSubmit(onSubmit)}>
-										<Grid container spacing={4} sx={{ padding: '40px 0' }}>
-											<Grid item xs={6}>
-												<FormControl fullWidth margin="normal" variant="standard">
-													<InputLabel htmlFor="cardName">Имя владельца</InputLabel>
-													<Input
-														{...register('cardName', {
-															required: {
-																value: true,
-																message: "Введите имя"
-															},
-															pattern: {
-																value: /^[a-zA-Z]+$/,
-																message: "Значение должно состоять из букв"
-															},
-															minLength: {
-																value: 2,
-																message: "Имя слишком короткое"
-															}
-														})}
-														id="cardName"
-														type="text"
-														name="cardName"
-														placeholder="Loft"
-														aria-describedby="cardName-helper-text"
-													/>
-													<FormHelperText
-														id="cardName-helper-text">
-														{errors.cardName && <span>{errors.cardName.message}</span>}
-													</FormHelperText>
-												</FormControl>
+										<Grid
+											container
+											spacing={4}
+											sx={{
+												padding: '40px 0',
+												flexDirection: {
+													md: 'row',
+													xs: 'column'
+												},
+											}}
+										>
+											<Grid
+												item xs={6}
+												sx={{
+													maxWidth: {
+														xs: '100%',
+														md: '50%'
+													}
+												}}
+											>
+												<Controller
+													control={control}
+													name="cardName"
+													rules={{
+														required: {
+															value: true,
+														},
+														min: {
+															value: 1,
+															message: "Введите имя"
+														}
+													}}
+													render={({ field: { ref, ...field }, fieldState: { invalid, error } }) => (
+														<TextField
+															{...field}
+															inputRef={ref}
+															variant="standard"
+															margin="normal"
+															fullWidth
+															id="cardName"
+															type="text"
+															name="cardName"
+															placeholder="Loft"
+															aria-describedby="cardName-helper-text"
+															label="Имя владельца"
+															error={invalid}
+															helperText={errors.cardName && <span>{errors.cardName.message}</span>}
+														/>
+													)}
+												/>
 
 												<Controller
 													control={control}
@@ -206,7 +222,21 @@ const Profile = (props) => {
 													)}
 												/>
 											</Grid>
-											<Grid item xs={6}>
+											<Grid
+												item
+												xs={6}
+												sx={{
+													order: {
+														xs: ' -1',
+														md: '1'
+													},
+													maxWidth: {
+														xs: ' 100%',
+														md: '50%'
+													},
+
+												}}
+											>
 												<Paper elevation={5} className={moduleProfileStyles.card}>
 													<Box className={moduleProfileStyles.cardHeader}>
 														<CardMedia
@@ -218,9 +248,9 @@ const Profile = (props) => {
 															}}
 															component='img'
 														/>
-														<Typography variant="body1">{userCardData ? `${userCardData.expiryDate}` : '05/08'}</Typography>
+														<Typography variant="body1">{userCardData.expiryDate ? `${userCardData.expiryDate}` : '05/08'}</Typography>
 													</Box>
-													<Typography variant="body1">{userCardData ? `${userCardData.cardNumber}` : '5545 2300 3432 4521'}</Typography>
+													<Typography variant="body1">{userCardData.cardNumber ? `${userCardData.cardNumber}` : '5545 2300 3432 4521'}</Typography>
 													<Box className={moduleProfileStyles.cardFooter}>
 														<CardMedia
 															image={CardChip}
@@ -260,6 +290,13 @@ const Profile = (props) => {
 			</main>
 		</div>
 	)
+}
+
+Profile.propTypes = {
+	isLoggedIn: PropTypes.bool,
+	token: PropTypes.string,
+	userCardData: PropTypes.object,
+	saveUserCardData: PropTypes.func
 }
 
 export default compose(

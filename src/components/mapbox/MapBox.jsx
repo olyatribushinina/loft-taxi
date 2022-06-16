@@ -21,8 +21,6 @@ const MapBox = ({ coords }) => {
 			zoom: zoom
 		});
 
-		// console.log(coords)
-
 		map.on('load', () => {
 			if (coords.length) {
 				drawRoute(map, coords)

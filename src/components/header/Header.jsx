@@ -3,20 +3,32 @@ import Logo from './../../images/logo-header.svg';
 import PropTypes from "prop-types";
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOut } from '../../actions/actions';
-import { AppBar, Toolbar, Button, Container, Grid } from '@mui/material'
+import { logOut, resetRouteData } from '../../actions/actions';
+import { AppBar, Toolbar, Button, Container, Grid } from '@mui/material';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'redux';
+import { slide as Menu } from "react-burger-menu";
+import MapIcon from '../../images/header-icons/map.svg';
+import ProfileIcon from '../../images/header-icons/profile.svg';
+import ExitIcon from '../../images/header-icons/exit.svg';
+import { Box } from '@mui/system';
 
 const styles = theme => ({
 	appbar: {
 		minHeight: '102px',
 		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
-	button: {
+	buttonDesk: {
 		color: '#fff',
+		textTransform: 'none',
+		'&.active': {
+			color: '#ffc617',
+		},
+	},
+	buttonMobile: {
+		color: '#000',
 		textTransform: 'none',
 		'&.active': {
 			color: '#ffc617',
@@ -25,30 +37,67 @@ const styles = theme => ({
 })
 
 const Header = (props) => {
-	const { logOut } = props;
-	const { appbar, button } = props.classes;
+	const { logOut, resetRouteData } = props;
+	const { appbar, buttonMobile, buttonDesk } = props.classes;
+
+	const handleExit = () => {
+		logOut();
+		resetRouteData();
+		localStorage.clear();
+	}
 
 	return (
 		<div data-testid="header">
+			<Menu {...props}>
+				<Box style={{ display: 'flex', alignItems: 'center' }}>
+					<img src={MapIcon} alt='Map Icon' />
+					<Button variant="text"><NavLink className={buttonMobile} to="/map">Карта</NavLink></Button>
+				</Box>
+				<Box style={{ display: 'flex', alignItems: 'center' }}>
+					<img src={ProfileIcon} alt='Profile Icon' />
+					<Button variant="text"><NavLink className={buttonMobile} to="/profile">Профиль</NavLink></Button>
+				</Box>
+				<Box style={{ display: 'flex', alignItems: 'center' }}>
+					<img src={ExitIcon} alt='Exit Icon' />
+					<Button
+						variant="text"
+						onClick={logOut}
+						className={buttonMobile}
+						style={{
+							color: '#000'
+						}}
+					>Выйти</Button>
+				</Box>
+			</Menu>
+
 			<AppBar className={appbar} color="secondary" position="static">
-				<Container maxWidth="none">
+				<Container maxWidth="none" style={{ padding: '0' }}>
 					<Toolbar>
 						<Grid container spacing={2}
 							direction="row"
 							justifyContent="center"
 							alignItems="center">
-							<Grid item xs={8}>
+							<Grid item xs={6}>
 								<div className="logo">
 									<img src={Logo} className="App-logo" alt="logo" />
 								</div>
 							</Grid>
-							<Grid item xs={4}>
+							<Grid item xs={6}>
 								<Grid container
 									direction="row"
 									justifyContent="flex-end">
-									<Button variant="text"><NavLink className={button} to="/map">Карта</NavLink></Button>
-									<Button variant="text"><NavLink className={button} to="/profile">Профиль</NavLink></Button>
-									<Button variant="text" onClick={logOut} className={button}>Выйти</Button>
+									<Button variant="text"><NavLink className={buttonDesk} to="/map">Карта</NavLink></Button>
+									<Button variant="text"><NavLink className={buttonDesk} to="/profile">Профиль</NavLink></Button>
+									<Button
+										variant="text"
+										onClick={handleExit}
+										className={buttonDesk}
+										style={{
+											color: '#fff'
+										}}
+									>
+										Выйти
+									</Button>
 								</Grid>
 							</Grid>
 						</Grid>
@@ -57,7 +106,6 @@ const Header = (props) => {
 			</AppBar>
 		</div>
 	)
-
 }
 
 Header.propTypes = {
@@ -68,7 +116,7 @@ Header.propTypes = {
 export default compose(
 	connect(
 		state => ({ isLoggedIn: state.auth.isLoggedIn }),
-		{ logOut }
+		{ logOut, resetRouteData }
 	),
 	withStyles(styles),
 )(Header);

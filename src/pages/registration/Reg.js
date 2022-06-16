@@ -14,8 +14,10 @@ const styles = theme => ({
 	},
 	paper: {
 		backgroundColor: '#1C1A19',
+		padding: '52px 0 24px',
 		['@media (min-width: 900px)']: {
 			minHeight: '100vh',
+			padding: '0'
 		}
 	},
 	fullHeight: {

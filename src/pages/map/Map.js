@@ -3,19 +3,12 @@ import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { Paper, Grid, Button, Container, Typography, Stack } from '@mui/material';
+import { Paper, Button, Container, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { compose } from 'redux';
-import { withStyles } from '@material-ui/core';
 import { getAdressList, getRouteData, getUserCardData } from '../../actions/actions';
 import moduleMapStyles from './Map.module.css';
-import { styled } from '@mui/material/styles';
 import OrderForm from '../../components/order-form/OrderForm';
 import moduleFormStyles from '../../components/Form.module.css';
-
-const styles = theme => ({
-
-})
 
 function Map(props) {
 	const { userCardData } = props;
@@ -52,28 +45,27 @@ function Map(props) {
 							</div>
 						)
 				}
-			</section >
-		</div >
+			</section>
+		</div>
 	)
 }
 
 Map.propTypes = {
 	isLoggedIn: PropTypes.bool,
+	token: PropTypes.string,
 	userCardData: PropTypes.object,
 	adress: PropTypes.object,
 	getAdressList: PropTypes.func,
-	getRouteData: PropTypes.func
+	getRouteData: PropTypes.func,
+	getUserCardData: PropTypes.func
 }
 
-export default compose(
-	connect(
-		state => ({
-			isLoggedIn: state.auth.isLoggedIn,
-			token: state.auth.token,
-			userCardData: state.payment.userCardData,
-			adress: state.adressList.adress
-		}),
-		{ getAdressList, getRouteData, getUserCardData }
-	),
-	withStyles(styles),
+export default connect(
+	state => ({
+		isLoggedIn: state.auth.isLoggedIn,
+		token: state.auth.token,
+		userCardData: state.payment.userCardData,
+		adress: state.adressList.adress
+	}),
+	{ getAdressList, getRouteData, getUserCardData }
 )(Map);

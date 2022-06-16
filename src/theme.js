@@ -19,6 +19,8 @@ export const theme = createTheme({
 					borderRadius: "70px",
 					backgroundColor: "#FDBF5A",
 					color: '#000',
+					width: '100%',
+					maxWidth: '350px',
 					"&:focus": {
 						backgroundColor: "#FFA842",
 						boxShadow: "none",
@@ -30,9 +32,6 @@ export const theme = createTheme({
 					"&:disabled": {
 						backgroundColor: "##D8D7D5",
 					},
-				},
-				textPrimary: {
-					color: '#fff'
 				},
 			},
 		},
@@ -95,5 +94,15 @@ export const theme = createTheme({
 				}
 			}
 		},
+		breakpoints: {
+			values: {
+				xxs: 0, // small phone
+				xs: 300, // phone
+				sm: 600, // tablets
+				md: 900, // small laptop
+				lg: 1200, // desktop
+				xl: 1536 // large screens
+			}
+		}
 	},
 })
