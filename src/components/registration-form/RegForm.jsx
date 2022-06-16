@@ -1,113 +1,170 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { registration } from './../../actions/actions';
 import { Link } from 'react-router-dom';
 import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box, Grid, Button, Stack } from '@mui/material';
 import moduleFormStyles from '../Form.module.css';
+import { useForm } from 'react-hook-form';
 
-class RegForm extends React.Component {
-	static propTypes = {
-		isLoggedIn: PropTypes.bool,
-		registration: PropTypes.func
-	}
+const RegForm = ({ registration }) => {
 
-	state = {
-		email: ``,
-		password: ``,
-		name: ``,
-		surname: ``
+	const {
+		register,
+		handleSubmit,
+		formState: {
+			errors, isValid
+		}
+	} = useForm({
+		mode: 'onChange'
+	});
+	const dispatch = useDispatch()
+
+	const onSubmit = async (data) => {
+		const { email, password, name, surname } = data;
+		await dispatch(registration(email, password, name, surname))
 	};
 
-	handleSubmit = e => {
-		e.preventDefault();
-		const { email, password, name, surname } = this.state;
-		this.props.registration(email, password, name, surname);
-
-	};
-
-	handleChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-
-	render() {
-		const { email, name, surname, password } = this.state;
-
-		return (
-			<div data-testid="registration-form-component">
-				<div className={moduleFormStyles.form}>
-					<div className={moduleFormStyles.title}>Регистрация</div>
-					<form
-						name='RegForm'
-						onSubmit={this.handleSubmit}
-						data-testid="registration-form">
-						<Grid container
-							spacing={0}
-							direction="column">
-							<Grid item mb={3}>
-								<FormControl fullWidth>
-									<InputLabel htmlFor="email">Email*</InputLabel>
-									<Input
-										id="email"
-										type="email"
-										name="email"
-										placeholder="mail@mail.ru"
-										value={email}
-										onChange={this.handleChange} />
-								</FormControl>
-							</Grid>
-							<Grid item mb={3}>
-								<Stack direction="row" spacing={1}>
-									<FormControl fullWidth>
-										<InputLabel htmlFor="name">Имя*</InputLabel>
-										<Input
-											id="name"
-											type="text"
-											name="name"
-											placeholder="Гомер"
-											value={name}
-											onChange={this.handleChange} />
-									</FormControl>
-									<FormControl fullWidth>
-										<InputLabel htmlFor="surname">Фамилия*</InputLabel>
-										<Input
-											id="surname"
-											type="text"
-											name="surname"
-											placeholder="Симпсон"
-											value={surname}
-											onChange={this.handleChange} />
-									</FormControl>
-								</Stack>
-							</Grid>
-							<Grid item mb={3}>
-								<FormControl fullWidth>
-									<InputLabel htmlFor="password">Придумайте пароль*</InputLabel>
-									<Input
-										id="password"
-										type="password"
-										name="password"
-										placeholder="********"
-										value={password}
-										onChange={this.handleChange} />
-								</FormControl>
-							</Grid>
-							<Grid item mb={4}>
-								<Button variant="contained" fullWidth type="submit">Зарегистрироваться</Button>
-							</Grid>
-							<Grid item>
-								<Stack direction="row" alignItems="center" justifyContent="center">
-									<span>Уже зарегистрированы?</span>
-									<Link
-										to="/">Войти</Link>
-								</Stack>
-							</Grid>
+	return (
+		<div data-testid="registration-form-component">
+			<div className={moduleFormStyles.form}>
+				<div className={moduleFormStyles.title}>Регистрация</div>
+				<form
+					name='RegForm'
+					onSubmit={handleSubmit(onSubmit)}
+					data-testid="registration-form">
+					<Grid container
+						spacing={0}
+						direction="column">
+						<Grid item mb={3}>
+							<FormControl fullWidth>
+								<InputLabel htmlFor="email">Email*</InputLabel>
+								<Input
+									{...register('email', {
+										required: {
+											value: true,
+											message: "Ведите адрес электронной почты"
+										},
+										pattern: {
+											value: /^\S+@\S+$/i,
+											message: "Введите корректный адрес электронной почты"
+										}
+									})}
+									id="email"
+									type="text"
+									name="email"
+									placeholder="mail@mail.ru"
+									aria-describedby="email-helper-text"
+								/>
+								<FormHelperText
+									id="email-helper-text">
+									{errors.email && <span>{errors.email.message}</span>}
+								</FormHelperText>
+							</FormControl>
 						</Grid>
-					</form>
-				</div>
+						<Grid item mb={3}>
+							<Stack direction="row" spacing={1}>
+								<FormControl fullWidth>
+									<InputLabel htmlFor="name">Имя*</InputLabel>
+									<Input
+										{...register('name', {
+											required: {
+												value: true,
+												message: "Введите имя"
+											},
+											pattern: {
+												value: /^[a-zA-Z]+$/,
+												message: "Значение должно состоять из букв"
+											},
+											minLength: {
+												value: 2,
+												message: "Имя слишком короткое"
+											}
+										})}
+										id="name"
+										type="text"
+										name="name"
+										placeholder="Гомер"
+										aria-describedby="name-helper-text"
+									/>
+									<FormHelperText
+										id="name-helper-text">
+										{errors.name && <span>{errors.name.message}</span>}
+									</FormHelperText>
+								</FormControl>
+								<FormControl fullWidth variant="standard">
+									<InputLabel htmlFor="surname">Фамилия*</InputLabel>
+									<Input
+										{...register('surname', {
+											required: {
+												value: true,
+												message: "Введите Фамилию"
+											},
+											pattern: {
+												value: /^[a-zA-Z]+$/,
+												message: "Значение должно состоять из букв"
+											},
+											minLength: {
+												value: 2,
+												message: "Фамилия слишком короткая"
+											}
+										})}
+										id="surname"
+										type="text"
+										name="surname"
+										placeholder="Симпсон"
+										aria-describedby="surname-helper-text"
+									/>
+									<FormHelperText
+										id="surname-helper-text">
+										{errors.surname && <span>{errors.surname.message}</span>}
+									</FormHelperText>
+								</FormControl>
+							</Stack>
+						</Grid>
+						<Grid item mb={3}>
+							<FormControl fullWidth variant="standard">
+								<InputLabel htmlFor="password">Придумайте пароль*</InputLabel>
+								<Input
+									{...register('password', {
+										required: {
+											value: true,
+											message: "Введите пароль"
+										},
+										minLength: {
+											value: 2,
+											message: "Пароль слишком короткий"
+										},
+									})}
+									id="password"
+									type="password"
+									name="password"
+									placeholder="********"
+									aria-describedby="password-helper-text"
+								/>
+								<FormHelperText
+									id="password-helper-text">
+									{errors.password && <span>{errors.password.message}</span>}
+								</FormHelperText>
+							</FormControl>
+						</Grid>
+						<Grid item mb={4}>
+							<Button disabled={!isValid} variant="contained" fullWidth type="submit">Зарегистрироваться</Button>
+						</Grid>
+						<Grid item>
+							<Stack direction="row" alignItems="center" justifyContent="center">
+								<span>Уже зарегистрированы?</span>
+								<Button variant="text" color="primary" sx={{}}>
+									<Link to="/" style={{ color: '#ffc617', fontSize: '14px' }}>Войти</Link>
+								</Button>
+							</Stack>
+						</Grid>
+					</Grid>
+				</form>
 			</div>
-		)
-	}
+		</div>
+	)
+
 }
 
 export default connect(

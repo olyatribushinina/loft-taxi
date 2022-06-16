@@ -3,7 +3,7 @@ import Header from '../../components/header/Header';
 import MapBox from '../../components/mapbox/MapBox';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { Paper, Grid, Button, Container, Typography } from '@mui/material';
+import { Paper, Grid, Button, Container, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core';
@@ -11,53 +11,49 @@ import { getAdressList, getRouteData, getUserCardData } from '../../actions/acti
 import moduleMapStyles from './Map.module.css';
 import { styled } from '@mui/material/styles';
 import OrderForm from '../../components/order-form/OrderForm';
+import moduleFormStyles from '../../components/Form.module.css';
 
 const styles = theme => ({
 
 })
 
 function Map(props) {
-
-	let storagePayment = JSON.parse(localStorage.getItem('userCardData'));
+	const { userCardData } = props;
 
 	useEffect(() => {
-		if (storagePayment) {
+		if (Object.keys(userCardData)) {
 			props.getAdressList()
 		}
-	}, [storagePayment])
+	}, [userCardData])
 
 	return (
 		<div data-testid="map-page">
-			<Header setStorageAuth={props.setStorageAuth} />
+			<Header />
 			<MapBox />
 			<section className={moduleMapStyles.section}>
 				{
-					storagePayment?.hasOwnProperty("cardNumber", "expiryDate", "cardName", "cvc")
+					userCardData?.hasOwnProperty("cardNumber", "expiryDate", "cardName", "cvc")
 						?
 						(<OrderForm />)
 						:
 						(
-							<Container className={moduleMapStyles.container}>
-								<div className={moduleMapStyles.box}>
+							< div className={moduleMapStyles.box}>
+								<Container className={moduleMapStyles.container}>
 									<Paper className={moduleMapStyles.paper}>
-										<Grid container spacing={6}>
-											<Grid item xs={12}>
-												<Typography align="center" color="inherit" variant="h4">Заполните платежные данные</Typography>
-												<Typography align="center" color="inherit" variant="body1">Укажите информацию о банковской карте, чтобы сделать заказ.</Typography>
-											</Grid>
-											<Grid item xs={12}>
-												<Button variant="contained" fullWidth>
-													<Link to="/profile">Перейти в профиль</Link>
-												</Button>
-											</Grid>
-										</Grid>
+										<Stack spacing="15px">
+											<h2 className={moduleFormStyles.messageBlockTitle}>Заполните платежные данные</h2>
+											<p className={moduleFormStyles.messageBlockDescription}>Укажите информацию о банковской карте, чтобы сделать заказ.</p>
+											<Button variant="contained" fullWidth>
+												<Link to="/profile" style={{ color: '#000' }}>Перейти в профиль</Link>
+											</Button>
+										</Stack>
 									</Paper>
-								</div>
-							</Container>
+								</Container>
+							</div>
 						)
 				}
-			</section>
-		</div>
+			</section >
+		</div >
 	)
 }
 

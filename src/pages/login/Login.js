@@ -15,12 +15,12 @@ const styles = theme => ({
 	paper: {
 		backgroundColor: '#1C1A19',
 		['@media (min-width: 900px)']: {
-			minHeight: 'calc(100vh - 102px)',
+			minHeight: '100vh',
 		}
 	},
 	fullHeight: {
 		['@media (min-width: 900px)']: {
-			minHeight: 'calc(100vh - 102px)',
+			minHeight: '100vh',
 		}
 	}
 })

@@ -18,6 +18,7 @@ export const theme = createTheme({
 					boxShadow: "none",
 					borderRadius: "70px",
 					backgroundColor: "#FDBF5A",
+					color: '#000',
 					"&:focus": {
 						backgroundColor: "#FFA842",
 						boxShadow: "none",
@@ -32,7 +33,7 @@ export const theme = createTheme({
 				},
 				textPrimary: {
 					color: '#fff'
-				}
+				},
 			},
 		},
 		MuiFormLabel: {
@@ -62,6 +63,14 @@ export const theme = createTheme({
 						"borderBottomColor": "#1473e6"
 					}
 				}
+			}
+		},
+		MuiFormHelperText: {
+			styleOverrides: {
+				root: {
+					color: 'red',
+					margin: '0'
+				},
 			}
 		},
 		MuiLink: {

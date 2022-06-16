@@ -2,7 +2,7 @@ export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const REGISTRATION = "REGISTRATION";
-// export const GET_TOKEN = "GET_TOKEN";
+export const GET_TOKEN = "GET_TOKEN";
 export const SAVED_USER_DATA = 'SAVED_USER_DATA';
 export const SAVE_USER_CARD_DATA = 'SAVE_USER_CARD_DATA';
 export const SAVED_CARD_DATA = 'SAVED_CARD_DATA';
@@ -21,7 +21,7 @@ export const logOut = () => ({ type: LOG_OUT });
 
 // export const order = () => ({ type: ORDER });
 
-// export const getToken = (token) => ({ type: GET_TOKEN, token })
+export const getToken = (token) => ({ type: GET_TOKEN, token })
 
 export const savedUserData = (userData) => ({ type: SAVED_USER_DATA, userData });
 

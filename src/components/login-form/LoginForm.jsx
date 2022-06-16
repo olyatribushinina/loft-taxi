@@ -1,117 +1,126 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { authenticate } from './../../actions/actions';
 import { Link } from 'react-router-dom';
 import { Paper, FormControl, InputLabel, Input, FormHelperText, Typography, Box, Grid, Button, Stack } from '@mui/material';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'redux';
 import moduleFormStyles from '../Form.module.css';
+import { useForm } from 'react-hook-form';
 
 const styles = theme => ({
 })
 
-class LoginForm extends React.Component {
-	static propTypes = {
-		isLoggedIn: PropTypes.bool,
-		authenticate: PropTypes.func
-	}
+const LoginForm = ({ authenticate }) => {
 
-	state = {
-		email: ``,
-		password: ``
+	const {
+		register,
+		handleSubmit,
+		formState: {
+			errors, isValid
+		}
+	} = useForm({
+		mode: 'onChange'
+	});
+	const dispatch = useDispatch()
+
+	const onSubmit = async (data) => {
+		const { email, password } = data;
+		await dispatch(authenticate(email, password))
 	};
 
-	handleSubmit = e => {
-		e.preventDefault();
-		const { email, password } = this.state;
-		this.props.authenticate(email, password);
-		// console.log(this.props.isLoggedIn)
-		this.handleReset();
-	};
-
-	handleReset = e => {
-		this.setState({ email: '', password: '' })
-	};
-
-	handleChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-
-	render() {
-		const { email, password } = this.state;
-		const { formBox } = this.props.classes;
-		// console.log(this.props)
-		return (
-			<div data-testid="login-form-component">
-				<div className={moduleFormStyles.form}>
-					<h1 className={moduleFormStyles.title}>Войти</h1>
-					<form name='LoginForm'
-						onSubmit={this.handleSubmit}
-						data-testid="login-form">
-						<Grid container
-							spacing={0}
-							direction="column">
-							<Grid item>
-								<FormControl fullWidth>
-									<InputLabel htmlFor="email">Email</InputLabel>
-									<Input
-										id="email"
-										type="email"
-										name="email"
-										placeholder="mail@mail.ru"
-										value={email}
-										onChange={this.handleChange} />
-								</FormControl>
-							</Grid>
-							<Grid item>
-								<Stack direction="column">
-									<FormControl fullWidth margin="normal">
-										<InputLabel htmlFor="password">Пароль</InputLabel>
-										<Input
-											id="password"
-											type="password"
-											name="password"
-											placeholder="********"
-											value={password}
-											onChange={this.handleChange} />
-									</FormControl>
-									<Button sx={{
-										alignSelf: 'flex-end',
-										textTransform: 'none',
-										color: '#828282',
-										"&.MuiButtonBase-root:hover": { bgcolor: "transparent" }
-									}}>
-										Забыли пароль
-									</Button>
-								</Stack>
-							</Grid>
-							<Grid item mt={4}>
-								{/* <input type="submit"
-									className={moduleButtonStyles.themeBackgroundColor}
-									placeholder="Войти"
-									defaultValue="Войти" /> */}
-								<Button variant="contained" fullWidth type="submit">Войти</Button>
-							</Grid>
+	return (
+		<div data-testid="login-form-component">
+			<div className={moduleFormStyles.form}>
+				<h1 className={moduleFormStyles.title}>Войти</h1>
+				<form name='LoginForm'
+					onSubmit={handleSubmit(onSubmit)}
+					data-testid="login-form">
+					<Grid container
+						spacing={0}
+						direction="column">
+						<Grid item>
+							<FormControl fullWidth variant="standard">
+								<InputLabel htmlFor="email">Email</InputLabel>
+								<Input
+									{...register('email', {
+										required: {
+											value: true,
+											message: "Ведите адрес электронной почты"
+										},
+										pattern: {
+											value: /^\S+@\S+$/i,
+											message: "Введите корректный адрес электронной почты"
+										}
+									})}
+									id="email"
+									type="text"
+									name="email"
+									placeholder="mail@mail.ru"
+									aria-describedby="email-helper-text"
+								/>
+								<FormHelperText
+									id="email-helper-text">
+									{errors.email && <span>{errors.email.message}</span>}
+								</FormHelperText>
+							</FormControl>
 						</Grid>
-					</form>
-
-					<Stack
-						direction="row"
-						alignItems="center"
-						justifyContent="center"
-						mt={3}>
-						<span>Новый пользователь?</span>
-						<Link
-							to="/registration">Регистрация
-						</Link>
-					</Stack>
-				</div>
+						<Grid item>
+							<Stack direction="column">
+								<FormControl fullWidth margin="normal" variant="standard">
+									<InputLabel htmlFor="password">Пароль</InputLabel>
+									<Input
+										{...register('password', {
+											required: {
+												value: true,
+												message: "Введите пароль"
+											},
+											minLength: {
+												value: 2,
+												message: "Пароль слишком короткий"
+											},
+										})}
+										id="password"
+										type="password"
+										name="password"
+										placeholder="********"
+										aria-describedby="password-helper-text"
+									/>
+									<FormHelperText
+										id="password-helper-text">
+										{errors.password && <span>{errors.password.message}</span>}
+									</FormHelperText>
+								</FormControl>
+								<Button sx={{
+									alignSelf: 'flex-end',
+									textTransform: 'none',
+									color: '#828282',
+									"&.MuiButtonBase-root:hover": { bgcolor: "transparent" }
+								}}>
+									Забыли пароль
+								</Button>
+							</Stack>
+						</Grid>
+						<Grid item mt={4}>
+							<Button disabled={!isValid} variant="contained" fullWidth type="submit">Войти</Button>
+						</Grid>
+					</Grid>
+				</form>
+				<Stack
+					direction="row"
+					alignItems="center"
+					justifyContent="center"
+					mt={3}>
+					<span>Новый пользователь?</span>
+					<Button variant="text" color="primary" sx={{}}>
+						<Link to="/registration" style={{ color: '#ffc617', fontSize: '14px' }}>Регистрация</Link>
+					</Button>
+				</Stack>
 			</div>
-		)
-	}
+		</div>
+	)
 }
-
 
 export default compose(
 	connect(

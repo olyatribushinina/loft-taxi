@@ -3,11 +3,13 @@ import Standart from '../../images/cars/standart.png';
 import Premium from '../../images/cars/premium.png';
 import Bisness from '../../images/cars/bisness.png';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Stack, Autocomplete, TextField, Paper, Grid, Button, Typography, CardMedia, Container } from '@mui/material';
 import { getAdressList, getRouteData, resetRouteData, getUserCardData } from '../../actions/actions';
 import moduleMapStyles from '../../pages/map/Map.module.css';
 import moduleFormStyles from '../Form.module.css';
+import { useForm, Controller } from 'react-hook-form';
+
 
 function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 	let adresses = Object.values(adress);
@@ -21,32 +23,43 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 		setInputValues({ ...inputValues, [name]: value });
 	});
 
-	function handleSubmit(e) {
-		e.preventDefault();
-		if (Object.values(inputValues).length) {
-			getRouteData(inputValues.from, inputValues.to);
-		}
-	}
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { isValid }
+	} = useForm({ mode: 'onChange' });
+
+	const dispatch = useDispatch();
+
+	const onSubmit = (data) => {
+		const { from, to } = data;
+		dispatch(getRouteData(from, to));
+		reset();
+	};
+
 	return (
 		!isOrdered
 			?
 			(<div className={moduleMapStyles.box}>
-				<form name="RouteForm" onSubmit={handleSubmit}>
+				<form name="RouteForm" onSubmit={handleSubmit(onSubmit)}>
 					<Grid container>
 						<Grid item xs={12} >
 							<Paper elevation={1} className={moduleMapStyles.selectPaper}>
 								<Stack spacing={0} className={moduleMapStyles.paperContainer}>
 									<Autocomplete
+										{...register("from", { required: true })}
 										autoComplete
 										includeInputInList
 										options={adresses.filter(i => i !== inputValues.to)}
-										renderInput={(params) => <TextField {...params} name="from" label="откуда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
+										renderInput={(params) => <TextField {...params} name="from" label="откуда" onChange={handleChange} onSelect={handleChange} margin="dense" variant="standard" />}
 									/>
 									<Autocomplete
+										{...register("to", { required: true })}
 										autoComplete
 										includeInputInList
 										options={adresses.filter(i => i !== inputValues.from)}
-										renderInput={(params) => <TextField {...params} name="to" label="куда" onChange={handleChange} onSelect={handleChange} margin="dense" />}
+										renderInput={(params) => <TextField {...params} name="to" label="куда" onChange={handleChange} onSelect={handleChange} margin="dense" variant="standard" />}
 									/>
 								</Stack>
 							</Paper>
@@ -55,46 +68,69 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 							<Paper elevation={5} className={moduleMapStyles.radioPaper}>
 								<Stack spacing={0}>
 									<Stack direction="row" justifyContent="center">
-										<input id="standart" type="radio" name="car" value="standart" />
+										<input
+											{...register('car', { required: true })}
+											id="standart"
+											type="radio"
+											name="car"
+											value="standart"
+										/>
 										<label htmlFor='standart'>
 											<Paper elevation={3} className={moduleMapStyles.radioItem}>
 												<Typography variant="body1">Стандарт</Typography>
 												<Typography variant="inherit">Стоимость</Typography>
 												<Typography variant="h6">150P</Typography>
 												<CardMedia
-													style={{ backgroundImage: `url(${Standart})` }}
-													className={moduleMapStyles.media}>
-												</CardMedia>
+													image={Standart}
+													title="Standart car Image"
+													className={moduleMapStyles.media}
+													component='img'
+												/>
 											</Paper>
-
 										</label>
-										<input id="premium" type="radio" name="car" value="premium" />
+										<input
+											{...register('car', { required: true })}
+											id="premium"
+											type="radio"
+											name="car"
+											value="premium"
+										/>
 										<label htmlFor='premium'>
 											<Paper elevation={3} className={moduleMapStyles.radioItem}>
-
 												<Typography variant="body1">Премиум</Typography>
 												<Typography variant="inherit">Стоимость</Typography>
 												<Typography variant="h6">250P</Typography>
 												<CardMedia
-													style={{ backgroundImage: `url(${Premium})` }}
-													className={moduleMapStyles.media}>
-												</CardMedia>
+													image={Premium}
+													title="Premium car Image "
+													className={moduleMapStyles.media}
+													component='img'
+												/>
 											</Paper>
 										</label>
-										<input id="bisness" type="radio" name="car" value="bisness" />
+										<input
+											{...register('car', { required: true })}
+											id="bisness"
+											type="radio"
+											name="car"
+											value="bisness"
+										/>
 										<label htmlFor='bisness'>
 											<Paper elevation={3} className={moduleMapStyles.radioItem}>
 												<Typography variant="body1">Бизнес</Typography>
 												<Typography variant="inherit">Стоимость</Typography>
 												<Typography variant="h6">300P</Typography>
 												<CardMedia
-													style={{ backgroundImage: `url(${Bisness})` }}
-													className={moduleMapStyles.media}>
-												</CardMedia>
+													image={Bisness}
+													title="Bisness car Image"
+													className={moduleMapStyles.media}
+													component='img'
+												/>
 											</Paper>
 										</label>
 									</Stack>
 									<Button
+										disabled={!isValid}
 										type="submit"
 										variant="contained"
 										fullWidth

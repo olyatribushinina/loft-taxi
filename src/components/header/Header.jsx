@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Logo from './../../images/logo-header.svg';
 import PropTypes from "prop-types";
 import { NavLink } from 'react-router-dom';
@@ -25,22 +25,13 @@ const styles = theme => ({
 })
 
 const Header = (props) => {
-
-	const { isLoggedIn, logOut, setStorageAuth } = props;
+	const { logOut } = props;
 	const { appbar, button } = props.classes;
-	const exit = () => {
-		logOut()
-		let prop = {};
-		setStorageAuth(prop)
-		localStorage.removeItem('auth');
-		localStorage.removeItem('userCardData');
-		console.log(JSON.parse(localStorage.getItem('userCardData')))
-	}
 
 	return (
 		<div data-testid="header">
 			<AppBar className={appbar} color="secondary" position="static">
-				<Container maxWidth="xl">
+				<Container maxWidth="none">
 					<Toolbar>
 						<Grid container spacing={2}
 							direction="row"
@@ -57,7 +48,7 @@ const Header = (props) => {
 									justifyContent="flex-end">
 									<Button variant="text"><NavLink className={button} to="/map">Карта</NavLink></Button>
 									<Button variant="text"><NavLink className={button} to="/profile">Профиль</NavLink></Button>
-									<Button variant="text" onClick={exit} className={button}>Выйти</Button>
+									<Button variant="text" onClick={logOut} className={button}>Выйти</Button>
 								</Grid>
 							</Grid>
 						</Grid>
