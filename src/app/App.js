@@ -7,41 +7,30 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from "react-router-dom";
 
-class App extends React.Component {
+const App = ({ isLoggedIn }) => {
+	return (
+		<>
+			<Switch>
 
-	render() {
-		let storageIsLoggedIn = false;
+				{
+					isLoggedIn
+						?
+						(<>
+							<Route path="/map" component={Map} />
+							<Route path="/profile" component={Profile} />
+							<Redirect to="/map" />
 
-		if (localStorage.length && localStorage.getItem('redux-store')) {
-			storageIsLoggedIn = JSON.parse(localStorage.getItem('redux-store')).auth.isLoggedIn;
-		}
-		console.log(storageIsLoggedIn)
-		const { isLoggedIn } = this.props;
+						</>)
+						: (<>
+							<Route exact path="/" component={Login} />
+							<Route path="/registration" component={Reg} />
+							<Redirect to="/" />
+						</>)
+				}
 
-		return (
-			<>
-				<Switch>
-
-					{
-						storageIsLoggedIn
-							?
-							(<>
-								<Route path="/map" component={Map} />
-								<Route path="/profile" component={Profile} />
-								<Redirect to="/map" />
-
-							</>)
-							: (<>
-								<Route exact path="/" component={Login} />
-								<Route path="/registration" component={Reg} />
-								<Redirect to="/" />
-							</>)
-					}
-
-				</Switch>
-			</>
-		);
-	}
+			</Switch>
+		</>
+	);
 }
 
 App.propTypes = {

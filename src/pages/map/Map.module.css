@@ -1,0 +1,117 @@
+.section {
+    position: relative;
+	pointer-events: none;
+}
+
+.container {
+	padding: 24px;
+    position: absolute;
+}
+
+.routeForm {
+	width: 100%;
+	max-width: 486px;
+}
+
+.box {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 486px;
+	padding: 10px;
+	margin: 0 auto;
+	pointer-events: none;
+	min-height: calc(100vh - 120px);
+}
+
+.paper {
+	padding: 32px 10px;
+	pointer-events: all;
+}
+
+.selectPaper {
+	width: 100%;
+	max-width: 486px;
+    padding: 16px 0;
+    border-radius: 10px;
+    padding-bottom: 34px;
+    pointer-events: all;
+}
+
+.radioPaper {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, -10px);
+	width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    pointer-events: all;
+}
+
+.paperContainer {
+	padding: 0 20px;
+}
+
+.radioItem {
+	max-width: 118px;
+	height: 100%;
+    cursor: pointer;
+    opacity: 0.6;
+    padding: 12px;
+    box-sizing: border-box;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+	overflow: hidden;
+}
+
+.media {
+	max-width: 95px;
+    max-height: 72px;
+    margin-top: 12px;
+	object-fit: contain;
+}
+
+.radioPaper label {
+	cursor: pointer;
+	display: block;
+}
+
+.radioPaper label:not(:first-of-type) {
+	margin-left: 20px;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"]:checked + label .radioItem {
+	opacity: 1;
+	box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
+}
+
+
+
+@media screen and (min-width: 900px ) {
+
+	.box {
+		min-height: unset;
+		padding: 24px;
+		margin: 0;
+	}
+
+	.paper {
+		padding: 32px 46px;
+	}
+
+	.radioPaper {
+		position: static;
+		padding: 32px 46px;
+		transform: translate(0, 10px);
+	}
+
+}
+
+

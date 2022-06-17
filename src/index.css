@@ -1,11 +1,16 @@
+html,
 body {
-  margin: 0;
+	margin: 0;
+	height: 100%;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} 
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -16,12 +21,6 @@ body {
   	font-size: 14px;
 	font-style: normal;
   	font-weight: 400;
-	background-color: lemonchiffon;
-}
-
-code {
-font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
 }
 
 * {
@@ -69,114 +68,30 @@ input {
 }
 
 .container {
-  max-width: 1440px;
-  padding: 4px 24px;
   margin: 0 auto;
+  height: 100%;
+  min-height: inherit;
 }
 
-.header {
-  background-color: #1C1A19;
+.maincontent {
+	height: calc(100vh - 102px);
+}
+
+section {
+	min-height: inherit;
+	top: 102px;
+}
+
+header {
+	display: none !important;
 }
 
 .logo {
   flex-grow: 1;
 }
 
-.btn {
-  cursor: pointer;
-}
-
-.btn_text {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 8px;
-  color: #fff;
-}
-
-.form .btn_text {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #828282;
-}
-
-.btn_text.theme-color {
-  color: #FDBF5A;
-}
-
-.btn_bg {
-  background: #FDBF5A;
-  border-radius: 70px;
-  width: 100%;
-  padding: 16px;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.btn_bg.theme-color {
-  background: #FDBF5A;
-  color: inherit;
-}
-
-.btn_text.active {
-  color: #FDBF5A;
-}
-
-.form {
-  max-width: 580px;
-  background-color: #fff;
-  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  padding: 55px 112px;
-  color: #000;
-  margin-left: auto;
-}
-
-.form__title {
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 35px;
-  text-align: center;
-  margin-bottom: 55px;
-}
-
-.form__item {
-  display: flex;
-  flex-direction: column;
-}
-
-.form .form__item {
-  margin-bottom: 25px;
-}
-
-.form .form__item_submit {
-  margin: 40px 0 25px;
-}
-
-.form label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-bottom: 2px solid #E4E4E4;
-}
-
-.form label > * {
-  margin: 5px 0;
-}
-
-.form label > span {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.form input {
-  font-weight: 400;
-}
-
-.form input:not(.btn) {
-  font-size: 18px;
-  line-height: 21px;
-  color: #828282;
+.App-logo {
+	max-height: 116px;
 }
 
 input:-webkit-autofill,
@@ -187,9 +102,9 @@ input:-webkit-autofill:active  {
   -webkit-text-fill-color: #828282;
 }
 
-.map-container {
+.map {
 	position: absolute;
-	top: 73px;
+	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -203,34 +118,105 @@ input:-webkit-autofill:active  {
 	max-width: 888px;
 }
 
-#card-data-form .form__title {
-	margin: 13px;
+.bm-item {
+	display: inline-block;
+	text-decoration: none;
+	margin-bottom: 10px;
+	color: #000;
+	transition: color 0.2s;
 }
 
-#card-data-form .form__title + p {
-	color: rgba(123, 123, 123, 1)
+.bm-burger-button {
+	display: block;
+	position: fixed;
+	width: 25px;
+	height: 16px;
+	left: 10px;
+	top: 40px;
 }
 
-#card-data-form form .form__inner {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 100px;
+.bm-burger-bars {
+	background: #000;
+	width: 25px;
+	max-height: 3px;
+	border-radius: 4px;
+	
+}
+.bm-burger-button > span > span:nth-of-type(2) {
+	top: 50% !important;
+	width: 17px;
+}
+.bm-burger-button > span > span:nth-of-type(3) {
+	top: 100%  !important;
 }
 
-#card-data-form form .form__rows {
-	flex: 1;
-}
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+	min-height: 30px;
+	min-width: 30px;
+	right: 20px !important;
+	top: 20px !important;
+  }
 
-#card-data-form form .card-image {
-	width: 347px;
-	height: 182px;
-	background: #FFFFFF;
-	box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-}
+  .bm-cross-button > span > span {
+	min-height: 23px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+	background: #000;
+  }
 
-#card-data-form form .btn {
-	max-width: 350px;
-	margin: auto;
+  @media screen and (min-width: 320px) and (max-width: 600px) {
+	.bm-menu-wrap {
+		min-width: 100%;
+	  }
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+	background: #fff;
+	padding: 2.5em 1.5em 0;
+	font-size: 1.15em;
+	width: 100%;
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+	fill: #fff;
+  }
+  
+  /* Wrapper for item list */
+  .bm-item-list {
+	color: #b8b7ad;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+	background: rgba(0, 0, 0, 0.3);
+  }
+  
+
+  @media screen and (min-width: 600px) {
+	.App-logo {
+		max-height: unset;
+	}
+
+	.bm-burger-button {
+		display: none;
+	}
+
+	header {
+		display: flex !important;
+	}
+
+	.map {
+		top: 102px;
+	}
+
+	section {
+		top: unset;
+	}
+	
 }

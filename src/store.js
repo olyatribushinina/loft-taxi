@@ -1,13 +1,21 @@
 import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReduser from './reducers';
-import { authMiddleware } from './authMiddleware';
+import RootSaga from './sagas/rootSaga'
 
-export const store = createStore(rootReduser, applyMiddleware(authMiddleware));
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = createStore(
+	rootReduser,
+	localStorage['redux-state'] ? JSON.parse(localStorage['redux-state']) : {},
+	applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(RootSaga);
 
 store.subscribe(() => {
-	localStorage['redux-store'] = JSON.stringify(store.getState());
-	// console.log(store.getState())
-	console.log(localStorage);
-});
+	localStorage['redux-state'] = JSON.stringify(store.getState());
 
-// localStorage.clear()
+})
+// console.log(store.getState())
+
+
