@@ -3,6 +3,7 @@ import LoginForm from '../../components/login-form/LoginForm';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { AUTHENTICATE } from '../../actions/actions';
 
 const mockStore = {
 	getState: () => ({ auth: {} }),

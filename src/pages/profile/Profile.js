@@ -19,9 +19,6 @@ const styles = theme => ({
 	filled: {
 		minHeight: '100vh',
 		background: `center / cover no-repeat url(${Background})`,
-		['@media (min-width: 900px)']: {
-
-		}
 	},
 })
 const Profile = (props) => {
@@ -97,11 +94,8 @@ const Profile = (props) => {
 													rules={{
 														required: {
 															value: true,
-														},
-														min: {
-															value: 1,
 															message: "Введите имя"
-														}
+														},
 													}}
 													render={({ field: { ref, ...field }, fieldState: { invalid, error } }) => (
 														<TextField
@@ -128,11 +122,8 @@ const Profile = (props) => {
 													rules={{
 														required: {
 															value: true,
+															message: "введите номер карты"
 														},
-														min: {
-															value: 16,
-															message: "минимальное значение 16"
-														}
 													}}
 													render={({ field: { ref, ...field }, fieldState: { invalid, error } }) => (
 														<NumberFormat
@@ -160,10 +151,7 @@ const Profile = (props) => {
 													name="expiryDate"
 													rules={{
 														required: true,
-														min: {
-															value: 4,
-															message: "минимальное значение 4"
-														}
+														message: "введите дату"
 													}}
 													defaultValue={userCardData.expiryDate}
 													render={({ field: { ref, ...field }, fieldState: { invalid, error } }) => (
@@ -193,10 +181,7 @@ const Profile = (props) => {
 													name="cvc"
 													rules={{
 														required: true,
-														min: {
-															value: 3,
-															message: "минимальное значение 3"
-														}
+														message: "введите cvc"
 													}}
 													defaultValue={userCardData.cvc}
 													render={({ field: { ref, ...field }, fieldState: { invalid, error } }) => (

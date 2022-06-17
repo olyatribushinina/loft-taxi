@@ -9,6 +9,11 @@ export function* registrationSaga(action) {
 		if (success) {
 			yield put(logIn())
 			yield put(getToken(token))
+
+			const resultCardData = yield serverGetCardData(token);
+
+			yield put(savedCardData(resultCardData))
+
 			yield put(savedUserData(email, password, name, surname))
 		}
 	} catch (error) {

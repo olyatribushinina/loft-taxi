@@ -44,6 +44,7 @@ const Header = (props) => {
 		logOut();
 		resetRouteData();
 		localStorage.clear();
+		// console.log(localStorage)
 	}
 
 	return (
