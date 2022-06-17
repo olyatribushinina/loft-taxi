@@ -5,7 +5,16 @@ describe('payment reducer', () => {
 	let state;
 
 	it('SAVED_CARD_DATA', () => {
+
 		const action = savedCardData();
-		expect(paymentReducer({ userCardData: {} }, action)).toEqual({ userCardData: {}, userCardData: { ...action.userCardData } })
+
+		expect(paymentReducer(state = {
+			userCardData: {
+				cardNumber: "",
+				expiryDate: '',
+				cardName: '',
+				cvc: ''
+			}
+		}, savedCardData)).toEqual(state, { userCardData: action.payload })
 	})
 })

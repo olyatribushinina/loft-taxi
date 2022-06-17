@@ -1,11 +1,19 @@
-import RouteReducer from "./route";
+import RouteReduser from "./route";
 import { fetchRouteSuccess } from '../actions/actions';
 
 describe('route reducer', () => {
-	let state;
 
 	it('FETCH_ROUTE_SUCCESS', () => {
-		const action = fetchRouteSuccess();
-		expect(RouteReducer(state = { coords: [] }, action)).toEqual(state, { coords: [...action.coords] })
-	})
+
+		const initialState = {
+			isOrdered: false,
+			coords: []
+		}
+
+		const changedState = {
+			isOrdered: true,
+			coords: ['234', '345']
+		}
+		expect(RouteReduser(initialState, fetchRouteSuccess(['234', '345']))).toEqual(changedState);
+	});
 })

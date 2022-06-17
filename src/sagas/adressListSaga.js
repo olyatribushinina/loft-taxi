@@ -4,10 +4,10 @@ import { serverGetAdressList } from '../api/api'
 
 export function* fetchAddressListSaga(action) {
 	try {
-		const result = yield call(serverGetAdressList);
-		if (result) {
+		const addresses = yield call(serverGetAdressList);
+		if (addresses) {
 			// console.log(result.addresses)
-			yield put(fetchAddressListSuccess(result.addresses))
+			yield put(fetchAddressListSuccess(addresses))
 			// localStorage.setItem('addresses', JSON.stringify(result.addresses));
 		}
 

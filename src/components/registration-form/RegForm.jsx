@@ -83,14 +83,6 @@ const RegForm = ({ registration }) => {
 												value: true,
 												message: "Введите имя"
 											},
-											pattern: {
-												value: /^[a-zA-Z]+$/,
-												message: "Значение должно состоять из букв"
-											},
-											minLength: {
-												value: 2,
-												message: "Имя слишком короткое"
-											}
 										})}
 										id="name"
 										type="text"
@@ -111,14 +103,6 @@ const RegForm = ({ registration }) => {
 												value: true,
 												message: "Введите Фамилию"
 											},
-											pattern: {
-												value: /^[a-zA-Z]+$/,
-												message: "Значение должно состоять из букв"
-											},
-											minLength: {
-												value: 2,
-												message: "Фамилия слишком короткая"
-											}
 										})}
 										id="surname"
 										type="text"

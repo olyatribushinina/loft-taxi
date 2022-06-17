@@ -12,7 +12,6 @@ import { useForm } from 'react-hook-form';
 
 
 function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
-	let adresses = Object.values(adress);
 
 	const [inputValues, setInputValues] = useState({
 		from: '', to: ''
@@ -41,7 +40,7 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 	return (
 		!isOrdered
 			?
-			(<div className={moduleMapStyles.box}>
+			(<div className={moduleMapStyles.box} data-testid="order-form-component">
 				<form name="RouteForm" onSubmit={handleSubmit(onSubmit)} className={moduleMapStyles.routeForm}>
 					<Grid container>
 						<Grid item xs={12} >
@@ -51,14 +50,14 @@ function OrderForm({ adress, getRouteData, resetRouteData, isOrdered }) {
 										{...register("from", { required: true })}
 										autoComplete
 										includeInputInList
-										options={adresses.filter(i => i !== inputValues.to)}
+										options={adress.addresses.filter(i => i !== inputValues.to)}
 										renderInput={(params) => <TextField {...params} name="from" label="откуда" onChange={handleChange} onSelect={handleChange} margin="dense" variant="standard" />}
 									/>
 									<Autocomplete
 										{...register("to", { required: true })}
 										autoComplete
 										includeInputInList
-										options={adresses.filter(i => i !== inputValues.from)}
+										options={adress.addresses.filter(i => i !== inputValues.from)}
 										renderInput={(params) => <TextField {...params} name="to" label="куда" onChange={handleChange} onSelect={handleChange} margin="dense" variant="standard" />}
 									/>
 								</Stack>
@@ -165,7 +164,7 @@ OrderForm.propTypes = {
 	isLoggedIn: PropTypes.bool,
 	token: PropTypes.string,
 	userCardData: PropTypes.object,
-	adress: PropTypes.object,
+	// adress: PropTypes.array,
 	isOrdered: PropTypes.bool,
 	getAdressList: PropTypes.func,
 	getRouteData: PropTypes.func,

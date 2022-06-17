@@ -12,20 +12,21 @@ export const FETCH_ADRESS_LIST_SUCCESS = 'FETCH_ADRESS_LIST_SUCCESS';
 export const GET_ROUTE_DATA = 'GET_ROUTE_DATA';
 export const RESET_ROUTE_DATA = 'RESET_ROUTE_DATA';
 export const FETCH_ROUTE_SUCCESS = 'FETCH_ROUTE_SUCCESS';
-// export const ORDER = 'ORDER';
 
 // Action Creators
 export const logIn = () => ({ type: LOG_IN });
 
 export const logOut = () => ({ type: LOG_OUT });
 
-// export const order = () => ({ type: ORDER });
-
 export const getToken = (token) => ({ type: GET_TOKEN, token })
 
 export const savedUserData = (userData) => ({ type: SAVED_USER_DATA, userData });
 
-export const savedCardData = (userCardData) => ({ type: SAVED_CARD_DATA, userCardData });
+export const savedCardData = (resultCardData) => ({
+	type: SAVED_CARD_DATA,
+	payload: resultCardData
+});
+
 
 export const authenticate = (email, password) => ({
 	type: AUTHENTICATE,
@@ -52,7 +53,8 @@ export const getAdressList = (data) => ({
 })
 
 export const fetchAddressListSuccess = (data) => ({
-	type: FETCH_ADRESS_LIST_SUCCESS, data
+	type: FETCH_ADRESS_LIST_SUCCESS,
+	payload: data
 })
 
 export const getRouteData = (from, to) => ({

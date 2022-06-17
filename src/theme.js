@@ -33,6 +33,7 @@ export const theme = createTheme({
 						backgroundColor: "##D8D7D5",
 					},
 				},
+
 			},
 		},
 		MuiFormLabel: {
@@ -48,7 +49,9 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					color: "#1473e6",
-					cursor: "pointer"
+					cursor: "pointer",
+					position: "absolute",
+					bottom: "-1.2em"
 				}
 			}
 		},
@@ -70,14 +73,6 @@ export const theme = createTheme({
 					color: 'red',
 					margin: '0'
 				},
-			}
-		},
-		MuiLink: {
-			styleOverrides: {
-				root: {
-					position: "absolute",
-					bottom: "-1.2em"
-				}
 			}
 		},
 		MuiPaper: {

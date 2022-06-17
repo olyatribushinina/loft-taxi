@@ -1,4 +1,4 @@
-import { takeEvery, call, fork, put } from 'redux-saga/effects'
+import { takeEvery, call, put } from 'redux-saga/effects';
 import { AUTHENTICATE, REGISTRATION, logIn, getToken, savedUserData, savedCardData } from '../actions/actions';
 import { serverRegistration, serverLogIn, serverGetCardData } from '../api/api'
 
@@ -25,6 +25,7 @@ export function* authenticateSaga(action) {
 			yield put(getToken(token))
 
 			const resultCardData = yield serverGetCardData(token);
+
 			yield put(savedCardData(resultCardData))
 		}
 	} catch (error) {

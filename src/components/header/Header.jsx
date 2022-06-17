@@ -51,21 +51,18 @@ const Header = (props) => {
 			<Menu {...props}>
 				<Box style={{ display: 'flex', alignItems: 'center' }}>
 					<img src={MapIcon} alt='Map Icon' />
-					<Button variant="text"><NavLink className={buttonMobile} to="/map">Карта</NavLink></Button>
+					<Button variant="string"><NavLink className={buttonMobile} to="/map">Карта</NavLink></Button>
 				</Box>
 				<Box style={{ display: 'flex', alignItems: 'center' }}>
 					<img src={ProfileIcon} alt='Profile Icon' />
-					<Button variant="text"><NavLink className={buttonMobile} to="/profile">Профиль</NavLink></Button>
+					<Button variant="string"><NavLink className={buttonMobile} to="/profile">Профиль</NavLink></Button>
 				</Box>
 				<Box style={{ display: 'flex', alignItems: 'center' }}>
 					<img src={ExitIcon} alt='Exit Icon' />
 					<Button
-						variant="text"
+						variant="string"
 						onClick={logOut}
 						className={buttonMobile}
-						style={{
-							color: '#000'
-						}}
 					>Выйти</Button>
 				</Box>
 			</Menu>
@@ -86,15 +83,12 @@ const Header = (props) => {
 								<Grid container
 									direction="row"
 									justifyContent="flex-end">
-									<Button variant="text"><NavLink className={buttonDesk} to="/map">Карта</NavLink></Button>
-									<Button variant="text"><NavLink className={buttonDesk} to="/profile">Профиль</NavLink></Button>
+									<Button variant="string"><NavLink className={buttonDesk} to="/map">Карта</NavLink></Button>
+									<Button variant="string"><NavLink className={buttonDesk} to="/profile">Профиль</NavLink></Button>
 									<Button
-										variant="text"
+										variant="string"
 										onClick={handleExit}
 										className={buttonDesk}
-										style={{
-											color: '#fff'
-										}}
 									>
 										Выйти
 									</Button>

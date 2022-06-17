@@ -30,10 +30,7 @@ const Profile = (props) => {
 	const { filled } = props.classes;
 
 	const {
-		register,
-		watch,
 		handleSubmit,
-		setValue,
 		control,
 		formState: {
 			errors, isValid, isSubmitted

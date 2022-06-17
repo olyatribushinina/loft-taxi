@@ -1,4 +1,4 @@
-import { FETCH_ROUTE_SUCCESS, ORDER, RESET_ROUTE_DATA } from "../actions/actions";
+import { FETCH_ROUTE_SUCCESS, RESET_ROUTE_DATA } from "../actions/actions";
 
 export const initialState = {
 	isOrdered: false,

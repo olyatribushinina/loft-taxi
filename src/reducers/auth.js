@@ -1,9 +1,8 @@
-import { LOG_IN, LOG_OUT, GET_TOKEN, SAVED_USER_DATA } from "../actions/actions";
+import { LOG_IN, LOG_OUT, GET_TOKEN } from "../actions/actions";
 
 export const initialState = {
 	isLoggedIn: false,
-	token: '',
-	userData: {},
+	token: ''
 };
 
 export default function (state = initialState, action) {
@@ -18,12 +17,6 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				token: action.token
-			}
-		}
-		case SAVED_USER_DATA: {
-			return {
-				...state,
-				userData: { ...action.userData }
 			}
 		}
 		default:

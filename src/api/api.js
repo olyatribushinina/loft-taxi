@@ -61,7 +61,6 @@ export const serverPostCardData = async (cardNumber, expiryDate, cardName, cvc, 
 	return await fetch('https://loft-taxi.glitch.me/card', requestOptions)
 		.then((res) => {
 			if (res.ok) {
-				console.log(res)
 				return res;
 			} else {
 				let error = new Error(res.statusText);

@@ -6,10 +6,9 @@ export function* saveCardDataSaga(action) {
 	try {
 		const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
 		const result = yield call(serverPostCardData, cardNumber, expiryDate, cardName, cvc, token);
+
 		if (result) {
-			const userCardData = { 'cardNumber': cardNumber, 'expiryDate': expiryDate, 'cardName': cardName }
-			yield put(savedCardData(userCardData))
-			// localStorage.setItem('userCardData', JSON.stringify(userCardData));
+			yield put(savedCardData({ cardNumber, expiryDate, cardName, cvc, token }))
 		}
 	} catch (error) {
 		console.log(error)
